@@ -1,0 +1,53 @@
+{
+  "status": "frozen_before_first_final_holdout_evaluation",
+  "holdout_predictions_or_metrics_viewed": false,
+  "primary_source_group": "all",
+  "primary_target": "next raw SRT close log return",
+  "final_train_windows": 931,
+  "final_eval_windows": 251,
+  "seeds": [
+    11,
+    23,
+    37
+  ],
+  "final_models": [
+    "LSTM32",
+    "LSTM3",
+    "Fuzzy2",
+    "Gate2"
+  ],
+  "final_refit_epochs_by_model": {
+    "LSTM32": 1,
+    "LSTM3": 6,
+    "Fuzzy2": 3,
+    "Gate2": 4
+  },
+  "final_model_fits": 12,
+  "zero_return_forecast_reference": true,
+  "primary_forecast_metric": "raw-return RMSE",
+  "primary_trading_threshold": 0.0,
+  "secondary_thresholds_development_selected": {
+    "Fuzzy2": 0.002,
+    "Gate2": 0.001,
+    "LSTM3": 0.002,
+    "LSTM32": 0.003,
+    "momentum_long_cash": 0.0
+  },
+  "threshold_selection_file": "selected_policy_thresholds.json",
+  "price_only_cost_bps_per_side": [
+    0,
+    10,
+    20
+  ],
+  "primary_trading_cost_bps_per_side": 10,
+  "gross_distribution_secondary": true,
+  "distribution_source": "data/reference/srt_distributions_verified.csv",
+  "missing_2025_10_24_open": "no_trade_and_carry; label constrained-data simulation",
+  "trade_target_extension": "not adopted",
+  "rule_interpretation_claim": "traceable latent-feature mixture; no market-regime-specialist claim",
+  "dataset_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "fold_assignments_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "train_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "development_run_count": 57
+}

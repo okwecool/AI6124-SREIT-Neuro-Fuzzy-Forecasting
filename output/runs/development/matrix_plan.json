@@ -1,0 +1,349 @@
+{
+  "core_runs": 48,
+  "optional_gate_runs": 9,
+  "k1_reference": "LSTM3 at seed 11 is functionally Fuzzy1",
+  "specs": [
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 23
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_1",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_1",
+      "seed": 23
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 23
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 37
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_1",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_1",
+      "seed": 37
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy3",
+      "source_group": "all",
+      "fold": "validation_1",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 23
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_2",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_2",
+      "seed": 23
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 23
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 37
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_2",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_2",
+      "seed": 37
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy3",
+      "source_group": "all",
+      "fold": "validation_2",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_3",
+      "seed": 11
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_3",
+      "seed": 11
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 11
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 23
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_3",
+      "seed": 23
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_3",
+      "seed": 23
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 23
+    },
+    {
+      "model_id": "LSTM32",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 37
+    },
+    {
+      "model_id": "LSTM3",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt",
+      "fold": "validation_3",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy2",
+      "source_group": "srt_sora",
+      "fold": "validation_3",
+      "seed": 37
+    },
+    {
+      "model_id": "Gate2",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 37
+    },
+    {
+      "model_id": "Fuzzy3",
+      "source_group": "all",
+      "fold": "validation_3",
+      "seed": 11
+    }
+  ]
+}

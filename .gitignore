@@ -19,6 +19,7 @@ venv/
 /output/*.zip
 /output/checkpoints/
 /output/runs/tmp/
+/output/development/wealth_ledger_*.csv
 *.pt
 *.pth
 *.ckpt

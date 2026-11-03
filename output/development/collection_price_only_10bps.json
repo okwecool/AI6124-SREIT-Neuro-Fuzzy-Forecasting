@@ -1,0 +1,11 @@
+{
+  "runs": 57,
+  "prediction_rows": 7182,
+  "fuzzy_cases": 3780,
+  "fuzzy_rule_rows": 7938,
+  "ledger_rows": 28728,
+  "wealth_mode": "price_only",
+  "cost_bps": 10,
+  "output_dir": "output\\development",
+  "review_figure": "output\\development\\wealth_paths_price_only_10bps.png"
+}

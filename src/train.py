@@ -186,6 +186,8 @@ def run_development(
         "rule_count": int(model_id[5:]) if model_id.startswith("Fuzzy") else 0,
         "fold": fold, "seed": seed, "device": device, "versions": _versions(),
         "git_revision": git_revision, "git_dirty": git_dirty,
+        "train_source_sha256": _sha256(Path(__file__)),
+        "model_source_sha256": _sha256(Path(__file__).with_name("models.py")),
         "dataset_sha256": _sha256(data.root / "data/processed/srt_windows_unscaled.npz"),
         "fold_assignments_sha256": _sha256(data.root / "data/processed/fold_assignments.csv"),
         "input_features": list(data.features[i] for i in FEATURE_GROUPS[source_group]),
@@ -210,7 +212,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fold", choices=VALIDATION_FOLDS, required=True)
     parser.add_argument("--source-group", choices=tuple(FEATURE_GROUPS), default="all")
-    parser.add_argument("--models", choices=("LSTM32", "LSTM3", "Fuzzy1", "Fuzzy2", "Fuzzy3"),
+    parser.add_argument("--models", choices=("LSTM32", "LSTM3", "Fuzzy1", "Fuzzy2", "Fuzzy3", "Gate2"),
                         nargs="+", default=["LSTM32", "LSTM3", "Fuzzy2"])
     parser.add_argument("--seed", type=int, choices=SEEDS, default=11)
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")

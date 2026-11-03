@@ -2,7 +2,7 @@
 
 **Prepared by Ryan's side, 30 October 2026; updated 3 November 2026.** This file is the short implementation entry point for Destin. The approved architecture and revised evaluation design are in `experiment_protocol_lstm_fuzzy_local_experts.md` (v1.2); follow that document when a detail here is abbreviated. Review findings F1–F7 are recorded in `design_review_2026-11-03_zh.md`.
 
-The existing `output/AI6124_Group1_Early_Work_Handoff_2026-11-03.zip` is a **pre-Phase-1 snapshot**. Use this working tree for the new model, validator, training runner and wealth ledger. Rebuild the shareable archive after Ryan reviews the Phase 2 changes; the older ZIP already contains the `data/` folder but does not include these new files.
+The existing `output/AI6124_Group1_Early_Work_Handoff_2026-11-03.zip` is a **pre-Phase-1 snapshot**. Use this working tree for the model, validator, training runner, wealth ledger and development results. Rebuild the shareable archive after Ryan reviews and commits Phase 3; the older ZIP already contains the `data/` folder but does not include these new files.
 
 ## Ready now
 
@@ -10,10 +10,11 @@ The existing `output/AI6124_Group1_Early_Work_Handoff_2026-11-03.zip` is a **pre
 - The primary input is all six features: SRT returns/momentum/volatility, STI as-of return, and published SORA level/change. Source ablations use `srt`, `srt_sora`, `all` as defined in `src/project_eval.py`.
 - The three expanding validation folds have 126, 124 and 128 evaluation targets. The final 251-target holdout is reserved until the comparison is frozen.
 - `src/project_eval.py` supplies train-only scaling, fold IDs, seven-column prediction and fuzzy-diagnostic validation, forecast metrics and the causal observed-open portfolio entry point. `src/portfolio.py` implements no-trade-and-carry for a missing open, a model-free momentum control, price-only and gross-distribution wealth, and per-event cash/share/cost records. The previously saved legacy portfolio CSV has been regenerated with this code.
-- `src/models.py` now contains the shared LSTM encoder and `LSTM32`, `LSTM3`, `FuzzyK` heads. `src/export_contract.py` inverse-transforms fuzzy experts and creates the prediction/case/rule tables. `src/tools/smoke_phase1.py` runs a two-epoch development-fold engineering check; its local files under `output/runs/tmp/phase1_smoke/` are **not** forecast evidence.
+- `src/models.py` contains the shared LSTM encoder, `LSTM32`, `LSTM3`, `FuzzyK` and optional non-Gaussian `Gate2` heads. `src/export_contract.py` inverse-transforms fuzzy experts and creates the prediction/case/rule tables.
 - `src/train.py` performs inner early stopping followed by same-seed outer refit on development folds only; it writes full-key predictions, fuzzy diagnostics, checkpoints with scalers and a run manifest. `src/tools/collect_runs.py` validates and combines complete runs and writes matched forecast and wealth tables.
 - `output/zero_baseline_validation.csv`, `output/zero_baseline_validation_scores.csv` and `output/zero_baseline_validation_pooled.csv` contain the no-change development baseline. They are actual calculations, not trained-model claims.
-- `docs/literature_review_draft_en.md` is an initial chronological/taxonomy review. `docs/AI6124_Group1_Project_Starter.ipynb` loads the audited data, plots pretest diagnostics and runs the baseline; trained-model and result sections are awaiting outputs. `docs/srt_distribution_source_audit.md` cross-checks all nine Yahoo ex-date records with issuer documents; the 2025-10-24 open remains unresolved.
+- `output/development/` contains all three-fold development comparisons from **48 core runs plus nine `Gate2` controls**. `docs/development_results_2026-11-03.md` explains the qualified negative findings: the unchanged-price baseline has the lowest pooled RMSE; the fuzzy trading policy does not beat model-free controls; rule weights do not justify market-regime-specialist labels. `output/development/final_configuration_pretest.json` freezes the 12 final learned fits and policy choices **before** the reserved holdout is opened.
+- `docs/literature_review_draft_en.md` is an initial chronological/taxonomy review. `docs/AI6124_Group1_Project_Starter.ipynb` loads development outputs but still needs final-test and course-conclusion sections. `docs/srt_distribution_source_audit.md` cross-checks all nine Yahoo ex-date records with issuer documents; the 2025-10-24 open remains unresolved.
 
 ## First commands
 
@@ -24,12 +25,19 @@ python data/verify_dataset.py
 python -m unittest discover -s tests -v
 python src/tools/build_starter_notebook.py
 python src/tools/verify_starter_notebook.py
-python -m src.tools.smoke_phase1
-python -m src.train --fold validation_1 --models LSTM32 LSTM3 Fuzzy2 --seed 11 --out output/runs/tmp/phase2_pilot
-python -m src.tools.collect_runs --runs output/runs/tmp/phase2_pilot --out output/runs/tmp/phase2_pilot/aggregate --wealth-mode price_only
 ```
 
-The last command executes the Notebook's code cells in a regular Python process without opening the final holdout results. A Jupyter kernel can run the same Notebook interactively.
+The last command executes the Notebook's code cells in a regular Python process without opening final-holdout results. A Jupyter kernel can run the same Notebook interactively. To reproduce the full development matrix and analysis:
+
+```powershell
+python -m src.tools.run_development_matrix --include-gate --device cpu --out output/runs/development
+python -m src.tools.export_training_diagnostics --runs output/runs/development
+python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode price_only --cost-bps 10
+python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode price_only --cost-bps 0
+python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode price_only --cost-bps 20
+python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode gross_distribution --cost-bps 10
+python -m src.tools.analyze_development --runs output/runs/development --aggregate output/development
+```
 
 ## Destin's model interface
 
@@ -67,9 +75,9 @@ The evaluator and Notebook builder accept one row per evaluation `window_id` in 
 The CLI scores mixed source groups and rule counts with the full run key. A historical six-column CSV is migrated only when every row is `Z0`; other legacy files must be converted explicitly:
 
 ```powershell
-python -m src.project_eval score --input output/model_predictions_validation.csv --out output/model_scores_validation.csv
-python -m src.project_eval pooled --input output/model_predictions_validation.csv --out output/model_scores_validation_pooled.csv
-python -m src.project_eval check-fuzzy --input output/model_predictions_validation.csv --cases output/fuzzy_cases_validation.csv --rules output/fuzzy_rules_validation.csv
+python -m src.project_eval score --input output/development/predictions.csv --out output/development/forecast_scores_cli.csv
+python -m src.project_eval pooled --input output/development/predictions.csv --out output/development/forecast_pooled_cli.csv
+python -m src.project_eval check-fuzzy --input output/development/predictions.csv --cases output/development/cases.csv --rules output/development/rules.csv
 ```
 
 The `portfolio` CLI action now uses the causal observed-open ledger. `--wealth-mode gross_distribution` uses the nine source-checked events in `data/reference/srt_distributions_verified.csv`; `--ledger-out` writes every event and trade. The scorer rejects missing or misplaced window IDs, duplicate **full** keys, wrong rule counts and nonfinite predictions. `src.train` rejects `final_holdout`; that fold is reserved for a separate frozen Phase 4 entry point.
@@ -78,20 +86,19 @@ For fuzzy interpretation, save a case table keyed by the **full prediction key**
 
 ## What remains for the final course submission
 
-1. **Phases 1 and 2 implemented:** the version-2 keys and validator, pretest Notebook diagnostics, model heads, AdamW training runner, gradient checks, weighted-expert identity and causal wealth ledger are available. Review the Phase 2 pilot outputs before its Git commit; the one-fold, one-seed pilot is not the complete model comparison.
-2. Train the three core learned models on the full six-feature group for three folds × three seeds; run `Fuzzy2` source ablations and the one/two/three-rule diagnostic. The core schedule is **48 development runs with two fits each, plus nine final fits = 105 fits** before optional controls or retries.
-3. **Before a final wealth claim:** the nine ex-date distribution records have issuer corroboration and the gross ledger is implemented. The 2025-10-24 open remains unverified. Apply the no-trade-and-carry rule and label any final path a constrained-data simulation; report price-only and gross-distribution wealth separately.
-4. Inspect rule coverage and each expert's local error on training-defined high-activation regions; compare true/predicted close returns with executable open-to-open returns. Select the secondary trading threshold on the pretest development folds only, freeze all settings, then refit on 931 pretest rows and open the 251-target final test once.
-5. Complete the Notebook with forecast and matched-date wealth results, a literature taxonomy and result-level comparison with the source paper, theory-focused future work and another plausible application. Create a new final-results deck; preserve the submitted three-slide proposal as a historical record and correct its method differences in the new deck.
-6. Both students must submit the final Notebook and slides in NTULearn by **18 November 2026, 23:59 Singapore time**. Record the peer-review assignment by 23 November and the designated member's score submission by **27 November 2026, 23:59**.
+1. **Phases 1–3 implemented:** the full development comparison, source/rule ablations, `Gate2` control, causal wealth paths, training-defined fuzzy diagnostics, horizon check and selected-threshold manifest are available. Review `docs/development_results_2026-11-03.md` and `output/development/final_configuration_pretest.json` before the Phase 3 Git commit and the once-only final evaluation.
+2. **Before a final wealth claim:** the nine ex-date distribution records have issuer corroboration and the gross ledger is implemented. The 2025-10-24 open remains unverified. Apply the no-trade-and-carry rule and label any final path a constrained-data simulation; report price-only and gross-distribution wealth separately.
+3. Refit the four frozen learned heads on 931 pretest rows with the fixed median epoch counts and seeds; open the 251-target holdout once. The **core** fit count is 105 across development and final phases; `Gate2` adds 18 development fits and three frozen final fits, for **126** fits in total.
+4. Complete the Notebook with forecast and matched-date wealth results, a literature taxonomy and result-level comparison with the source paper, theory-focused future work and another plausible application. Create a new final-results deck; preserve the submitted three-slide proposal as a historical record and correct its method differences in the new deck.
+5. Both students must submit the final Notebook and slides in NTULearn by **18 November 2026, 23:59 Singapore time**. Record the peer-review assignment by 23 November and the designated member's score submission by **27 November 2026, 23:59**.
 
 ## Suggested checkpoints
 
 | By | Reviewable outcome |
 | --- | --- |
-| 4 Nov | One-fold smoke run for every model; prediction/diagnostic files pass shape and alignment checks |
-| 8 Nov | All three development folds and seeds completed; source ablations and rule diagnostic underway |
-| 11 Nov | Model choice frozen; final test evaluated once; plots and interpretation drafted |
+| 3 Nov | One-fold smoke runs and all development folds completed; source and rule diagnostics reviewed in the Phase 3 report |
+| 8 Nov | Phase 3 reviewed and committed; frozen final evaluation completed once |
+| 11 Nov | Final plots and interpretation drafted |
 | 15 Nov | Notebook and slides ready for joint review, with all limitations stated |
 | 17 Nov | Fresh-environment rerun, file audit and each student's submission plan checked |
 

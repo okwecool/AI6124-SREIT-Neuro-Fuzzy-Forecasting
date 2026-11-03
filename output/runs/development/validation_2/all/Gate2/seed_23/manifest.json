@@ -1,0 +1,162 @@
+{
+  "status": "development",
+  "model_id": "Gate2",
+  "source_group": "all",
+  "rule_count": 0,
+  "fold": "validation_2",
+  "seed": 23,
+  "device": "cpu",
+  "versions": {
+    "python": "3.10.20",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "torch": "2.10.0+cu128"
+  },
+  "git_revision": "cf326408ce8c187ef4bc59edf41d20f3dc52de22",
+  "git_dirty": true,
+  "train_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "dataset_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "fold_assignments_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "input_features": [
+    "srt_log_return_raw",
+    "srt_momentum_5",
+    "srt_volatility_20",
+    "sti_log_return_asof",
+    "sora_rate_pct_asof",
+    "sora_change_20_publications_pp"
+  ],
+  "parameters": 5241,
+  "inner_fit_rows": 577,
+  "inner_stop_rows": 102,
+  "outer_fit_rows": 679,
+  "outer_validation_rows": 124,
+  "best_epoch": 1,
+  "best_inner_stop_mse_scaled": 0.9961709380149841,
+  "inner_trace": [
+    {
+      "epoch": 1,
+      "train_mse_scaled": 1.0168094318908876,
+      "stop_mse_scaled": 0.9961709380149841
+    },
+    {
+      "epoch": 2,
+      "train_mse_scaled": 1.0114796434220836,
+      "stop_mse_scaled": 0.9971072673797607
+    },
+    {
+      "epoch": 3,
+      "train_mse_scaled": 1.007576712702548,
+      "stop_mse_scaled": 0.9990864396095276
+    },
+    {
+      "epoch": 4,
+      "train_mse_scaled": 1.00380003121738,
+      "stop_mse_scaled": 1.0010191202163696
+    },
+    {
+      "epoch": 5,
+      "train_mse_scaled": 1.00122231585934,
+      "stop_mse_scaled": 1.0056416988372803
+    },
+    {
+      "epoch": 6,
+      "train_mse_scaled": 0.9981651746214366,
+      "stop_mse_scaled": 1.007691502571106
+    },
+    {
+      "epoch": 7,
+      "train_mse_scaled": 0.9962447172666753,
+      "stop_mse_scaled": 1.009645700454712
+    },
+    {
+      "epoch": 8,
+      "train_mse_scaled": 0.9940240845936423,
+      "stop_mse_scaled": 1.0142366886138916
+    },
+    {
+      "epoch": 9,
+      "train_mse_scaled": 0.9916503811626335,
+      "stop_mse_scaled": 1.0204707384109497
+    },
+    {
+      "epoch": 10,
+      "train_mse_scaled": 0.9909370205198872,
+      "stop_mse_scaled": 1.0197556018829346
+    },
+    {
+      "epoch": 11,
+      "train_mse_scaled": 0.9886759306777081,
+      "stop_mse_scaled": 1.0281459093093872
+    },
+    {
+      "epoch": 12,
+      "train_mse_scaled": 0.9881441287399372,
+      "stop_mse_scaled": 1.0370957851409912
+    },
+    {
+      "epoch": 13,
+      "train_mse_scaled": 0.9864375320550917,
+      "stop_mse_scaled": 1.0281445980072021
+    },
+    {
+      "epoch": 14,
+      "train_mse_scaled": 0.9856191849791198,
+      "stop_mse_scaled": 1.0248461961746216
+    },
+    {
+      "epoch": 15,
+      "train_mse_scaled": 0.9861973813852777,
+      "stop_mse_scaled": 1.014992356300354
+    },
+    {
+      "epoch": 16,
+      "train_mse_scaled": 0.985511848310806,
+      "stop_mse_scaled": 1.0113482475280762
+    },
+    {
+      "epoch": 17,
+      "train_mse_scaled": 0.9837200758362147,
+      "stop_mse_scaled": 1.0132718086242676
+    },
+    {
+      "epoch": 18,
+      "train_mse_scaled": 0.9819813977726823,
+      "stop_mse_scaled": 1.0225352048873901
+    },
+    {
+      "epoch": 19,
+      "train_mse_scaled": 0.9806904121329507,
+      "stop_mse_scaled": 1.0305124521255493
+    },
+    {
+      "epoch": 20,
+      "train_mse_scaled": 0.9797292497893553,
+      "stop_mse_scaled": 1.0362958908081055
+    },
+    {
+      "epoch": 21,
+      "train_mse_scaled": 0.9786745209627796,
+      "stop_mse_scaled": 1.0324180126190186
+    }
+  ],
+  "outer_refit_train_mse_scaled": [
+    1.0141531340503551
+  ],
+  "inner_seconds": 1.1125020999461412,
+  "refit_seconds": 0.06333500007167459,
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0
+  },
+  "stopping": {
+    "max_epochs": 150,
+    "patience": 20,
+    "min_improvement": 0.0001
+  },
+  "checkpoint": "output\\runs\\development\\validation_2\\all\\Gate2\\seed_23\\checkpoint.pt",
+  "prediction_file": "output\\runs\\development\\validation_2\\all\\Gate2\\seed_23\\predictions.csv"
+}

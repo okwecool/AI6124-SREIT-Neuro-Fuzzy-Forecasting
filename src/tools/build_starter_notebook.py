@@ -36,7 +36,7 @@ notebook.cells = [
 **Zou Runze (Ryan) · Ngeow Shan Yong Destin**  
 **Working Notebook scaffold, 30 October 2026.**
 
-This Notebook starts the final course deliverable. It runs the frozen data audit, a no-change baseline and the causal development-period wealth ledger. Full trained-model comparisons, interpretation and conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`.
+This Notebook starts the final course deliverable. It runs the frozen data audit, a no-change baseline and the causal development-period wealth ledger. When `output/development/` is present, it also reads the complete pretest development comparison. The reserved final holdout and final conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`.
 
 **Research question:** Can an LSTM learn three features from recent SRT/SORA/STI data that support a two-rule fuzzy mixture of local experts for next-day raw SRT return prediction?
 """),
@@ -146,7 +146,7 @@ print("Missing SRT opens in frozen snapshot (date metadata only):",
 - `LSTM3`: the same encoder with a three-dimensional `tanh` projection and scalar linear head.
 - `Fuzzy2`: the same encoder and projection, then two diagonal Gaussian rules and two affine return experts.
 
-The fuzzy system receives only the three learned latent values, not a flattened 20 × 6 input. `Fuzzy2` predicts a rule-weighted return. The exact initialization, optimizer, stopping policy, seeds and ablations are fixed in the protocol. Destin will insert model and training cells here. The encoder, fuzzy weights and experts must be trained only on each fold's training rows; the outer validation rows are used only for evaluation.
+The fuzzy system receives only the three learned latent values, not a flattened 20 × 6 input. `Fuzzy2` predicts a rule-weighted return. `Gate2` is the predeclared small non-Gaussian two-expert control. Implementations are in `src/models.py`; the inner-stopping/outer-refit runner is `src/train.py`. The encoder, fuzzy weights and experts are trained only on each fold's training rows; outer validation rows are used only for evaluation.
 """),
     code("""
 # Example of the shared train-only scaling and inner stopping split.
@@ -183,14 +183,14 @@ plt.show()
     md("""
 ## Trained-model predictions and result analysis
 
-Destin's training script should write `output/model_predictions_validation.csv` with one row per outer-validation forecast and these columns:
+The development runner exports complete outer-validation predictions, combined at `output/development/predictions.csv`, with these columns:
 
 `model_id,source_group,rule_count,fold,seed,window_id,y_pred`
 
 `y_pred` must be in **raw log-return units**, after inverse target scaling. The evaluator validates the full seven-column key and fuzzy case/rule diagnostics. Do not infer that a rule is a particular market regime from its numeric label.
 """),
     code("""
-prediction_file = Path("output/model_predictions_validation.csv")
+prediction_file = Path("output/development/predictions.csv")
 model_predictions = None
 if prediction_file.exists():
     model_predictions = pd.read_csv(prediction_file)
@@ -232,8 +232,8 @@ if model_predictions is not None:
 Protocol v1.2 requires a case table with the full `(model_id,source_group,rule_count,fold,seed,window_id)` key and `z1,z2,z3,y_mix_raw`, plus a rule-long table with that key and `rule_id,alpha,expert_raw,log_membership,distance2`. The validator checks one case and exactly `rule_count` rule rows per fuzzy forecast, including the raw-return weighted-mixture identity. Local-error and regime analyses remain to implement; rule-number switching across seeds must be considered before attaching market labels.
 """),
     code("""
-case_file = Path("output/fuzzy_cases_validation.csv")
-rule_file = Path("output/fuzzy_rules_validation.csv")
+case_file = Path("output/development/cases.csv")
+rule_file = Path("output/development/rules.csv")
 if case_file.exists() and rule_file.exists() and model_predictions is not None:
     fuzzy_cases, fuzzy_rules = data.validate_fuzzy_diagnostics(
         model_predictions, pd.read_csv(case_file), pd.read_csv(rule_file))
@@ -268,10 +268,33 @@ ax.set_title("Causal development wealth paths, validation 1")
 plt.show()
 if model_predictions is not None:
     model_ledger, model_wealth = data.portfolio_ledger(model_predictions, cost_bps=10)
-    display(model_wealth[["model_id", "source_group", "rule_count", "fold", "seed",
-                          "strategy", "terminal_wealth_multiple"]])
+    display(model_wealth.loc[
+        model_wealth.source_group.eq("all") & model_wealth.seed.eq(11)
+        & model_wealth.strategy.eq("signal_long_cash"),
+        ["model_id", "fold", "seed", "terminal_wealth_multiple"]])
 else:
     print("Trained-model wealth paths await complete validation predictions.")
+"""),
+    md("""
+## Development-only comparison and interpretation
+
+These three forward validation folds were used to compare models and select the secondary trading threshold. They are **not** the reserved final test. The complete analysis and qualified conclusions are in `docs/development_results_2026-11-03.md`. In particular, the zero-return baseline currently has the lowest pooled RMSE, the untuned fuzzy strategy does not beat the model-free trading controls, and rule weights do not establish distinct economic regimes. The approved six-feature model remains the primary specification regardless of the small source-ablation differences.
+"""),
+    code("""
+development_dir = Path("output/development")
+if (development_dir / "forecast_primary_summary.csv").exists():
+    display(pd.read_csv(development_dir / "forecast_primary_summary.csv"))
+    display(pd.read_csv(development_dir / "forecast_paired_fuzzy2.csv"))
+    display(pd.read_csv(development_dir / "fuzzy2_source_ablation.csv"))
+    display(pd.read_csv(development_dir / "rule_count_sensitivity_seed11.csv"))
+    display(pd.read_csv(development_dir / "fuzzy_coverage.csv").query(
+        "model_id == 'Fuzzy2' and source_group == 'all'")[[
+            "fold", "seed", "mean_max_alpha", "fraction_max_alpha_gt_08",
+            "fraction_below_train_support_p05"]])
+    print("Frozen development threshold choices:")
+    print((development_dir / "selected_policy_thresholds.json").read_text(encoding="utf-8")[:850])
+else:
+    print("Development comparison files are not present yet.")
 """),
     md("""
 ## Discussion and conclusion — complete after training
@@ -282,7 +305,7 @@ else:
 4. **Trading.** Compare price-only next-open performance at three costs with always-long/cash, and acknowledge the forecast/trading-horizon mismatch and unverified distributions.
 5. **Limitations and future research.** Address short ETF history, possible overfitting, learned latent features without fixed economic meaning, one missing open, distribution verification, and possible future tests on a longer REIT series.
 
-This section is deliberately left without numerical conclusions until all results have been produced.
+This section remains open for the once-only final test and the course conclusion. Development-period negative results are reported above without changing the primary method.
 """),
 ]
 

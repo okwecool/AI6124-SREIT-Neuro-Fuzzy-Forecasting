@@ -8,6 +8,7 @@ import torch
 from src.export_contract import fuzzy_batch_tables
 from src.models import build_model, parameter_count
 from src.project_eval import Dataset
+from src.train import train_epoch
 
 
 class ModelContractTests(unittest.TestCase):
@@ -72,6 +73,33 @@ class ModelContractTests(unittest.TestCase):
                                            [[-.25, 0, 0], [.25, 0, 0]])
                 scales = .1 + 1.9 * torch.sigmoid(model.scale_logits)
                 np.testing.assert_allclose(scales.detach().numpy(), np.ones((2, 3)), atol=1e-6)
+
+    def test_single_rule_is_lstm3_and_gate2_is_small_control(self):
+        x = torch.from_numpy(self.split.x_train[:8])
+        torch.manual_seed(11)
+        linear = build_model("LSTM3", 6)
+        torch.manual_seed(11)
+        single_rule = build_model("Fuzzy1", 6)
+        torch.testing.assert_close(linear(x), single_rule(x), rtol=0, atol=0)
+        gate = build_model("Gate2", 6)
+        gaussian = build_model("Fuzzy2", 6)
+        self.assertEqual(parameter_count(gate) - parameter_count(gaussian), 2)
+        prediction, diagnostics = gate(x, return_diagnostics=True)
+        self.assertEqual(prediction.shape, (8,))
+        torch.testing.assert_close(diagnostics["alpha"].sum(1), torch.ones(8))
+
+    def test_single_rule_and_lstm3_remain_equivalent_after_training(self):
+        x = torch.from_numpy(self.split.x_train[:64])
+        y = torch.from_numpy(self.split.y_train[:64])
+        torch.manual_seed(11)
+        linear = build_model("LSTM3", 6)
+        torch.manual_seed(11)
+        single_rule = build_model("Fuzzy1", 6)
+        for model in (linear, single_rule):
+            optimizer = torch.optim.AdamW(model.parameters(), lr=.001, weight_decay=.0001)
+            for epoch in (1, 2):
+                train_epoch(model, optimizer, x, y, seed=11, epoch=epoch)
+        torch.testing.assert_close(linear(x), single_rule(x), rtol=1e-6, atol=1e-7)
 
 
 if __name__ == "__main__":

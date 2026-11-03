@@ -1,0 +1,124 @@
+{
+  "status": "frozen_from_development_only",
+  "source_group": "all",
+  "wealth_mode": "price_only",
+  "cost_bps": 10,
+  "theta_grid": [
+    0.0,
+    0.001,
+    0.002,
+    0.003
+  ],
+  "tie_break": "smaller theta",
+  "objective": "mean across seeds of sum across folds of log terminal wealth",
+  "selected": {
+    "Fuzzy2": 0.002,
+    "Gate2": 0.001,
+    "LSTM3": 0.002,
+    "LSTM32": 0.003,
+    "momentum_long_cash": 0.0
+  },
+  "objectives": [
+    {
+      "policy": "Fuzzy2",
+      "theta": 0.0,
+      "mean_sum_fold_log_wealth": -0.02541255175748956
+    },
+    {
+      "policy": "Fuzzy2",
+      "theta": 0.001,
+      "mean_sum_fold_log_wealth": -0.0016885054999809179
+    },
+    {
+      "policy": "Fuzzy2",
+      "theta": 0.002,
+      "mean_sum_fold_log_wealth": 0.0
+    },
+    {
+      "policy": "Fuzzy2",
+      "theta": 0.003,
+      "mean_sum_fold_log_wealth": 0.0
+    },
+    {
+      "policy": "Gate2",
+      "theta": 0.0,
+      "mean_sum_fold_log_wealth": -0.03828705777968607
+    },
+    {
+      "policy": "Gate2",
+      "theta": 0.001,
+      "mean_sum_fold_log_wealth": 0.008657587354611987
+    },
+    {
+      "policy": "Gate2",
+      "theta": 0.002,
+      "mean_sum_fold_log_wealth": 0.0
+    },
+    {
+      "policy": "Gate2",
+      "theta": 0.003,
+      "mean_sum_fold_log_wealth": 0.0
+    },
+    {
+      "policy": "LSTM3",
+      "theta": 0.0,
+      "mean_sum_fold_log_wealth": -0.028811042023191246
+    },
+    {
+      "policy": "LSTM3",
+      "theta": 0.001,
+      "mean_sum_fold_log_wealth": 0.005808575149105208
+    },
+    {
+      "policy": "LSTM3",
+      "theta": 0.002,
+      "mean_sum_fold_log_wealth": 0.02709588311839504
+    },
+    {
+      "policy": "LSTM3",
+      "theta": 0.003,
+      "mean_sum_fold_log_wealth": 0.00027361310661250254
+    },
+    {
+      "policy": "LSTM32",
+      "theta": 0.0,
+      "mean_sum_fold_log_wealth": -0.04465190532453165
+    },
+    {
+      "policy": "LSTM32",
+      "theta": 0.001,
+      "mean_sum_fold_log_wealth": -0.021408206585056804
+    },
+    {
+      "policy": "LSTM32",
+      "theta": 0.002,
+      "mean_sum_fold_log_wealth": -0.010291872239044828
+    },
+    {
+      "policy": "LSTM32",
+      "theta": 0.003,
+      "mean_sum_fold_log_wealth": -0.006700118180183225
+    },
+    {
+      "policy": "momentum_long_cash",
+      "theta": 0.0,
+      "mean_sum_fold_log_wealth": 0.049113840420651055
+    },
+    {
+      "policy": "momentum_long_cash",
+      "theta": 0.001,
+      "mean_sum_fold_log_wealth": -0.02473290569847314
+    },
+    {
+      "policy": "momentum_long_cash",
+      "theta": 0.002,
+      "mean_sum_fold_log_wealth": -0.010491518282525373
+    },
+    {
+      "policy": "momentum_long_cash",
+      "theta": 0.003,
+      "mean_sum_fold_log_wealth": 0.026733418027601014
+    }
+  ],
+  "holdout_viewed": false
+}

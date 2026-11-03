@@ -83,6 +83,27 @@ class FuzzyK(nn.Module):
         }
 
 
+class Gate2(nn.Module):
+    """Small non-Gaussian gate with the same latent space and two experts."""
+
+    def __init__(self, input_size: int):
+        super().__init__()
+        self.encoder = LSTMEncoder(input_size)
+        self.projection = nn.Linear(32, 3)
+        self.gate = nn.Sequential(nn.Linear(3, 2), nn.Tanh(), nn.Linear(2, 2))
+        self.experts = nn.Linear(3, 2)
+
+    def forward(self, x: Tensor, *, return_diagnostics: bool = False):
+        z = torch.tanh(self.projection(self.encoder(x)))
+        alpha = torch.softmax(self.gate(z), dim=-1)
+        expert_predictions = self.experts(z)
+        prediction = (alpha * expert_predictions).sum(-1)
+        if not return_diagnostics:
+            return prediction
+        return prediction, {"z": z, "alpha": alpha,
+                            "expert_predictions": expert_predictions}
+
+
 def build_model(model_id: str, input_size: int) -> nn.Module:
     if model_id == "LSTM32":
         return LSTM32(input_size)
@@ -90,6 +111,8 @@ def build_model(model_id: str, input_size: int) -> nn.Module:
         return LSTM3(input_size)
     if model_id.startswith("Fuzzy") and model_id[5:] in ("1", "2", "3"):
         return FuzzyK(input_size, int(model_id[5:]))
+    if model_id == "Gate2":
+        return Gate2(input_size)
     raise ValueError(f"Unknown model_id: {model_id}")
 
 

@@ -23,7 +23,7 @@ The design revision was committed as `796dc27` after Ryan's approval. The next p
 
 Review evidence: version-2 sample exports and validation checks, pretest diagnostic plots, model file diff, shape/gradient checks, source-audit status, smoke-test log and proposed commit message.
 
-**Implementation status, 3 November:** the full-key validator, model definitions, export helper, pretest Notebook diagnostics and two-epoch development-fold smoke check are in the working tree for review. All nine Yahoo distribution dates/amounts have SGX-hosted issuer corroboration in `docs/srt_distribution_source_audit.md`; the 2025-10-24 open remains unresolved. Phase 1 has not been committed. The causal portfolio ledger and complete training runner remain Phase 2 work.
+**Implementation status:** Phase 1 was reviewed and committed as `6eb4521`. The full-key validator, model definitions, export helper, pretest Notebook diagnostics and two-epoch development-fold smoke check are in the repository. All nine Yahoo distribution dates/amounts have SGX-hosted issuer corroboration in `docs/srt_distribution_source_audit.md`; the 2025-10-24 open remains unresolved. Phase 2 subsequently added the causal portfolio ledger and complete training runner.
 
 ## Phase 2 — reproducible training runner
 
@@ -37,7 +37,7 @@ Review evidence: version-2 sample exports and validation checks, pretest diagnos
 
 Review evidence: one complete fold for all three learned models, run manifest, version-2 contract checks, a synthetic future-missing-open test, distribution-ledger checks or explicit price-only branch, sample wealth paths and proposed commit message.
 
-**Implementation status, 3 November — awaiting review and Git commit:** `src/train.py` runs the inner stopping and same-seed outer refit; `src/tools/collect_runs.py` validates complete exports and produces forecast/wealth tables. One full `validation_1` run at seed 11 for `LSTM32`, `LSTM3`, `Fuzzy2` produced 378 forecasts, 126 fuzzy cases and 252 rule rows. The causal ledger supports price-only and issuer-audited gross-distribution wealth with a past-signal momentum control. Unit tests cover missing-open carry, boundary liquidation, distribution entitlement, transaction costs and deterministic refits. Pilot files are local under `output/runs/tmp/phase2_pilot/`; they are one-fold engineering evidence, not the complete Phase 3 comparison. The 2025-10-24 open remains unresolved and the final holdout remains sealed.
+**Implementation status:** Ryan approved Phase 2 and commit `cf32640` records the training runner, full-key exports and causal wealth ledger. The local one-fold pilot remains under `output/runs/tmp/phase2_pilot/`; the 2025-10-24 open remains unresolved.
 
 ## Phase 3 — development comparisons
 
@@ -50,6 +50,8 @@ Review evidence: one complete fold for all three learned models, run manifest, v
 - For the secondary threshold sensitivity, evaluate only the protocol's fixed `θ` grid. Select each model class's threshold by the predeclared mean-across-seeds, sum-across-folds log terminal-wealth objective; select momentum's threshold on the same three folds. Record tie resolution and selected values in a frozen policy manifest. Because those folds select the threshold, label their tuned wealth as **development selection evidence**, not unbiased profit.
 
 Review evidence: development-only forecast and wealth tables/plots, selected threshold manifest, rule coverage/local-error evidence, three-return horizon diagnostic, mechanism-attribution decision and proposed commit message.
+
+**Implementation status, 3 November — awaiting review and Git commit:** the 48 core development configurations and nine optional `Gate2` controls ran on CPU across the three validation folds. `K=1` is represented by functionally identical `LSTM3`; a two-epoch same-seed equivalence test passes. `output/development/` contains the pooled and paired forecast comparison, source/rule ablations, 0/10/20-bps price-only and 10-bps gross-distribution wealth summaries, training-cut fuzzy local-error/coverage tables, the three-return horizon check, threshold selection and `final_configuration_pretest.json`. The qualified interpretation is in `docs/development_results_2026-11-03.md`. No final-holdout forecast or metric was calculated. The learned-rule evidence does not support a market-regime-specialist or Gaussian-specific superiority claim. Proposed commit: `feat: run development comparisons and freeze final configuration`.
 
 ## Phase 4 — frozen final evaluation
 

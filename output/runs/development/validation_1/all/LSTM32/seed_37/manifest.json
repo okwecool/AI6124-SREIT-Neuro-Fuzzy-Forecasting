@@ -1,0 +1,180 @@
+{
+  "status": "development",
+  "model_id": "LSTM32",
+  "source_group": "all",
+  "rule_count": 0,
+  "fold": "validation_1",
+  "seed": 37,
+  "device": "cpu",
+  "versions": {
+    "python": "3.10.20",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "torch": "2.10.0+cu128"
+  },
+  "git_revision": "cf326408ce8c187ef4bc59edf41d20f3dc52de22",
+  "git_dirty": true,
+  "train_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "dataset_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "fold_assignments_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "input_features": [
+    "srt_log_return_raw",
+    "srt_momentum_5",
+    "srt_volatility_20",
+    "sti_log_return_asof",
+    "sora_rate_pct_asof",
+    "sora_change_20_publications_pp"
+  ],
+  "parameters": 5153,
+  "inner_fit_rows": 470,
+  "inner_stop_rows": 83,
+  "outer_fit_rows": 553,
+  "outer_validation_rows": 126,
+  "best_epoch": 4,
+  "best_inner_stop_mse_scaled": 1.0315046310424805,
+  "inner_trace": [
+    {
+      "epoch": 1,
+      "train_mse_scaled": 1.0300849950059932,
+      "stop_mse_scaled": 1.0429303646087646
+    },
+    {
+      "epoch": 2,
+      "train_mse_scaled": 1.0151336132211888,
+      "stop_mse_scaled": 1.0362666845321655
+    },
+    {
+      "epoch": 3,
+      "train_mse_scaled": 1.0044211560107292,
+      "stop_mse_scaled": 1.0331742763519287
+    },
+    {
+      "epoch": 4,
+      "train_mse_scaled": 0.9978859576773136,
+      "stop_mse_scaled": 1.0315046310424805
+    },
+    {
+      "epoch": 5,
+      "train_mse_scaled": 0.9936955619365611,
+      "stop_mse_scaled": 1.0318583250045776
+    },
+    {
+      "epoch": 6,
+      "train_mse_scaled": 0.9909633737929324,
+      "stop_mse_scaled": 1.0330132246017456
+    },
+    {
+      "epoch": 7,
+      "train_mse_scaled": 0.9874894350133043,
+      "stop_mse_scaled": 1.0339324474334717
+    },
+    {
+      "epoch": 8,
+      "train_mse_scaled": 0.9851422233784453,
+      "stop_mse_scaled": 1.0345280170440674
+    },
+    {
+      "epoch": 9,
+      "train_mse_scaled": 0.9833458583405678,
+      "stop_mse_scaled": 1.0349189043045044
+    },
+    {
+      "epoch": 10,
+      "train_mse_scaled": 0.9815796344838243,
+      "stop_mse_scaled": 1.0366204977035522
+    },
+    {
+      "epoch": 11,
+      "train_mse_scaled": 0.9788781128031142,
+      "stop_mse_scaled": 1.0382416248321533
+    },
+    {
+      "epoch": 12,
+      "train_mse_scaled": 0.9779979462319232,
+      "stop_mse_scaled": 1.0405241250991821
+    },
+    {
+      "epoch": 13,
+      "train_mse_scaled": 0.9747059132190461,
+      "stop_mse_scaled": 1.0402864217758179
+    },
+    {
+      "epoch": 14,
+      "train_mse_scaled": 0.9732018379454918,
+      "stop_mse_scaled": 1.0428447723388672
+    },
+    {
+      "epoch": 15,
+      "train_mse_scaled": 0.971132104954821,
+      "stop_mse_scaled": 1.044721245765686
+    },
+    {
+      "epoch": 16,
+      "train_mse_scaled": 0.9688351709791955,
+      "stop_mse_scaled": 1.0468946695327759
+    },
+    {
+      "epoch": 17,
+      "train_mse_scaled": 0.9675946824094083,
+      "stop_mse_scaled": 1.0466303825378418
+    },
+    {
+      "epoch": 18,
+      "train_mse_scaled": 0.9636427156468655,
+      "stop_mse_scaled": 1.0509390830993652
+    },
+    {
+      "epoch": 19,
+      "train_mse_scaled": 0.9617008825565906,
+      "stop_mse_scaled": 1.056258201599121
+    },
+    {
+      "epoch": 20,
+      "train_mse_scaled": 0.9589777269261949,
+      "stop_mse_scaled": 1.0579464435577393
+    },
+    {
+      "epoch": 21,
+      "train_mse_scaled": 0.9569695411844457,
+      "stop_mse_scaled": 1.0564982891082764
+    },
+    {
+      "epoch": 22,
+      "train_mse_scaled": 0.9531168369536704,
+      "stop_mse_scaled": 1.052189826965332
+    },
+    {
+      "epoch": 23,
+      "train_mse_scaled": 0.9521115904158735,
+      "stop_mse_scaled": 1.054364800453186
+    },
+    {
+      "epoch": 24,
+      "train_mse_scaled": 0.9512122204963197,
+      "stop_mse_scaled": 1.0525683164596558
+    }
+  ],
+  "outer_refit_train_mse_scaled": [
+    1.0310769493929086,
+    1.0168206185156354,
+    1.0062285275830067,
+    1.0003852880884898
+  ],
+  "inner_seconds": 0.9603185998275876,
+  "refit_seconds": 0.18863959982991219,
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0
+  },
+  "stopping": {
+    "max_epochs": 150,
+    "patience": 20,
+    "min_improvement": 0.0001
+  },
+  "checkpoint": "output\\runs\\development\\validation_1\\all\\LSTM32\\seed_37\\checkpoint.pt",
+  "prediction_file": "output\\runs\\development\\validation_1\\all\\LSTM32\\seed_37\\predictions.csv"
+}

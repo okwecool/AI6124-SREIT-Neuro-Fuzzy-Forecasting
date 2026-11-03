@@ -27,7 +27,7 @@ python -m unittest discover -s tests -v
 python src/tools/verify_starter_notebook.py
 ```
 
-The default feature array has shape `(1182, 20, 6)`. `src/project_eval.py` handles chronological folds, train-only scaling, full-key prediction checks and forecast scoring. `src/train.py` implements development-fold stopping and refit; `src/portfolio.py` records causal observed-open price and gross-distribution wealth. One fold and seed have been run as a Phase 2 pilot. The full three-fold, three-seed comparison and frozen final test remain ahead.
+The default feature array has shape `(1182, 20, 6)`. `src/project_eval.py` handles chronological folds, train-only scaling, full-key prediction checks and forecast scoring. `src/train.py` implements development-fold stopping and refit; `src/portfolio.py` records causal observed-open price and gross-distribution wealth. The three-fold development matrix and optional `Gate2` control are complete; [the development report](development_results_2026-11-03.md) explains the negative and qualified findings. The frozen final test remains ahead.
 
 ## Git workflow
 

@@ -1,0 +1,179 @@
+{
+  "status": "development",
+  "model_id": "Fuzzy2",
+  "source_group": "srt_sora",
+  "rule_count": 2,
+  "fold": "validation_3",
+  "seed": 23,
+  "device": "cpu",
+  "versions": {
+    "python": "3.10.20",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "torch": "2.10.0+cu128"
+  },
+  "git_revision": "cf326408ce8c187ef4bc59edf41d20f3dc52de22",
+  "git_dirty": true,
+  "train_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "dataset_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "fold_assignments_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "input_features": [
+    "srt_log_return_raw",
+    "srt_momentum_5",
+    "srt_volatility_20",
+    "sora_rate_pct_asof",
+    "sora_change_20_publications_pp"
+  ],
+  "parameters": 5111,
+  "inner_fit_rows": 682,
+  "inner_stop_rows": 121,
+  "outer_fit_rows": 803,
+  "outer_validation_rows": 128,
+  "best_epoch": 4,
+  "best_inner_stop_mse_scaled": 0.5593789219856262,
+  "inner_trace": [
+    {
+      "epoch": 1,
+      "train_mse_scaled": 1.155707125090434,
+      "stop_mse_scaled": 0.629102885723114
+    },
+    {
+      "epoch": 2,
+      "train_mse_scaled": 1.1170155568556352,
+      "stop_mse_scaled": 0.6043962836265564
+    },
+    {
+      "epoch": 3,
+      "train_mse_scaled": 1.078176003397385,
+      "stop_mse_scaled": 0.5803589820861816
+    },
+    {
+      "epoch": 4,
+      "train_mse_scaled": 1.0424253423192984,
+      "stop_mse_scaled": 0.5593789219856262
+    },
+    {
+      "epoch": 5,
+      "train_mse_scaled": 1.0037198043988247,
+      "stop_mse_scaled": 0.564582884311676
+    },
+    {
+      "epoch": 6,
+      "train_mse_scaled": 0.99791859566641,
+      "stop_mse_scaled": 0.563475489616394
+    },
+    {
+      "epoch": 7,
+      "train_mse_scaled": 0.9964444334905518,
+      "stop_mse_scaled": 0.5625753402709961
+    },
+    {
+      "epoch": 8,
+      "train_mse_scaled": 0.9935906268983992,
+      "stop_mse_scaled": 0.5616382956504822
+    },
+    {
+      "epoch": 9,
+      "train_mse_scaled": 0.9928805775656379,
+      "stop_mse_scaled": 0.5608384609222412
+    },
+    {
+      "epoch": 10,
+      "train_mse_scaled": 0.9918885150612974,
+      "stop_mse_scaled": 0.5600987672805786
+    },
+    {
+      "epoch": 11,
+      "train_mse_scaled": 0.9917736301673822,
+      "stop_mse_scaled": 0.5628340244293213
+    },
+    {
+      "epoch": 12,
+      "train_mse_scaled": 0.9903973489562787,
+      "stop_mse_scaled": 0.5618715882301331
+    },
+    {
+      "epoch": 13,
+      "train_mse_scaled": 0.9890249576037231,
+      "stop_mse_scaled": 0.5642111897468567
+    },
+    {
+      "epoch": 14,
+      "train_mse_scaled": 0.9888711667829945,
+      "stop_mse_scaled": 0.5632566213607788
+    },
+    {
+      "epoch": 15,
+      "train_mse_scaled": 0.9875357521594095,
+      "stop_mse_scaled": 0.5648431777954102
+    },
+    {
+      "epoch": 16,
+      "train_mse_scaled": 0.9870527860356216,
+      "stop_mse_scaled": 0.5644402503967285
+    },
+    {
+      "epoch": 17,
+      "train_mse_scaled": 0.9858510707480467,
+      "stop_mse_scaled": 0.5660974979400635
+    },
+    {
+      "epoch": 18,
+      "train_mse_scaled": 0.9838460442607354,
+      "stop_mse_scaled": 0.5650092959403992
+    },
+    {
+      "epoch": 19,
+      "train_mse_scaled": 0.9828670238120115,
+      "stop_mse_scaled": 0.5647779703140259
+    },
+    {
+      "epoch": 20,
+      "train_mse_scaled": 0.9830011237751354,
+      "stop_mse_scaled": 0.5642008781433105
+    },
+    {
+      "epoch": 21,
+      "train_mse_scaled": 0.9859547555621418,
+      "stop_mse_scaled": 0.5713338851928711
+    },
+    {
+      "epoch": 22,
+      "train_mse_scaled": 0.9791394213427547,
+      "stop_mse_scaled": 0.563657283782959
+    },
+    {
+      "epoch": 23,
+      "train_mse_scaled": 0.9785095397328352,
+      "stop_mse_scaled": 0.5664777755737305
+    },
+    {
+      "epoch": 24,
+      "train_mse_scaled": 0.9770388643412996,
+      "stop_mse_scaled": 0.5675979256629944
+    }
+  ],
+  "outer_refit_train_mse_scaled": [
+    1.1532313903123326,
+    1.1084888597502656,
+    1.0653307133564172,
+    1.0181619029858637
+  ],
+  "inner_seconds": 1.5563969002105296,
+  "refit_seconds": 0.2853639000095427,
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0
+  },
+  "stopping": {
+    "max_epochs": 150,
+    "patience": 20,
+    "min_improvement": 0.0001
+  },
+  "checkpoint": "output\\runs\\development\\validation_3\\srt_sora\\Fuzzy2\\seed_23\\checkpoint.pt",
+  "prediction_file": "output\\runs\\development\\validation_3\\srt_sora\\Fuzzy2\\seed_23\\predictions.csv"
+}

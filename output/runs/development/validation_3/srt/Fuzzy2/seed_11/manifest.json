@@ -1,0 +1,159 @@
+{
+  "status": "development",
+  "model_id": "Fuzzy2",
+  "source_group": "srt",
+  "rule_count": 2,
+  "fold": "validation_3",
+  "seed": 11,
+  "device": "cpu",
+  "versions": {
+    "python": "3.10.20",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "torch": "2.10.0+cu128"
+  },
+  "git_revision": "cf326408ce8c187ef4bc59edf41d20f3dc52de22",
+  "git_dirty": true,
+  "train_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "dataset_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "fold_assignments_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "input_features": [
+    "srt_log_return_raw",
+    "srt_momentum_5",
+    "srt_volatility_20"
+  ],
+  "parameters": 4855,
+  "inner_fit_rows": 682,
+  "inner_stop_rows": 121,
+  "outer_fit_rows": 803,
+  "outer_validation_rows": 128,
+  "best_epoch": 1,
+  "best_inner_stop_mse_scaled": 0.5499329566955566,
+  "inner_trace": [
+    {
+      "epoch": 1,
+      "train_mse_scaled": 1.0049606093213705,
+      "stop_mse_scaled": 0.5499329566955566
+    },
+    {
+      "epoch": 2,
+      "train_mse_scaled": 1.0031323607716043,
+      "stop_mse_scaled": 0.5519163012504578
+    },
+    {
+      "epoch": 3,
+      "train_mse_scaled": 0.9995776960227496,
+      "stop_mse_scaled": 0.5533808469772339
+    },
+    {
+      "epoch": 4,
+      "train_mse_scaled": 0.9981195863740535,
+      "stop_mse_scaled": 0.5544653534889221
+    },
+    {
+      "epoch": 5,
+      "train_mse_scaled": 0.9967831016635615,
+      "stop_mse_scaled": 0.5554426312446594
+    },
+    {
+      "epoch": 6,
+      "train_mse_scaled": 0.9956810376511291,
+      "stop_mse_scaled": 0.5564331412315369
+    },
+    {
+      "epoch": 7,
+      "train_mse_scaled": 0.9949856269394547,
+      "stop_mse_scaled": 0.5574015378952026
+    },
+    {
+      "epoch": 8,
+      "train_mse_scaled": 0.9942759600552645,
+      "stop_mse_scaled": 0.557686448097229
+    },
+    {
+      "epoch": 9,
+      "train_mse_scaled": 0.9957664949803059,
+      "stop_mse_scaled": 0.5599257349967957
+    },
+    {
+      "epoch": 10,
+      "train_mse_scaled": 0.9926795833621207,
+      "stop_mse_scaled": 0.5574278831481934
+    },
+    {
+      "epoch": 11,
+      "train_mse_scaled": 0.9928881919279127,
+      "stop_mse_scaled": 0.5564839243888855
+    },
+    {
+      "epoch": 12,
+      "train_mse_scaled": 0.9924987753814966,
+      "stop_mse_scaled": 0.5552935004234314
+    },
+    {
+      "epoch": 13,
+      "train_mse_scaled": 0.9925287930496977,
+      "stop_mse_scaled": 0.555108904838562
+    },
+    {
+      "epoch": 14,
+      "train_mse_scaled": 0.9913923408278972,
+      "stop_mse_scaled": 0.5562170743942261
+    },
+    {
+      "epoch": 15,
+      "train_mse_scaled": 0.9908940127867757,
+      "stop_mse_scaled": 0.5558634996414185
+    },
+    {
+      "epoch": 16,
+      "train_mse_scaled": 0.9918409722291829,
+      "stop_mse_scaled": 0.5571936964988708
+    },
+    {
+      "epoch": 17,
+      "train_mse_scaled": 0.9891239957026372,
+      "stop_mse_scaled": 0.5557245016098022
+    },
+    {
+      "epoch": 18,
+      "train_mse_scaled": 0.9890279310190083,
+      "stop_mse_scaled": 0.5544987320899963
+    },
+    {
+      "epoch": 19,
+      "train_mse_scaled": 0.9873329500648633,
+      "stop_mse_scaled": 0.5556151270866394
+    },
+    {
+      "epoch": 20,
+      "train_mse_scaled": 0.9860209291281938,
+      "stop_mse_scaled": 0.5554436445236206
+    },
+    {
+      "epoch": 21,
+      "train_mse_scaled": 0.9839475091950984,
+      "stop_mse_scaled": 0.5552182197570801
+    }
+  ],
+  "outer_refit_train_mse_scaled": [
+    1.0050686076747377
+  ],
+  "inner_seconds": 1.292888700030744,
+  "refit_seconds": 0.06628459971398115,
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0
+  },
+  "stopping": {
+    "max_epochs": 150,
+    "patience": 20,
+    "min_improvement": 0.0001
+  },
+  "checkpoint": "output\\runs\\development\\validation_3\\srt\\Fuzzy2\\seed_11\\checkpoint.pt",
+  "prediction_file": "output\\runs\\development\\validation_3\\srt\\Fuzzy2\\seed_11\\predictions.csv"
+}
