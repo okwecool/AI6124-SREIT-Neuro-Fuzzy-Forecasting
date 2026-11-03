@@ -1,0 +1,2 @@
+model_id,source_group,seed,n,return_rmse,return_mae,price_rmse_sgd,price_mae_sgd,direction_n,zero_actual_n,direction_accuracy
+Z0,all,0,378,0.00943073954460879,0.006289873868732088,0.006899122305389739,0.0046507933777777755,343,35,0.0

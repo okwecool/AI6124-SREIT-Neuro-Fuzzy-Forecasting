@@ -1,0 +1,32 @@
+{
+  "retrieved_at_utc": "2026-10-28T10:59:13+00:00",
+  "requested_period": "2021-10-01 to 2026-09-30 inclusive",
+  "srt": {
+    "symbol": "SRT.SI",
+    "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRT.SI?period1=1633046400&period2=1790812800&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+    "file": "raw\\yahoo_srt_si_20211001_20260930.json",
+    "sha256": "dd91b841db06cd8a4e94350eda4c4aae3b5796a04aae8cc121680bff83adab86",
+    "bytes": 137615,
+    "rows": 1222,
+    "currency": "SGD",
+    "exchange_timezone": "Asia/Singapore"
+  },
+  "sti": {
+    "symbol": "^STI",
+    "url": "https://query1.finance.yahoo.com/v8/finance/chart/%5ESTI?period1=1633046400&period2=1790812800&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+    "file": "raw\\yahoo_sti_20211001_20260930.json",
+    "sha256": "2b602353de692ca7d1acff2470aac268f4c4de55602749989b35e8793b8f3e7c",
+    "bytes": 131377,
+    "rows": 1255,
+    "currency": "SGD",
+    "exchange_timezone": "Asia/Singapore"
+  },
+  "sora": {
+    "url": "https://eservices.mas.gov.sg/statistics/dir/",
+    "file": "raw\\mas_sora_202110_202609.csv",
+    "sha256": "0d42a9f28f8d0448e94c58ffe6544ddc56b8234f5c383cd38c17cbf291d1f81c",
+    "bytes": 31679,
+    "content_type": "text/csv; charset=utf-8",
+    "selection": "SORA; October 2021 through September 2026"
+  }
+}

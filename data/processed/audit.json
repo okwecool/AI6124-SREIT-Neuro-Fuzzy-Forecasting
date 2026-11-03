@@ -1,0 +1,97 @@
+{
+  "source_manifest": "source_manifest.json",
+  "target_definition": "Next SRT raw closing-price log return; dividend-inclusive candidate exported separately",
+  "feature_columns_in_X_order": [
+    "srt_log_return_raw",
+    "srt_momentum_5",
+    "srt_volatility_20",
+    "sti_log_return_asof",
+    "sora_rate_pct_asof",
+    "sora_change_20_publications_pp"
+  ],
+  "window_length_srt_trading_days": 20,
+  "scaling": "none; fit only on training partition inside each fold",
+  "srt": {
+    "symbol": "SRT.SI",
+    "source_rows": 1222,
+    "null_close_rows": 1,
+    "null_close_dates": [
+      "2025-10-24"
+    ],
+    "first_date": "2021-11-18",
+    "last_date": "2026-09-30",
+    "dividend_events": 9
+  },
+  "srt_price_repairs": [
+    {
+      "date": "2025-10-24",
+      "close_sgd": 0.801,
+      "low_sgd": 0.799,
+      "high_sgd": 0.803,
+      "volume": 152293,
+      "open_sgd": null,
+      "source_url": "https://sgtrades.com/stock/SRT.SI/price/5/",
+      "corroboration_url": "https://cassette.sphdigital.com.sg/attachments/businesstimes/8a637227de781466acd26a639d8b03ba076d4518f9994382c7ce2c82f92a25ae",
+      "source_file": "raw\\srt_2025-10-24_sgtrades_excerpt.csv",
+      "source_sha256": "aa03e8cc1b73c5539a4a0a016e420e80984984e3b91cf59a9510993ba5e49d9e"
+    }
+  ],
+  "srt_after_repairs": {
+    "valid_close_rows": 1222,
+    "missing_open_rows": 1
+  },
+  "sti": {
+    "symbol": "^STI",
+    "source_rows": 1255,
+    "null_close_rows": 0,
+    "null_close_dates": [],
+    "first_date": "2021-10-01",
+    "last_date": "2026-09-30",
+    "dividend_events": 0
+  },
+  "sora": {
+    "source_rows": 1255,
+    "first_value_date": "2021-10-01",
+    "last_value_date": "2026-09-30",
+    "first_publication_date": "2021-10-04",
+    "last_publication_date": "2026-10-01",
+    "missing_rate_rows": 0
+  },
+  "aligned_rows_total": 1222,
+  "aligned_rows_with_valid_srt_close": 1222,
+  "sti_same_day_rows": 1222,
+  "sti_stale_rows": 0,
+  "aligned_rows_without_sora": 0,
+  "first_complete_feature_date": "2021-12-16",
+  "complete_windows": 1182,
+  "first_window_forecast_date": "2022-01-12",
+  "last_window_forecast_date": "2026-09-29",
+  "window_counts_by_period": {
+    "development_training": 553,
+    "final_test": 251,
+    "validation_3": 128,
+    "validation_1": 126,
+    "validation_2": 124
+  },
+  "fold_counts": {
+    "validation_1": {
+      "train": 553,
+      "validation": 126
+    },
+    "validation_2": {
+      "train": 679,
+      "validation": 124
+    },
+    "validation_3": {
+      "train": 803,
+      "validation": 128
+    },
+    "final_holdout": {
+      "train": 931,
+      "test": 251
+    }
+  },
+  "raw_target_nonfinite_windows": 0,
+  "dividend_dates_within_srt_calendar": 9,
+  "raw_target_abs_over_10pct": 0
+}

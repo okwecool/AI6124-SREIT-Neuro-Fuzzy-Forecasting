@@ -1,0 +1,10 @@
+model_id,source_group,fold,seed,strategy,cost_bps_per_side,eligible_intervals,omitted_intervals,cumulative_price_return,calendar_annualized_price_return,max_drawdown,one_way_turnover,one_way_trade_count,dividends_included
+Z0,all,validation_1,0,signal_long_cash,10,125,1,0.0,0.0,0.0,0,0,False
+Z0,all,validation_1,0,always_long,10,125,1,0.08073652348692284,0.16861444336272013,0.08097689400364139,2,2,False
+Z0,all,validation_1,0,always_cash,10,125,1,0.0,0.0,0.0,0,0,False
+Z0,all,validation_2,0,signal_long_cash,10,123,1,0.0,0.0,0.0,0,0,False
+Z0,all,validation_2,0,always_long,10,123,1,-0.10582228081158562,-0.2050801069746091,0.16183575111992143,2,2,False
+Z0,all,validation_2,0,always_cash,10,123,1,0.0,0.0,0.0,0,0,False
+Z0,all,validation_3,0,signal_long_cash,10,127,1,0.0,0.0,0.0,0,0,False
+Z0,all,validation_3,0,always_long,10,127,1,0.05526615293133408,0.11399815248044987,0.09090905418773854,2,2,False
+Z0,all,validation_3,0,always_cash,10,127,1,0.0,0.0,0.0,0,0,False
