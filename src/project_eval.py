@@ -1,8 +1,8 @@
 """Shared, leakage-aware evaluation contract for the AI6124 SRT project.
 
 This module deliberately has no model-training code. It prepares chronological
-folds, checks prediction files, scores forecasts, and runs the predeclared
-price-only next-open portfolio exercise.
+folds, checks prediction files, scores forecasts, and exposes the causal
+observed-open portfolio ledger.
 """
 
 from __future__ import annotations
@@ -77,7 +77,8 @@ class Dataset:
     """The fixed saved snapshot. Array row position equals window_id."""
 
     def __init__(self, root: Path = ROOT):
-        processed = Path(root) / "data" / "processed"
+        self.root = Path(root)
+        processed = self.root / "data" / "processed"
         arrays = np.load(processed / "srt_windows_unscaled.npz", allow_pickle=False)
         self.x = arrays["X"]
         self.y = arrays["y_raw"]
@@ -323,95 +324,12 @@ class Dataset:
             })
         return pd.DataFrame(rows)
 
-    def portfolio_scores(self, predictions: pd.DataFrame, *, cost_bps: int = 10) -> pd.DataFrame:
-        """Price-only next-open strategy; missing-open intervals are common omissions."""
-        if cost_bps < 0:
-            raise ValueError("Transaction cost must be nonnegative")
-        data = self.validate_predictions(predictions)
-        calendar = self.daily[["date", "srt_open"]].sort_values("date").reset_index(drop=True)
-        next_open = calendar.srt_open.shift(-1)
-        next_date = calendar.date.shift(-1)
-        by_date = calendar.set_index("date")
-        results = []
-        for (model_id, source_group, rule_count, fold, seed), group in data.groupby(
-            RUN_KEY, sort=True
-        ):
-            positions = {
-                "signal_long_cash": (group.y_pred.to_numpy() > 0).astype(int),
-                "always_long": np.ones(len(group), dtype=int),
-                "always_cash": np.zeros(len(group), dtype=int),
-            }
-            intervals = group[["target_date"]].copy()
-            intervals["entry_open"] = intervals.target_date.map(by_date.srt_open)
-            intervals["exit_open"] = intervals.target_date.map(pd.Series(next_open.to_numpy(), index=calendar.date))
-            intervals["exit_date"] = intervals.target_date.map(pd.Series(next_date.to_numpy(), index=calendar.date))
-            # An evaluation fold ends at its last target date. Its final signal
-            # cannot borrow the following fold's price to close a trade.
-            within_fold = intervals.exit_date <= group.target_date.max()
-            intervals["valid"] = intervals.entry_open.notna() & intervals.exit_open.notna() & within_fold
-            if (intervals.loc[intervals.valid, ["entry_open", "exit_open"]] <= 0).any().any():
-                raise ValueError("Open prices must be positive")
-            order = np.argsort(group.target_date.to_numpy())
-            intervals = intervals.iloc[order].reset_index(drop=True)
-            for strategy, raw_position in positions.items():
-                position = raw_position[order]
-                returns = []
-                turnover = 0
-                trades = 0
-                equity = 1.0
-                peak = 1.0
-                max_drawdown = 0.0
-                prev_position = 0
-                prev_exit = None
-                first_entry = None
-                last_exit = None
-                for i, row in intervals.iterrows():
-                    if not row.valid:
-                        continue
-                    if first_entry is None:
-                        first_entry = row.target_date
-                    if prev_exit is not None and row.target_date != prev_exit:
-                        prev_position = 0  # common cash gap; prior segment was liquidated
-                    entry_change = abs(int(position[i]) - prev_position)
-                    next_valid_and_contiguous = (
-                        i + 1 < len(intervals) and bool(intervals.loc[i + 1, "valid"])
-                        and intervals.loc[i + 1, "target_date"] == row.exit_date
-                    )
-                    exit_change = int(position[i]) if not next_valid_and_contiguous else 0
-                    interval_return = (
-                        int(position[i]) * (float(row.exit_open) / float(row.entry_open) - 1)
-                        - (cost_bps / 10000) * (entry_change + exit_change)
-                    )
-                    returns.append(interval_return)
-                    turnover += entry_change + exit_change
-                    trades += int(entry_change > 0) + int(exit_change > 0)
-                    equity *= 1 + interval_return
-                    peak = max(peak, equity)
-                    max_drawdown = max(max_drawdown, 1 - equity / peak)
-                    prev_position = 0 if exit_change else int(position[i])
-                    prev_exit = row.exit_date
-                    last_exit = row.exit_date
-                if not returns:
-                    raise ValueError(f"No tradable intervals for {fold}")
-                years = (last_exit - first_entry).days / 365.25
-                results.append({
-                    "model_id": model_id,
-                    "source_group": source_group,
-                    "rule_count": int(rule_count),
-                    "fold": fold,
-                    "seed": int(seed),
-                    "strategy": strategy,
-                    "cost_bps_per_side": cost_bps,
-                    "eligible_intervals": len(returns),
-                    "omitted_intervals": len(intervals) - len(returns),
-                    "cumulative_price_return": equity - 1,
-                    "calendar_annualized_price_return": equity ** (1 / years) - 1 if years > 0 else np.nan,
-                    "max_drawdown": max_drawdown,
-                    "one_way_turnover": turnover,
-                    "one_way_trade_count": trades,
-                    "dividends_included": False,
-                })
-        return pd.DataFrame(results)
+    def portfolio_ledger(self, predictions: pd.DataFrame, *, cost_bps: int = 10, threshold: float = 0.0, wealth_mode: str = 'price_only') -> tuple[pd.DataFrame, pd.DataFrame]:
+        from src.portfolio import wealth_ledger
+        return wealth_ledger(self, predictions, cost_bps=cost_bps, threshold=threshold, wealth_mode=wealth_mode)
+
+    def portfolio_scores(self, predictions: pd.DataFrame, *, cost_bps: int = 10, threshold: float = 0.0, wealth_mode: str = 'price_only') -> pd.DataFrame:
+        return self.portfolio_ledger(predictions, cost_bps=cost_bps, threshold=threshold, wealth_mode=wealth_mode)[1]
 
 
 def main() -> None:
@@ -422,6 +340,9 @@ def main() -> None:
     parser.add_argument("--rules", type=Path, help="Fuzzy rule-long CSV for check-fuzzy")
     parser.add_argument("--out", type=Path, help="Where to save CSV output")
     parser.add_argument("--cost-bps", type=int, default=10)
+    parser.add_argument("--threshold", type=float, default=0.0)
+    parser.add_argument("--wealth-mode", choices=("price_only", "gross_distribution"), default="price_only")
+    parser.add_argument("--ledger-out", type=Path, help="Per-event CSV for portfolio")
     args = parser.parse_args()
     data = Dataset()
     if args.action == "zero":
@@ -441,7 +362,12 @@ def main() -> None:
         elif args.action == "pooled":
             result = data.pooled_validation_scores(predictions)
         else:
-            result = data.portfolio_scores(predictions, cost_bps=args.cost_bps)
+            ledger, result = data.portfolio_ledger(predictions, cost_bps=args.cost_bps,
+                                                   threshold=args.threshold,
+                                                   wealth_mode=args.wealth_mode)
+            if args.ledger_out:
+                args.ledger_out.parent.mkdir(parents=True, exist_ok=True)
+                ledger.to_csv(args.ledger_out, index=False)
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         result.to_csv(args.out, index=False)

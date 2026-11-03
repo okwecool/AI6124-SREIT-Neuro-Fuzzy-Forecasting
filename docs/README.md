@@ -27,7 +27,7 @@ python -m unittest discover -s tests -v
 python src/tools/verify_starter_notebook.py
 ```
 
-The default feature array has shape `(1182, 20, 6)`. The existing code in `src/project_eval.py` handles chronological fold selection, train-only scaling, prediction-file checks and forecast scoring. Its legacy portfolio action uses future quote availability when deciding an earlier exit, so it is **not yet a valid full executable wealth path**. No trained LSTM or fuzzy model is present yet.
+The default feature array has shape `(1182, 20, 6)`. `src/project_eval.py` handles chronological folds, train-only scaling, full-key prediction checks and forecast scoring. `src/train.py` implements development-fold stopping and refit; `src/portfolio.py` records causal observed-open price and gross-distribution wealth. One fold and seed have been run as a Phase 2 pilot. The full three-fold, three-seed comparison and frozen final test remain ahead.
 
 ## Git workflow
 

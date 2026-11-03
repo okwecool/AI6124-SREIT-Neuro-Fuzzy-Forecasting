@@ -91,25 +91,69 @@ class EvaluationContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "number or IDs"):
             self.data.validate_fuzzy_diagnostics(predictions, cases, bad, complete=False)
 
-    def test_missing_open_omits_two_adjacent_intervals(self):
-        # Model a one-day data-source gap inside a validation period.
+    def test_future_missing_open_does_not_change_earlier_trade(self):
+        # An unknown future quote gap cannot trigger a sale at yesterday's open.
         copied = Dataset()
         predictions = copied.zero_predictions()
-        before = copied.portfolio_scores(predictions)
+        before, _ = copied.portfolio_ledger(predictions)
         target_day = copied.index.loc[int(copied.ids("validation_1", "validation")[40]), "target_date"]
+        prior_day = copied.daily.loc[copied.daily.date < target_day, "date"].iloc[-1]
+        next_day = copied.daily.loc[copied.daily.date > target_day, "date"].iloc[0]
         copied.daily.loc[copied.daily.date == target_day, "srt_open"] = np.nan
-        after = copied.portfolio_scores(predictions)
-        baseline = before.loc[(before.fold == "validation_1") & (before.strategy == "always_long")].iloc[0]
-        repaired = after.loc[(after.fold == "validation_1") & (after.strategy == "always_long")].iloc[0]
-        self.assertEqual(repaired.omitted_intervals - baseline.omitted_intervals, 2)
-        self.assertEqual(repaired.eligible_intervals, baseline.eligible_intervals - 2)
+        after, summary = copied.portfolio_ledger(predictions)
+        original = before.query("fold == 'validation_1' and strategy == 'always_long'").set_index("date")
+        changed = after.query("fold == 'validation_1' and strategy == 'always_long'").set_index("date")
+        self.assertAlmostEqual(original.loc[prior_day, "shares"], changed.loc[prior_day, "shares"])
+        self.assertEqual(original.loc[prior_day, "action"], changed.loc[prior_day, "action"])
+        self.assertEqual(changed.loc[target_day, "action"], "missing_open_carry")
+        self.assertEqual(changed.loc[target_day, "fee"], 0)
+        self.assertAlmostEqual(changed.loc[next_day, "shares"], changed.loc[prior_day, "shares"])
+        self.assertEqual(changed.loc[next_day, "fee"], 0)
+        self.assertEqual(summary.query("fold == 'validation_1' and strategy == 'always_long'").iloc[0].missing_open_events, 1)
 
-    def test_portfolio_does_not_cross_validation_boundary(self):
-        result = self.data.portfolio_scores(self.data.zero_predictions())
-        for fold, expected in (("validation_1", 125), ("validation_2", 123), ("validation_3", 127)):
-            subset = result.loc[(result.fold == fold) & (result.strategy == "always_long")].iloc[0]
-            self.assertEqual(subset.eligible_intervals, expected)
-            self.assertEqual(subset.omitted_intervals, 1)
+    def test_portfolio_liquidates_at_each_validation_boundary(self):
+        ledger, summary = self.data.portfolio_ledger(self.data.zero_predictions())
+        for fold, expected in (("validation_1", 126), ("validation_2", 124), ("validation_3", 128)):
+            subset = ledger.query("fold == @fold and strategy == 'always_long'")
+            self.assertEqual(len(subset), expected)
+            self.assertEqual(subset.iloc[-1].action, "planned_liquidation")
+            self.assertEqual(subset.iloc[-1].shares, 0)
+            self.assertEqual(subset.iloc[-1].wealth, subset.iloc[-1].cash)
+            score = summary.query("fold == @fold and strategy == 'always_long'").iloc[0]
+            self.assertAlmostEqual(score.terminal_wealth_multiple, subset.iloc[-1].cash)
+
+    def test_always_long_price_ledger_matches_two_costed_trades(self):
+        ledger, summary = self.data.portfolio_ledger(self.data.zero_predictions(), cost_bps=10)
+        path = ledger.query("fold == 'validation_1' and strategy == 'always_long'")
+        first_open, last_open = path.open_sgd.iloc[0], path.open_sgd.iloc[-1]
+        expected = (last_open / first_open) * (1 - 0.001) / (1 + 0.001)
+        score = summary.query("fold == 'validation_1' and strategy == 'always_long'").iloc[0]
+        self.assertAlmostEqual(score.terminal_wealth_multiple, expected)
+        self.assertEqual(score.one_way_trade_count, 2)
+        self.assertEqual(path.action.iloc[0], "buy")
+        self.assertEqual(path.action.iloc[-1], "planned_liquidation")
+        calendars = [tuple(group.date) for _, group in ledger.query("fold == 'validation_1'").groupby("strategy")]
+        self.assertTrue(all(calendar == calendars[0] for calendar in calendars))
+
+    def test_distribution_entitlement_precedes_ex_date_open_trade(self):
+        ex_date = pd.Timestamp("2024-07-19")
+        pay_date = pd.Timestamp("2024-08-22")
+        predictions = self.data.zero_predictions()
+        held = predictions.copy()
+        held.loc[(held.fold == "validation_1") & (held.window_id.map(self.data.index.target_date) < ex_date), "y_pred"] = 0.01
+        held.loc[(held.fold == "validation_1") & (held.window_id.map(self.data.index.target_date) >= ex_date), "y_pred"] = -0.01
+        ledger, _ = self.data.portfolio_ledger(held, wealth_mode="gross_distribution")
+        path = ledger.query("fold == 'validation_1' and strategy == 'signal_long_cash'").set_index("date")
+        self.assertGreater(path.loc[ex_date, "ex_credit"], 0)
+        self.assertEqual(path.loc[ex_date, "action"], "sell")
+        self.assertEqual(path.loc[ex_date, "shares"], 0)
+        self.assertAlmostEqual(path.loc[pay_date, "distribution_payment"], path.loc[ex_date, "ex_credit"])
+        buyer = predictions.copy()
+        buyer.loc[(buyer.fold == "validation_1") & (buyer.window_id.map(self.data.index.target_date) >= ex_date), "y_pred"] = 0.01
+        bought, _ = self.data.portfolio_ledger(buyer, wealth_mode="gross_distribution")
+        buy_row = bought.query("fold == 'validation_1' and strategy == 'signal_long_cash' and date == @ex_date").iloc[0]
+        self.assertEqual(buy_row.ex_credit, 0)
+        self.assertEqual(buy_row.action, "buy")
 
 
 if __name__ == "__main__":

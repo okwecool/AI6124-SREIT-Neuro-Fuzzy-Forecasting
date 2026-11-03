@@ -1,6 +1,6 @@
 # SRT / STI / SORA 对齐数据（2026-10-28 抓取；同日补齐 SRT 缺价）
 
-本目录是当前 LSTM → 三维特征 → 两条模糊规则 → 双局部专家方案的**初版数据准备**，尚未训练模型。课件 *AI6124 - week 8 - Neural in Neuro-Fuzzy Systems.pdf* 第 28–29 页以 Yahoo Finance 和 `yfinance` 下载新加坡金融行情为示例；本项目使用 [Yahoo Finance 的 SRT.SI](https://finance.yahoo.com/quote/SRT.SI/) 与 [^STI](https://sg.finance.yahoo.com/quote/%5ESTI/history/) 日行情，以及 [MAS 官方 Domestic Interest Rates 下载表](https://eservices.mas.gov.sg/statistics/dir/)中的 SORA 日利率。原始响应和 SHA-256 见 `raw/` 与 `source_manifest.json`。行情使用 Yahoo 的公开 chart 响应，因此重新下载可能随供应方修订而变化；已保存的原始响应是本次实验的固定快照。
+本目录是当前 LSTM → 三维特征 → 两条模糊规则 → 双局部专家方案的固定数据快照；开发折已完成单折代码验证，完整模型比较仍待运行。课件 *AI6124 - week 8 - Neural in Neuro-Fuzzy Systems.pdf* 第 28–29 页以 Yahoo Finance 和 `yfinance` 下载新加坡金融行情为示例；本项目使用 [Yahoo Finance 的 SRT.SI](https://finance.yahoo.com/quote/SRT.SI/) 与 [^STI](https://sg.finance.yahoo.com/quote/%5ESTI/history/) 日行情，以及 [MAS 官方 Domestic Interest Rates 下载表](https://eservices.mas.gov.sg/statistics/dir/)中的 SORA 日利率。原始响应和 SHA-256 见 `raw/` 与 `source_manifest.json`。行情使用 Yahoo 的公开 chart 响应，因此重新下载可能随供应方修订而变化；已保存的原始响应是本次实验的固定快照。
 
 ## 文件
 
@@ -11,6 +11,7 @@
 | `processed/srt_yahoo_normalized.csv`、`sti_yahoo_normalized.csv`、`sora_mas_normalized.csv` | 各来源统一列名后的表；SORA 同时保留 **value date** 与 **publication date** |
 | `processed/srt_repaired_normalized.csv` | 用有来源记录的报价补齐 SRT 当日收盘、最高、最低、成交量；开盘价仍为空 |
 | `processed/srt_dividends_yahoo.csv` | Yahoo 返回的 9 次 SRT 现金分派事件，仅用于候选总收益率标签及审计 |
+| `reference/srt_distributions_verified.csv` | 九个除息日的发行人公告核对结果及付款日期；用于独立的税前分红财富记录，来源链接见 `docs/srt_distribution_source_audit.md` |
 | `processed/srt_daily_aligned.csv` | 以 SRT 日期为主键的完整日表；2025-10-24 的补值及来源标志在此表中 |
 | `processed/window_index.csv` | 每个合格 20 日窗口的起止日期、预测日、目标日及标签 |
 | `processed/srt_windows_unscaled.npz` | 未标准化的 `X`、两个候选 `y`、日期和特征名，可直接供 Python 读取 |
@@ -50,7 +51,7 @@
 
 Yahoo 的 SRT 在 **2025-10-24** 有日期行但无 OHLC／收盘价，STI 同日正常。现用 [SGTrades 的该日历史报价](https://sgtrades.com/stock/SRT.SI/price/5/)补入收盘价 **S$0.801**、最低 **S$0.799**、最高 **S$0.803**、成交量 **152,293**；[The Business Times 2025-10-25/26 行情页](https://cassette.sphdigital.com.sg/attachments/businesstimes/8a637227de781466acd26a639d8b03ba076d4518f9994382c7ce2c82f92a25ae)明确标注交易日为 2025-10-24，列出最后成交价 80.1 分、日区间 79.9–80.3 分、约 15.2 万成交量，独立核对了补值。**开盘价未找到可核对来源，仍为空**，使用次日开盘价模拟交易时必须单独处理这一天。Yahoo 原始 JSON 和其标准化表保持不变；处理脚本只在建模副本应用该报价，并把来源和文件 SHA-256 记入 `audit.json`。这恢复了先前因单日缺价排除的 41 个窗口，未做价格插值。
 
-9 条分派事件的日期与半年分派节奏一致；已用 [SGX 的 2024-07 公告](https://links.sgx.com/1.0.0/corporate-announcements/NOYZQ20FW51IVXSN/809400_Announcement%20Dividend%20Distribution%202H2024%20240711.pdf)、[2025-07 公告](https://links.sgx.com/1.0.0/corporate-announcements/NSYA6FGDMPV1FXCJ/851495_Announcement%20Dividend%20Distribution%202H2025%20250710.pdf)及 [2026-07 公告](https://links.sgx.com/FileOpen/Announcement%20Dividend%20Distribution%202H2026%20260710.ashx?App=Announcement&FileID=896004)抽查了三次金额与除息日。余下事件在正式采用总收益率标签或回测现金分派前仍需核对。ETF 价格与它追踪的指数点位不同，不应混称。
+9 条 Yahoo 分派事件均已与 SGX 托管的发行人公告或年报核对；逐项金额、除息日、付款日和来源见 `docs/srt_distribution_source_audit.md`。2022-07-19 同一除息日有两项发行人分派，Yahoo 合并为一项。税前分红财富记录使用 `reference/srt_distributions_verified.csv`，价格预测的原始收盘价标签不变。ETF 价格与它追踪的指数点位不同，不应混称。
 
 ## 时间划分
 

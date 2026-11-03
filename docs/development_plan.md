@@ -37,6 +37,8 @@ Review evidence: version-2 sample exports and validation checks, pretest diagnos
 
 Review evidence: one complete fold for all three learned models, run manifest, version-2 contract checks, a synthetic future-missing-open test, distribution-ledger checks or explicit price-only branch, sample wealth paths and proposed commit message.
 
+**Implementation status, 3 November — awaiting review and Git commit:** `src/train.py` runs the inner stopping and same-seed outer refit; `src/tools/collect_runs.py` validates complete exports and produces forecast/wealth tables. One full `validation_1` run at seed 11 for `LSTM32`, `LSTM3`, `Fuzzy2` produced 378 forecasts, 126 fuzzy cases and 252 rule rows. The causal ledger supports price-only and issuer-audited gross-distribution wealth with a past-signal momentum control. Unit tests cover missing-open carry, boundary liquidation, distribution entitlement, transaction costs and deterministic refits. Pilot files are local under `output/runs/tmp/phase2_pilot/`; they are one-fold engineering evidence, not the complete Phase 3 comparison. The 2025-10-24 open remains unresolved and the final holdout remains sealed.
+
 ## Phase 3 — development comparisons
 
 - Run `LSTM32`, `LSTM3` and `Fuzzy2` on all six features for three expanding folds and three seeds. Compare with the already computed `Z0` no-change baseline.

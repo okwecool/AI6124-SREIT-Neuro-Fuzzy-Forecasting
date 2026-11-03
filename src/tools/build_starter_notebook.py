@@ -36,7 +36,7 @@ notebook.cells = [
 **Zou Runze (Ryan) · Ngeow Shan Yong Destin**  
 **Working Notebook scaffold, 30 October 2026.**
 
-This Notebook starts the final course deliverable. It runs the frozen data audit and a no-change baseline. Trained-model results, interpretation, a causal portfolio ledger, and conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`; the version-2 export validator is implemented.
+This Notebook starts the final course deliverable. It runs the frozen data audit, a no-change baseline and the causal development-period wealth ledger. Full trained-model comparisons, interpretation and conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`.
 
 **Research question:** Can an LSTM learn three features from recent SRT/SORA/STI data that support a two-rule fuzzy mixture of local experts for next-day raw SRT return prediction?
 """),
@@ -245,12 +245,33 @@ else:
     print(f"Awaiting fuzzy diagnostics: {case_file} and {rule_file}")
 """),
     md("""
-## Portfolio application — exploratory price-only evaluation
+## Portfolio application — causal observed-open ledger
 
-A signal formed after close `t` is first executable at the next SRT open. The realized open-to-open interval differs from the close-to-close forecast label. Protocol v1.2 requires a causal open-by-open wealth ledger, a model-free momentum control, terminal compounded wealth and an audited dividend treatment. The legacy `portfolio_scores` uses future quote validity to decide an earlier exit at the 2025-10-24 missing open; its output is **not** an executable full-path result. This cell remains a placeholder until that code is replaced and tested.
+A signal formed after close `t` is first executable at the next SRT open. The realized open-to-open interval differs from the close-to-close forecast label. The ledger trades only at observed opens, carries shares/cash across a missing opening quote and liquidates at the known fold boundary. It records model signals, a model-free five-day momentum signal, always-long and always-cash on identical dates. Costs are 10 basis points per side here. The nine SRT distribution events have issuer corroboration in `docs/srt_distribution_source_audit.md`; show gross-distribution and price-only wealth separately. The 2025-10-24 open remains missing, so any final-period trade path must be labelled a constrained-data simulation.
 """),
     code("""
-print("Causal wealth comparison pending: implement and test the protocol v1.2 ledger before use.")
+zero_ledger, zero_wealth = data.portfolio_ledger(zero_predictions, cost_bps=10)
+_, zero_total_wealth = data.portfolio_ledger(
+    zero_predictions, cost_bps=10, wealth_mode="gross_distribution")
+display(zero_wealth[["fold", "strategy", "terminal_wealth_multiple",
+                     "max_drawdown", "one_way_trade_count"]])
+display(zero_total_wealth[["fold", "strategy", "terminal_wealth_multiple",
+                           "distribution_cash_sgd_per_initial_sgd"]])
+first_fold = zero_ledger.loc[zero_ledger.fold == "validation_1"]
+fig, ax = plt.subplots(figsize=(10, 4))
+for strategy in ("always_long", "momentum_long_cash", "always_cash"):
+    path = first_fold.loc[first_fold.strategy == strategy]
+    ax.plot(path.date, path.wealth, label=strategy)
+ax.legend()
+ax.set_ylabel("Price-only wealth / initial SGD")
+ax.set_title("Causal development wealth paths, validation 1")
+plt.show()
+if model_predictions is not None:
+    model_ledger, model_wealth = data.portfolio_ledger(model_predictions, cost_bps=10)
+    display(model_wealth[["model_id", "source_group", "rule_count", "fold", "seed",
+                          "strategy", "terminal_wealth_multiple"]])
+else:
+    print("Trained-model wealth paths await complete validation predictions.")
 """),
     md("""
 ## Discussion and conclusion — complete after training

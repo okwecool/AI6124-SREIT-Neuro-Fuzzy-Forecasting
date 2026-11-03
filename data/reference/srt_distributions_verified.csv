@@ -1,0 +1,10 @@
+ex_date,payment_date,amount_sgd_per_unit,source_note
+2022-07-19,2022-08-22,0.026383,Two SGX-hosted CSOP announcements combined; see docs/srt_distribution_source_audit.md
+2023-01-19,2023-02-23,0.0165,SGX-hosted CSOP 2022 annual report
+2023-07-19,2023-08-23,0.0292,SGX-hosted CSOP 2H2023 announcement
+2024-01-19,2024-02-22,0.025,SGX-hosted CSOP 1H2024 announcement
+2024-07-19,2024-08-22,0.022,SGX-hosted CSOP 2H2024 announcement
+2025-01-20,2025-02-24,0.022,SGX-hosted CSOP 1H2025 announcement
+2025-07-21,2025-08-21,0.022,SGX-hosted CSOP 2H2025 announcement
+2026-01-19,2026-02-23,0.022,SGX-hosted CSOP 1H2026 announcement
+2026-07-20,2026-08-21,0.021,SGX-hosted CSOP 2H2026 announcement
