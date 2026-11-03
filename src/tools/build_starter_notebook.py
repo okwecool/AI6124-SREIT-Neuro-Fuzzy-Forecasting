@@ -36,7 +36,7 @@ notebook.cells = [
 **Zou Runze (Ryan) · Ngeow Shan Yong Destin**  
 **Working Notebook scaffold, 30 October 2026.**
 
-This Notebook starts the final course deliverable. It runs the frozen data audit and a no-change baseline. Trained-model predictions, interpretation, a causal portfolio ledger, and conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`; its version-2 export contract is not yet implemented by the legacy evaluator.
+This Notebook starts the final course deliverable. It runs the frozen data audit and a no-change baseline. Trained-model results, interpretation, a causal portfolio ledger, and conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`; the version-2 export validator is implemented.
 
 **Research question:** Can an LSTM learn three features from recent SRT/SORA/STI data that support a two-rule fuzzy mixture of local experts for next-day raw SRT return prediction?
 """),
@@ -104,6 +104,41 @@ fig.suptitle("Three source series in the development period")
 plt.show()
 """),
     md("""
+## Pretest data diagnostics
+
+Inspect SRT close and daily log returns only through the last pretest target. Differencing removes much of the price-level trend but does not guarantee stationary returns or constant volatility. The missing-open date below comes from source-audit metadata; no final-holdout return pattern is plotted or used to revise the model.
+"""),
+    code("""
+pretest_end = data.index.loc[data.ids("final_holdout", "train")[-1], "target_date"]
+pretest = data.daily.loc[data.daily.date <= pretest_end, ["date", "srt_close", "srt_open"]].copy()
+pretest["log_return"] = np.log(pretest.srt_close).diff()
+pretest["rolling_mean_20"] = pretest.log_return.rolling(20).mean()
+pretest["rolling_std_20"] = pretest.log_return.rolling(20).std()
+diagnostic_dir = Path("output/runs/tmp/phase1_smoke")
+diagnostic_dir.mkdir(parents=True, exist_ok=True)
+fig, axes = plt.subplots(3, 1, figsize=(11, 8), sharex=True, constrained_layout=True)
+axes[0].plot(pretest.date, pretest.srt_close, linewidth=1, color="#0c6b76")
+axes[0].set_ylabel("SRT close (SGD)")
+axes[1].plot(pretest.date, pretest.log_return, linewidth=.8, color="#52699a")
+axes[1].set_ylabel("Daily log return")
+axes[2].plot(pretest.date, pretest.rolling_mean_20, label="20-day mean")
+axes[2].plot(pretest.date, pretest.rolling_std_20, label="20-day std")
+axes[2].legend()
+axes[2].set_xlabel("Date")
+fig.savefig(diagnostic_dir / "pretest_price_return_rolling.png", dpi=150)
+plt.show()
+returns = pretest.log_return.dropna()
+fig, ax = plt.subplots(figsize=(8, 3))
+ax.hist(returns, bins=40, color="#0c6b76")
+ax.set_title("Pretest daily SRT log-return distribution")
+fig.savefig(diagnostic_dir / "pretest_return_distribution.png", dpi=150)
+plt.show()
+print("Pretest rows:", len(pretest), "zero returns:", int(returns.eq(0).sum()),
+      "zero fraction:", round(float(returns.eq(0).mean()), 4))
+print("Missing SRT opens in frozen snapshot (date metadata only):",
+      data.daily.loc[data.daily.srt_open.isna(), "date"].dt.date.tolist())
+"""),
+    md("""
 ## Models and benchmark
 
 - `Z0`: predict zero next-day return (unchanged closing price).
@@ -148,27 +183,23 @@ plt.show()
     md("""
 ## Trained-model predictions and result analysis
 
-After the evaluator is migrated to protocol v1.2, Destin's training script should write `output/model_predictions_validation.csv` with one row per outer-validation forecast and these columns:
+Destin's training script should write `output/model_predictions_validation.csv` with one row per outer-validation forecast and these columns:
 
 `model_id,source_group,rule_count,fold,seed,window_id,y_pred`
 
-`y_pred` must be in **raw log-return units**, after inverse target scaling. The current evaluator still groups by the old six-column key and must be upgraded before it scores mixed source/rule configurations. Fuzzy case and rule-long diagnostics use the full key; see the protocol. Do not infer that a rule is a particular market regime from its numeric label.
+`y_pred` must be in **raw log-return units**, after inverse target scaling. The evaluator validates the full seven-column key and fuzzy case/rule diagnostics. Do not infer that a rule is a particular market regime from its numeric label.
 """),
     code("""
 prediction_file = Path("output/model_predictions_validation.csv")
 model_predictions = None
 if prediction_file.exists():
-    candidate = pd.read_csv(prediction_file)
-    if "rule_count" in candidate.columns:
-        print("Version-2 predictions found. Add the upgraded evaluator before scoring them.")
-    else:
-        model_predictions = candidate  # Legacy single-configuration files only.
-        model_scores = data.forecast_scores(model_predictions)
-        model_pooled = data.pooled_validation_scores(model_predictions)
-        display(model_scores.sort_values(["model_id", "source_group", "fold", "seed"]))
-        display(model_pooled.sort_values("return_rmse"))
-        if {"Fuzzy2", "LSTM32"} <= set(model_predictions.model_id):
-            display(data.paired_validation_rmse_difference(model_predictions))
+    model_predictions = pd.read_csv(prediction_file)
+    model_scores = data.forecast_scores(model_predictions)
+    model_pooled = data.pooled_validation_scores(model_predictions)
+    display(model_scores.sort_values(["model_id", "source_group", "rule_count", "fold", "seed"]))
+    display(model_pooled.sort_values("return_rmse"))
+    if {"Fuzzy2", "LSTM32"} <= set(model_predictions.model_id):
+        display(data.paired_validation_rmse_difference(model_predictions))
 else:
     print(f"Awaiting trained-model predictions: {prediction_file}")
 """),
@@ -186,9 +217,9 @@ if model_predictions is not None:
         axes[0].set_ylabel("Next-day log return")
         axes[0].legend()
         overview = model_scores.loc[model_scores.fold != "final_holdout"].groupby(
-            ["model_id", "source_group"], as_index=False
+            ["model_id", "source_group", "rule_count"], as_index=False
         ).return_rmse.mean().sort_values("return_rmse")
-        labels = overview.model_id + " / " + overview.source_group
+        labels = overview.model_id + " / " + overview.source_group + " / K=" + overview.rule_count.astype(str)
         axes[1].barh(labels, overview.return_rmse, color="#0c6b76")
         axes[1].set_xlabel("Mean fold return RMSE (descriptive; use pooled scores for ranking)")
         plt.show()
@@ -198,13 +229,18 @@ if model_predictions is not None:
     md("""
 ## Fuzzy-rule diagnostics
 
-Protocol v1.2 requires a case table with the full `(model_id,source_group,rule_count,fold,seed,window_id)` key and `z1,z2,z3,y_mix_raw`, plus a rule-long table with that key and `rule_id,alpha,expert_raw,log_membership,distance2`. Exactly `rule_count` rule rows must match each prediction and their weighted raw expert outputs must equal `y_pred`. The validator and analysis cells remain to implement; rule-number switching across seeds must be considered before attaching market labels.
+Protocol v1.2 requires a case table with the full `(model_id,source_group,rule_count,fold,seed,window_id)` key and `z1,z2,z3,y_mix_raw`, plus a rule-long table with that key and `rule_id,alpha,expert_raw,log_membership,distance2`. The validator checks one case and exactly `rule_count` rule rows per fuzzy forecast, including the raw-return weighted-mixture identity. Local-error and regime analyses remain to implement; rule-number switching across seeds must be considered before attaching market labels.
 """),
     code("""
 case_file = Path("output/fuzzy_cases_validation.csv")
 rule_file = Path("output/fuzzy_rules_validation.csv")
-if case_file.exists() or rule_file.exists():
-    print("Version-2 fuzzy diagnostics found. Add the full-key validator and local-error analysis before display.")
+if case_file.exists() and rule_file.exists() and model_predictions is not None:
+    fuzzy_cases, fuzzy_rules = data.validate_fuzzy_diagnostics(
+        model_predictions, pd.read_csv(case_file), pd.read_csv(rule_file))
+    print("Validated fuzzy cases:", len(fuzzy_cases), "rule rows:", len(fuzzy_rules))
+    display(fuzzy_rules.groupby(["model_id", "source_group", "rule_count", "rule_id"]).alpha.agg(["count", "mean", "min", "max"]))
+elif case_file.exists() or rule_file.exists():
+    print("Both fuzzy diagnostic files and the prediction file are required for validation.")
 else:
     print(f"Awaiting fuzzy diagnostics: {case_file} and {rule_file}")
 """),

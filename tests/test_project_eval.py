@@ -3,8 +3,9 @@
 import unittest
 
 import numpy as np
+import pandas as pd
 
-from src.project_eval import Dataset, VALIDATION_FOLDS
+from src.project_eval import Dataset, VALIDATION_FOLDS, FUZZY_CASE_COLUMNS, FUZZY_RULE_COLUMNS
 
 
 class EvaluationContractTests(unittest.TestCase):
@@ -44,6 +45,7 @@ class EvaluationContractTests(unittest.TestCase):
             self.data.validate_predictions(bad)
 
     def test_zero_forecast_is_unchanged_price(self):
+        self.assertTrue((self.data.zero_predictions().rule_count == 0).all())
         frame = self.data.validate_predictions(self.data.zero_predictions())
         np.testing.assert_allclose(frame.close_pred, frame.close_t)
         scores = self.data.forecast_scores(self.data.zero_predictions())
@@ -53,6 +55,41 @@ class EvaluationContractTests(unittest.TestCase):
         expected = np.sqrt(np.mean(frame.y_true.to_numpy() ** 2))
         self.assertAlmostEqual(pooled.return_rmse, expected)
         self.assertEqual(pooled.n, 378)
+
+    def test_legacy_zero_only_migration_and_rule_count_validation(self):
+        legacy = self.data.zero_predictions().drop(columns="rule_count")
+        self.assertTrue((self.data.validate_predictions(legacy).rule_count == 0).all())
+        invalid = legacy.assign(model_id="Fuzzy2")
+        with self.assertRaisesRegex(ValueError, "rule_count"):
+            self.data.validate_predictions(invalid)
+        invalid = self.data.zero_predictions().assign(model_id="Fuzzy2")
+        with self.assertRaisesRegex(ValueError, "rule_count"):
+            self.data.validate_predictions(invalid)
+
+    def test_fuzzy_full_keys_and_mixture_identity(self):
+        base = self.data.zero_predictions().query("fold == 'validation_1'").head(2).copy()
+        base["model_id"] = "Fuzzy2"
+        base["rule_count"] = 2
+        base["source_group"] = "srt"
+        base["y_pred"] = 0.02
+        other = base.copy()
+        other["source_group"] = "all"
+        predictions = pd.concat([base, other], ignore_index=True)
+        case_rows, rule_rows = [], []
+        for row in predictions.itertuples(index=False):
+            key = (row.model_id, row.source_group, row.rule_count, row.fold, row.seed, row.window_id)
+            case_rows.append((*key, 0.0, 0.0, 0.0, 0.02))
+            rule_rows.extend([(*key, 1, 0.5, 0.01, 0.0, 0.0), (*key, 2, 0.5, 0.03, 0.0, 0.0)])
+        cases = pd.DataFrame(case_rows, columns=FUZZY_CASE_COLUMNS)
+        rules = pd.DataFrame(rule_rows, columns=FUZZY_RULE_COLUMNS)
+        self.data.validate_fuzzy_diagnostics(predictions, cases, rules, complete=False)
+        bad = rules.copy()
+        bad.loc[0, "expert_raw"] = 0.2
+        with self.assertRaisesRegex(ValueError, "weighted experts"):
+            self.data.validate_fuzzy_diagnostics(predictions, cases, bad, complete=False)
+        bad = rules.iloc[1:].copy()
+        with self.assertRaisesRegex(ValueError, "number or IDs"):
+            self.data.validate_fuzzy_diagnostics(predictions, cases, bad, complete=False)
 
     def test_missing_open_omits_two_adjacent_intervals(self):
         # Model a one-day data-source gap inside a validation period.

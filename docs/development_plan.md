@@ -9,7 +9,7 @@ This plan implements [experiment protocol v1.2](experiment_protocol_lstm_fuzzy_l
 3. Verify the dataset audit, existing evaluation tests and Notebook code cells.
 4. Show the file inventory and proposed initial commit. Ryan approved it; commit `c5243e9` established the baseline on `main`.
 
-The next phases remain subject to Ryan's review before each new commit.
+The design revision was committed as `796dc27` after Ryan's approval. The next phases remain subject to Ryan's review before each new commit.
 
 ## Phase 1 — model definitions and smoke test
 
@@ -22,6 +22,8 @@ The next phases remain subject to Ryan's review before each new commit.
 - Do not open final-holdout predictions or metrics.
 
 Review evidence: version-2 sample exports and validation checks, pretest diagnostic plots, model file diff, shape/gradient checks, source-audit status, smoke-test log and proposed commit message.
+
+**Implementation status, 3 November:** the full-key validator, model definitions, export helper, pretest Notebook diagnostics and two-epoch development-fold smoke check are in the working tree for review. All nine Yahoo distribution dates/amounts have SGX-hosted issuer corroboration in `docs/srt_distribution_source_audit.md`; the 2025-10-24 open remains unresolved. Phase 1 has not been committed. The causal portfolio ledger and complete training runner remain Phase 2 work.
 
 ## Phase 2 — reproducible training runner
 

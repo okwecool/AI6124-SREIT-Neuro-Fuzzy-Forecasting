@@ -24,8 +24,12 @@ FEATURE_GROUPS = {
 }
 VALIDATION_FOLDS = ("validation_1", "validation_2", "validation_3")
 PREDICTION_COLUMNS = (
-    "model_id", "source_group", "fold", "seed", "window_id", "y_pred"
+    "model_id", "source_group", "rule_count", "fold", "seed", "window_id", "y_pred"
 )
+RUN_KEY = list(PREDICTION_COLUMNS[:-2])
+FORECAST_KEY = RUN_KEY + ["window_id"]
+FUZZY_CASE_COLUMNS = FORECAST_KEY + ["z1", "z2", "z3", "y_mix_raw"]
+FUZZY_RULE_COLUMNS = FORECAST_KEY + ["rule_id", "alpha", "expert_raw", "log_membership", "distance2"]
 
 
 @dataclass(frozen=True)
@@ -127,26 +131,38 @@ class Dataset:
         for fold in folds:
             role = "test" if fold == "final_holdout" else "validation"
             for window_id in self.ids(fold, role):
-                rows.append(("Z0", "all", fold, 0, int(window_id), 0.0))
+                rows.append(("Z0", "all", 0, fold, 0, int(window_id), 0.0))
         return pd.DataFrame(rows, columns=PREDICTION_COLUMNS)
 
     def validate_predictions(self, predictions: pd.DataFrame, *, complete: bool = True) -> pd.DataFrame:
         """Attach known labels/prices and reject IDs outside a fold's evaluation set."""
+        # Only the historical no-change baseline has an unambiguous v1 migration.
+        if "rule_count" not in predictions and "model_id" in predictions and len(predictions) and set(predictions.model_id) == {"Z0"}:
+            predictions = predictions.copy()
+            predictions.insert(2, "rule_count", 0)
         missing = set(PREDICTION_COLUMNS) - set(predictions.columns)
         if missing:
             raise ValueError(f"Prediction file lacks columns: {sorted(missing)}")
         frame = predictions.copy()
-        frame["window_id"] = pd.to_numeric(frame.window_id, errors="raise").astype(int)
-        frame["seed"] = pd.to_numeric(frame.seed, errors="raise").astype(int)
+        for column in ("window_id", "seed", "rule_count"):
+            values = pd.to_numeric(frame[column], errors="raise")
+            if not np.isfinite(values).all() or (values != values.astype(np.int64)).any():
+                raise ValueError(f"{column} must contain finite integers")
+            frame[column] = values.astype(np.int64)
         frame["y_pred"] = pd.to_numeric(frame.y_pred, errors="raise").astype(float)
         if not np.isfinite(frame.y_pred).all():
             raise ValueError("Predictions must be finite raw log returns")
         if not frame.source_group.isin(FEATURE_GROUPS).all():
             raise ValueError("Unknown source_group in prediction file")
-        key = ["model_id", "source_group", "fold", "seed", "window_id"]
-        if frame.duplicated(key).any():
+        expected_rules = frame.model_id.str.extract(r"^Fuzzy([1-9][0-9]*)$", expand=False)
+        fuzzy = expected_rules.notna()
+        if (frame.model_id.str.startswith("Fuzzy") & ~frame.model_id.isin(("Fuzzy1", "Fuzzy2", "Fuzzy3"))).any():
+            raise ValueError("Only protocol rule counts K=1,2,3 are supported")
+        if (frame.loc[fuzzy, "rule_count"].to_numpy() != expected_rules.loc[fuzzy].astype(int).to_numpy()).any() or (frame.loc[~fuzzy, "rule_count"] != 0).any():
+            raise ValueError("rule_count must match FuzzyK; non-fuzzy models use zero")
+        if frame.duplicated(FORECAST_KEY).any():
             raise ValueError("Duplicate prediction key")
-        for (_, _, fold, _), group in frame.groupby(key[:-1], sort=False):
+        for (_, _, _, fold, _), group in frame.groupby(RUN_KEY, sort=False):
             if fold not in VALIDATION_FOLDS + ("final_holdout",):
                 raise ValueError(f"Unknown fold: {fold}")
             expected = set(self.ids(fold, "test" if fold == "final_holdout" else "validation"))
@@ -162,13 +178,66 @@ class Dataset:
         if result[["y_true", "close_t", "close_target"]].isna().any().any():
             raise ValueError("Prediction metadata could not be aligned")
         result["close_pred"] = result.close_t * np.exp(result.y_pred)
-        return result.sort_values(key).reset_index(drop=True)
+        return result.sort_values(FORECAST_KEY).reset_index(drop=True)
+
+    def validate_fuzzy_diagnostics(
+        self, predictions: pd.DataFrame, cases: pd.DataFrame, rules: pd.DataFrame,
+        *, complete: bool = True, atol: float = 1e-6,
+    ) -> tuple[pd.DataFrame, pd.DataFrame]:
+        """Check full-key alignment and the raw-return Gaussian TSK mixture."""
+        forecast = self.validate_predictions(predictions, complete=complete)
+        forecast = forecast.loc[forecast.rule_count > 0, FORECAST_KEY + ["y_pred"]]
+        cases, rules = cases.copy(), rules.copy()
+        for name, table, required, key in (
+            ("case", cases, FUZZY_CASE_COLUMNS, FORECAST_KEY),
+            ("rule", rules, FUZZY_RULE_COLUMNS, FORECAST_KEY + ["rule_id"]),
+        ):
+            missing = set(required) - set(table.columns)
+            if missing:
+                raise ValueError(f"Fuzzy {name} table lacks columns: {sorted(missing)}")
+            if table.duplicated(key).any():
+                raise ValueError(f"Duplicate fuzzy {name} key")
+            numeric = ["rule_count", "seed", "window_id"] + (["z1", "z2", "z3", "y_mix_raw"] if name == "case" else ["rule_id", "alpha", "expert_raw", "log_membership", "distance2"])
+            table[numeric] = table[numeric].apply(pd.to_numeric, errors="raise")
+            if not np.isfinite(table[numeric].to_numpy(dtype=float)).all():
+                raise ValueError(f"Nonfinite fuzzy {name} values")
+            for column in ("rule_count", "seed", "window_id") + (("rule_id",) if name == "rule" else ()):
+                if (table[column] != table[column].astype(np.int64)).any():
+                    raise ValueError(f"Fuzzy {name} {column} must be integer")
+                table[column] = table[column].astype(np.int64)
+        case = cases.merge(forecast, on=FORECAST_KEY, how="outer", indicator=True, validate="one_to_one")
+        if not case._merge.eq("both").all():
+            raise ValueError("Fuzzy case keys differ from fuzzy prediction keys")
+        case = case.drop(columns="_merge")
+        if not np.allclose(case.y_mix_raw, case.y_pred, atol=atol, rtol=0):
+            raise ValueError("Fuzzy case mixture differs from prediction")
+        rule = rules.merge(case[FORECAST_KEY + ["y_mix_raw"]], on=FORECAST_KEY, how="outer", indicator=True, validate="many_to_one")
+        if not rule._merge.eq("both").all():
+            raise ValueError("Fuzzy rule keys differ from fuzzy case keys")
+        rule = rule.drop(columns="_merge")
+        # Check ordered IDs and mixture on each complete forecast key.
+        for key, group in rule.groupby(FORECAST_KEY, sort=False):
+            k = int(key[2])
+            if set(group.rule_id) != set(range(1, k + 1)) or len(group) != k:
+                raise ValueError("Wrong number or IDs of fuzzy rules")
+            alpha = group.alpha.to_numpy(dtype=float)
+            log_m = group.log_membership.to_numpy(dtype=float)
+            distance2 = group.distance2.to_numpy(dtype=float)
+            if (alpha < 0).any() or (distance2 < 0).any() or not np.isclose(alpha.sum(), 1, atol=atol, rtol=0):
+                raise ValueError("Invalid fuzzy weights or distances")
+            stable = np.exp(log_m - log_m.max())
+            if not np.allclose(alpha, stable / stable.sum(), atol=atol, rtol=0) or not np.allclose(log_m, -distance2 / 2, atol=atol, rtol=0):
+                raise ValueError("Fuzzy memberships do not match Gaussian distances")
+            mixture = float(np.dot(alpha, group.expert_raw.to_numpy(dtype=float)))
+            if not np.isclose(mixture, float(group.y_mix_raw.iloc[0]), atol=atol, rtol=0):
+                raise ValueError("Fuzzy weighted experts do not reproduce mixture")
+        return case.drop(columns="y_pred"), rule
 
     def forecast_scores(self, predictions: pd.DataFrame) -> pd.DataFrame:
         data = self.validate_predictions(predictions)
         records = []
-        for (model_id, source_group, fold, seed), group in data.groupby(
-            ["model_id", "source_group", "fold", "seed"], sort=True
+        for (model_id, source_group, rule_count, fold, seed), group in data.groupby(
+            RUN_KEY, sort=True
         ):
             error = group.y_pred.to_numpy() - group.y_true.to_numpy()
             price_error = group.close_pred.to_numpy() - group.close_target.to_numpy()
@@ -178,6 +247,7 @@ class Dataset:
             records.append({
                 "model_id": model_id,
                 "source_group": source_group,
+                "rule_count": int(rule_count),
                 "fold": fold,
                 "seed": int(seed),
                 "n": len(group),
@@ -198,8 +268,8 @@ class Dataset:
         data = self.validate_predictions(predictions)
         data = data.loc[data.fold.isin(VALIDATION_FOLDS)]
         rows = []
-        for (model_id, source_group, seed), group in data.groupby(
-            ["model_id", "source_group", "seed"], sort=True
+        for (model_id, source_group, rule_count, seed), group in data.groupby(
+            ["model_id", "source_group", "rule_count", "seed"], sort=True
         ):
             if set(group.fold) != set(VALIDATION_FOLDS) or len(group) != 378:
                 raise ValueError(f"Pooled score needs all three validation folds: {model_id}/{source_group}/{seed}")
@@ -209,6 +279,7 @@ class Dataset:
             rows.append({
                 "model_id": model_id,
                 "source_group": source_group,
+                "rule_count": int(rule_count),
                 "seed": int(seed),
                 "n": len(group),
                 "return_rmse": float(np.sqrt(np.mean(error**2))),
@@ -262,8 +333,8 @@ class Dataset:
         next_date = calendar.date.shift(-1)
         by_date = calendar.set_index("date")
         results = []
-        for (model_id, source_group, fold, seed), group in data.groupby(
-            ["model_id", "source_group", "fold", "seed"], sort=True
+        for (model_id, source_group, rule_count, fold, seed), group in data.groupby(
+            RUN_KEY, sort=True
         ):
             positions = {
                 "signal_long_cash": (group.y_pred.to_numpy() > 0).astype(int),
@@ -326,6 +397,7 @@ class Dataset:
                 results.append({
                     "model_id": model_id,
                     "source_group": source_group,
+                    "rule_count": int(rule_count),
                     "fold": fold,
                     "seed": int(seed),
                     "strategy": strategy,
@@ -344,8 +416,10 @@ class Dataset:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("zero", "score", "pooled", "portfolio"))
+    parser.add_argument("action", choices=("zero", "score", "pooled", "check-fuzzy", "portfolio"))
     parser.add_argument("--input", type=Path, help="Prediction CSV for score/portfolio")
+    parser.add_argument("--cases", type=Path, help="Fuzzy case CSV for check-fuzzy")
+    parser.add_argument("--rules", type=Path, help="Fuzzy rule-long CSV for check-fuzzy")
     parser.add_argument("--out", type=Path, help="Where to save CSV output")
     parser.add_argument("--cost-bps", type=int, default=10)
     args = parser.parse_args()
@@ -356,7 +430,13 @@ def main() -> None:
         if args.input is None:
             parser.error("--input is required for score and portfolio")
         predictions = pd.read_csv(args.input)
-        if args.action == "score":
+        if args.action == "check-fuzzy":
+            if args.cases is None or args.rules is None:
+                parser.error("--cases and --rules are required for check-fuzzy")
+            cases, rules = data.validate_fuzzy_diagnostics(
+                predictions, pd.read_csv(args.cases), pd.read_csv(args.rules))
+            result = pd.DataFrame([{"fuzzy_cases": len(cases), "rule_rows": len(rules), "status": "pass"}])
+        elif args.action == "score":
             result = data.forecast_scores(predictions)
         elif args.action == "pooled":
             result = data.pooled_validation_scores(predictions)
