@@ -5,14 +5,15 @@
 
 ## Start here
 
-- [Experimental protocol](experiment_protocol_lstm_fuzzy_local_experts.md): fixed data, model, training and evaluation decisions.
+- [Experimental protocol v1.2](experiment_protocol_lstm_fuzzy_local_experts.md): fixed data, model, training and evaluation decisions; its revised export and trading ledger are still to implement.
 - [English design](lstm_fuzzy_local_experts_design_en.md) and [Chinese design](lstm_fuzzy_local_experts_design_zh.md): architecture explanation. The protocol takes precedence where older design prose differs.
+- [Design review F1–F7](design_review_2026-11-03_zh.md): audit findings and the issues addressed by protocol v1.2.
 - [Literature review draft](literature_review_draft_en.md): initial research context.
 - [Dataset guide](../data/README.md): source provenance, publication-time alignment and quality audit.
 - [Development plan](development_plan.md): implementation phases and review gates.
 - [Destin handoff](README_DESTIN_HANDOFF.md) and [Notebook starter](AI6124_Group1_Project_Starter.ipynb): current course deliverable scaffolding.
 
-The exact input snapshot is stored under `data/raw/`; the aligned daily data, unscaled windows and fold assignments are under `data/processed/`. These small files are included in the proposed initial commit for reproducibility. A second-source SRT closing price repairs 2025-10-24; that day's opening price is still missing and must not be filled with its close for trading evaluation.
+The exact input snapshot is stored under `data/raw/`; the aligned daily data, unscaled windows and fold assignments are under `data/processed/`. These small files were included in the initial commit for reproducibility. A second-source SRT closing price repairs 2025-10-24; that day's opening price is still missing and must not be filled with its close for trading evaluation.
 
 The project root has no source files: `src/` holds the evaluation module and supporting tools, `tests/` holds its checks, and `docs/` holds the written material and course Notebook. Run the commands below from the project root.
 
@@ -26,7 +27,7 @@ python -m unittest discover -s tests -v
 python src/tools/verify_starter_notebook.py
 ```
 
-The default feature array has shape `(1182, 20, 6)`. The existing code in `src/project_eval.py` handles chronological fold selection, train-only scaling, prediction-file checks and scoring. No trained LSTM or fuzzy model is present yet.
+The default feature array has shape `(1182, 20, 6)`. The existing code in `src/project_eval.py` handles chronological fold selection, train-only scaling, prediction-file checks and forecast scoring. Its legacy portfolio action uses future quote availability when deciding an earlier exit, so it is **not yet a valid full executable wealth path**. No trained LSTM or fuzzy model is present yet.
 
 ## Git workflow
 

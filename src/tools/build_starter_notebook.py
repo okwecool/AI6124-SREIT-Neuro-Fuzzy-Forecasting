@@ -36,7 +36,7 @@ notebook.cells = [
 **Zou Runze (Ryan) · Ngeow Shan Yong Destin**  
 **Working Notebook scaffold, 30 October 2026.**
 
-This Notebook starts the final course deliverable. It runs the frozen data audit and a no-change baseline. Trained-model predictions, interpretation, portfolio comparison, and conclusions still have to be added. The fixed protocol is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`.
+This Notebook starts the final course deliverable. It runs the frozen data audit and a no-change baseline. Trained-model predictions, interpretation, a causal portfolio ledger, and conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`; its version-2 export contract is not yet implemented by the legacy evaluator.
 
 **Research question:** Can an LSTM learn three features from recent SRT/SORA/STI data that support a two-rule fuzzy mixture of local experts for next-day raw SRT return prediction?
 """),
@@ -148,27 +148,32 @@ plt.show()
     md("""
 ## Trained-model predictions and result analysis
 
-Destin's training script should write `output/model_predictions_validation.csv` with one row per outer-validation forecast and these columns:
+After the evaluator is migrated to protocol v1.2, Destin's training script should write `output/model_predictions_validation.csv` with one row per outer-validation forecast and these columns:
 
-`model_id,source_group,fold,seed,window_id,y_pred`
+`model_id,source_group,rule_count,fold,seed,window_id,y_pred`
 
-`y_pred` must be in **raw log-return units**, after inverse target scaling. The evaluation module rejects wrong fold IDs, duplicate rows and incomplete folds. Models should also save `z`, rule weights and expert outputs in a separate diagnostic file keyed by the same identifiers. Do not infer that a rule is a particular market regime from its numeric label.
+`y_pred` must be in **raw log-return units**, after inverse target scaling. The current evaluator still groups by the old six-column key and must be upgraded before it scores mixed source/rule configurations. Fuzzy case and rule-long diagnostics use the full key; see the protocol. Do not infer that a rule is a particular market regime from its numeric label.
 """),
     code("""
 prediction_file = Path("output/model_predictions_validation.csv")
+model_predictions = None
 if prediction_file.exists():
-    model_predictions = pd.read_csv(prediction_file)
-    model_scores = data.forecast_scores(model_predictions)
-    model_pooled = data.pooled_validation_scores(model_predictions)
-    display(model_scores.sort_values(["model_id", "source_group", "fold", "seed"]))
-    display(model_pooled.sort_values("return_rmse"))
-    if {"Fuzzy2", "LSTM32"} <= set(model_predictions.model_id):
-        display(data.paired_validation_rmse_difference(model_predictions))
+    candidate = pd.read_csv(prediction_file)
+    if "rule_count" in candidate.columns:
+        print("Version-2 predictions found. Add the upgraded evaluator before scoring them.")
+    else:
+        model_predictions = candidate  # Legacy single-configuration files only.
+        model_scores = data.forecast_scores(model_predictions)
+        model_pooled = data.pooled_validation_scores(model_predictions)
+        display(model_scores.sort_values(["model_id", "source_group", "fold", "seed"]))
+        display(model_pooled.sort_values("return_rmse"))
+        if {"Fuzzy2", "LSTM32"} <= set(model_predictions.model_id):
+            display(data.paired_validation_rmse_difference(model_predictions))
 else:
     print(f"Awaiting trained-model predictions: {prediction_file}")
 """),
     code("""
-if prediction_file.exists():
+if model_predictions is not None:
     joined = data.validate_predictions(model_predictions)
     primary = joined.loc[
         (joined.model_id == "Fuzzy2") & (joined.source_group == "all")
@@ -193,33 +198,23 @@ if prediction_file.exists():
     md("""
 ## Fuzzy-rule diagnostics
 
-If `output/fuzzy_diagnostics_validation.csv` exists, it should use the same `fold,seed,window_id` keys as the prediction file and contain `z1,z2,z3,alpha1,alpha2,expert1_raw,expert2_raw`. The expert columns are in raw-return units. Rule-number switching across seeds must be considered before attaching market labels.
+Protocol v1.2 requires a case table with the full `(model_id,source_group,rule_count,fold,seed,window_id)` key and `z1,z2,z3,y_mix_raw`, plus a rule-long table with that key and `rule_id,alpha,expert_raw,log_membership,distance2`. Exactly `rule_count` rule rows must match each prediction and their weighted raw expert outputs must equal `y_pred`. The validator and analysis cells remain to implement; rule-number switching across seeds must be considered before attaching market labels.
 """),
     code("""
-diagnostic_file = Path("output/fuzzy_diagnostics_validation.csv")
-if diagnostic_file.exists():
-    diagnostics = pd.read_csv(diagnostic_file)
-    required = {"fold", "seed", "window_id", "z1", "z2", "z3", "alpha1", "alpha2", "expert1_raw", "expert2_raw"}
-    assert required <= set(diagnostics.columns)
-    assert np.allclose(diagnostics.alpha1 + diagnostics.alpha2, 1, atol=1e-5)
-    display(diagnostics[["alpha1", "alpha2", "expert1_raw", "expert2_raw"]].describe())
+case_file = Path("output/fuzzy_cases_validation.csv")
+rule_file = Path("output/fuzzy_rules_validation.csv")
+if case_file.exists() or rule_file.exists():
+    print("Version-2 fuzzy diagnostics found. Add the full-key validator and local-error analysis before display.")
 else:
-    print(f"Awaiting fuzzy diagnostics: {diagnostic_file}")
+    print(f"Awaiting fuzzy diagnostics: {case_file} and {rule_file}")
 """),
     md("""
 ## Portfolio application — exploratory price-only evaluation
 
-A signal formed after close `t` is first executable at the next SRT open. The portfolio code measures the following open-to-open interval, so its realized return has a different horizon from the close-to-close forecast label. Compare signal long/cash, always-long and always-cash on identical eligible intervals. The one-way cost assumptions are 0, 10 and 20 bps. Intervals requiring the missing 2025-10-24 open are omitted for every strategy. Cash distributions are not yet fully verified, so price-only figures must **not** be called ETF total returns.
+A signal formed after close `t` is first executable at the next SRT open. The realized open-to-open interval differs from the close-to-close forecast label. Protocol v1.2 requires a causal open-by-open wealth ledger, a model-free momentum control, terminal compounded wealth and an audited dividend treatment. The legacy `portfolio_scores` uses future quote validity to decide an earlier exit at the 2025-10-24 missing open; its output is **not** an executable full-path result. This cell remains a placeholder until that code is replaced and tested.
 """),
     code("""
-if prediction_file.exists():
-    portfolio_results = pd.concat(
-        [data.portfolio_scores(model_predictions, cost_bps=cost) for cost in (0, 10, 20)],
-        ignore_index=True,
-    )
-    display(portfolio_results)
-else:
-    print("Portfolio comparison will run after the trained predictions are added.")
+print("Causal wealth comparison pending: implement and test the protocol v1.2 ledger before use.")
 """),
     md("""
 ## Discussion and conclusion — complete after training

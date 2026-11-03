@@ -16,6 +16,7 @@ members = [
     "docs/lstm_fuzzy_local_experts_design_en.md",
     "docs/lstm_fuzzy_local_experts_design_zh.md",
     "docs/development_plan.md",
+    "docs/design_review_2026-11-03_zh.md",
     "docs/pre_git_cleanup.md",
     "docs/AI6124_Group1_Project_Starter.ipynb",
     "src/project_eval.py",
@@ -26,7 +27,6 @@ members = [
     "output/zero_baseline_validation.csv",
     "output/zero_baseline_validation_scores.csv",
     "output/zero_baseline_validation_pooled.csv",
-    "output/zero_baseline_validation_portfolio.csv",
 ]
 members.extend(
     str(path.relative_to(root)).replace("\\", "/")
