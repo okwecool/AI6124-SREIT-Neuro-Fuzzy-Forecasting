@@ -1,0 +1,21 @@
+{
+  "retrieved_at_utc": "2026-11-04T14:55:29+00:00",
+  "source_url": "https://eservices.mas.gov.sg/statistics/fdanet/BenchmarkPricesAndYields.aspx/1000",
+  "query": {
+    "StartYearDropDownList": "2021",
+    "StartMonthDropDownList": "11",
+    "EndYearDropDownList": "2025",
+    "EndMonthDropDownList": "9",
+    "FrequencyDropDownList": "D",
+    "TenYearBondYieldCheckBox": "on",
+    "DisplayButton": "Display"
+  },
+  "raw_file": "raw\\mas_sgs10y_202111_202509.html",
+  "raw_sha256": "547a365457e84da45695a6bcc8790f1ce603945a8c702adb52aeee0a6f59e241",
+  "normalized_file": "processed\\mas_sgs10y_202111_202509.csv",
+  "normalized_sha256": "5c51dcefc91d90e4d28365a9166cf0a605239277cad82454ad0c533fd4758f8e",
+  "rows": 983,
+  "first_date": "2021-11-01",
+  "last_date": "2025-09-30",
+  "note": "MAS table provides dates but no verified same-day publication time; modeling uses strictly prior dates."
+}

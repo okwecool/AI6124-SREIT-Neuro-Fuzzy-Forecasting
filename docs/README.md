@@ -15,6 +15,7 @@
 - [第二版 A+B 实现方案（中文）](v2_implementation_plan_2026-11-04_zh.md)：H1 简单基线与 H3 局部损失的预先约定、代码边界及验收顺序。
 - [第二版第一轮 A+B 比较（中文）](v2_first_round_results_2026-11-04_zh.md)：H1/H3 开发折实测、机制诊断与停止决定；属于事后探索，不使用原最终测试重新选模。
 - [第二版后续优化实验（中文）](v2_followup_results_2026-11-04_zh.md)：更强正则、OHLCV、五日目标与已公告分派的比较；分派信息改善预测基线，模糊残差模型未超过该基线。
+- [第二版趋势与国债收益率筛选（中文）](v2_trend_rate_results_2026-11-04_zh.md)：50/200 日总收益均线差及 MAS 10 年期国债收益率的开发期同日期筛选与停止判断。
 - [Ryan–Destin 项目对齐稿（中文）](team_alignment_status_2026-11-04_zh.md) / [English](team_alignment_status_2026-11-04_en.md)：工作进度、模型与测试、课程要求、实测效果和下一步决策。
 - [Literature review and result comparison](literature_review_draft_en.md): method lineage, observed differences and future questions.
 - [Dataset guide](../data/README.md): source provenance, publication-time alignment and quality audit.

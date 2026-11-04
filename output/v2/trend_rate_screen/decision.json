@@ -1,0 +1,29 @@
+{
+  "trend": {
+    "model_id": "RidgeResidualTrend",
+    "rmse": 0.009356535875888234,
+    "mae": 0.006438243504931976,
+    "rmse_gain_vs_matched_base_pct": 1.4492993827358025,
+    "rmse_gain_vs_schedule_pct": -2.0327325989039524,
+    "fold_wins_vs_schedule": 1,
+    "passes_screen": false
+  },
+  "rate": {
+    "model_id": "RidgeResidualSGS10Y",
+    "rmse": 0.009481922336157843,
+    "mae": 0.006548848986999242,
+    "rmse_gain_vs_matched_base_pct": 0.12862646795197552,
+    "rmse_gain_vs_schedule_pct": -3.400068046757143,
+    "fold_wins_vs_schedule": 1,
+    "passes_screen": false
+  },
+  "trend_rate": {
+    "model_id": "RidgeResidualTrendSGS10Y",
+    "rmse": 0.009349817599215965,
+    "mae": 0.006424966497541072,
+    "rmse_gain_vs_matched_base_pct": 1.5200617761873092,
+    "rmse_gain_vs_schedule_pct": -1.9594700008313426,
+    "fold_wins_vs_schedule": 1,
+    "passes_screen": false
+  }
+}
