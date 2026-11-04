@@ -11,8 +11,11 @@
 - [Final-artifact review response](artifact_review_response_2026-11-04_zh.md): R1–R7 fixes and independent package checks.
 - [开发现状与交接评估（中文）](development_status_handoff_report_2026-11-04_zh.md)：已完成内容、效果、课程要求与 Destin 接手事项。
 - [冻结结果事后诊断（中文）](frozen_result_diagnosis_2026-11-04_zh.md)：预测收缩、专家抵消、早停与微小 RMSE 差距的证据；不修改已冻结的实验结论。
-- [第二版改进假设清单（中文）](improvement_hypotheses_2026-11-04_zh.md)：最小实验、对照、晋级与放弃条件，以及独立验证边界；当前为实验前讨论稿。
-- [第二版 A+B 实现方案（中文）](v2_implementation_plan_2026-11-04_zh.md)：H1 简单基线与 H3 局部损失的代码边界、训练契约和验收顺序；尚未执行。
+- [第二版改进假设清单（中文）](improvement_hypotheses_2026-11-04_zh.md)：最小实验、对照、晋级与放弃条件，以及独立验证边界；它记录执行前的原始假设，不代表实验结果。
+- [第二版 A+B 实现方案（中文）](v2_implementation_plan_2026-11-04_zh.md)：H1 简单基线与 H3 局部损失的预先约定、代码边界及验收顺序。
+- [第二版第一轮 A+B 比较（中文）](v2_first_round_results_2026-11-04_zh.md)：H1/H3 开发折实测、机制诊断与停止决定；属于事后探索，不使用原最终测试重新选模。
+- [第二版后续优化实验（中文）](v2_followup_results_2026-11-04_zh.md)：更强正则、OHLCV、五日目标与已公告分派的比较；分派信息改善预测基线，模糊残差模型未超过该基线。
+- [Ryan–Destin 项目对齐稿（中文）](team_alignment_status_2026-11-04_zh.md) / [English](team_alignment_status_2026-11-04_en.md)：工作进度、模型与测试、课程要求、实测效果和下一步决策。
 - [Literature review and result comparison](literature_review_draft_en.md): method lineage, observed differences and future questions.
 - [Dataset guide](../data/README.md): source provenance, publication-time alignment and quality audit.
 - [Development plan](development_plan.md): implementation phases and review gates.

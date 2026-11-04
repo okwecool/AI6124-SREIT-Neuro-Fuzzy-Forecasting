@@ -1,0 +1,12 @@
+{
+  "retrieved_at_utc": "2026-11-04T11:18:41+00:00",
+  "symbol": "CLR.SI",
+  "requested_period": "2017-10-01 to 2026-09-30 inclusive",
+  "url": "https://query1.finance.yahoo.com/v8/finance/chart/CLR.SI?period1=1506816000&period2=1790812800&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+  "file": "raw\\yahoo_clr_si_20171001_20260930.json",
+  "sha256": "7874263292318d49c83df7c68a5be2902f8ad60c0bb538a05c46236d83b1cf0c",
+  "bytes": 252888,
+  "rows": 2243,
+  "currency": "SGD",
+  "exchange_timezone": "Asia/Singapore"
+}

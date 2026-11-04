@@ -1,0 +1,8 @@
+{
+  "status": "lambda_zero_matches_v1",
+  "fold": "validation_1",
+  "seed": 11,
+  "best_epoch": 6,
+  "max_raw_prediction_difference": 0.0,
+  "diagnostic_only": true
+}

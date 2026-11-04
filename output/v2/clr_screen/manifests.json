@@ -1,0 +1,165 @@
+{
+  "contract_sha256": "877d49eee0b0bebdf908e99f87ba9dbb78eef1b3d44eab62c3023b6840fec1ad",
+  "source_sha256": "c1defc57060a5f26054f5252611e29b4fc2901dba64e570ce4871c5e6bb00146",
+  "clr_source_sha256": "7874263292318d49c83df7c68a5be2902f8ad60c0bb538a05c46236d83b1cf0c",
+  "srt_data_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "fits": [
+    {
+      "fold": "validation_1",
+      "inner_fit_rows": 470,
+      "inner_stop_rows": 83,
+      "outer_fit_rows": 553,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010008425176539305
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009699109524569526
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009292455439652915
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00020780361924408033,
+      "outer_weight_l2": 0.10388899449910009,
+      "model_id": "RidgeResidual6",
+      "features": 6
+    },
+    {
+      "fold": "validation_2",
+      "inner_fit_rows": 577,
+      "inner_stop_rows": 102,
+      "outer_fit_rows": 679,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009341165371760687
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009256774660051696
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009290126130408211
+        }
+      ],
+      "selected_alpha": 100.0,
+      "outer_target_mean": -9.864096019543235e-06,
+      "outer_weight_l2": 0.41040488412810083,
+      "model_id": "RidgeResidual6",
+      "features": 6
+    },
+    {
+      "fold": "validation_3",
+      "inner_fit_rows": 682,
+      "inner_stop_rows": 121,
+      "outer_fit_rows": 803,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.007818454408768936
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.007483091173887039
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007020231926101659
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00011610172881488486,
+      "outer_weight_l2": 0.11499781298559292,
+      "model_id": "RidgeResidual6",
+      "features": 6
+    },
+    {
+      "fold": "validation_1",
+      "inner_fit_rows": 470,
+      "inner_stop_rows": 83,
+      "outer_fit_rows": 553,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010162199687183786
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009667368068809102
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009245549972637943
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00020780361924408033,
+      "outer_weight_l2": 0.11749215613909013,
+      "model_id": "RidgeResidualCLR",
+      "features": 7
+    },
+    {
+      "fold": "validation_2",
+      "inner_fit_rows": 577,
+      "inner_stop_rows": 102,
+      "outer_fit_rows": 679,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009660882324613587
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009484346428752597
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.00938195279972118
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -9.864096019543235e-06,
+      "outer_weight_l2": 0.12463745535441431,
+      "model_id": "RidgeResidualCLR",
+      "features": 7
+    },
+    {
+      "fold": "validation_3",
+      "inner_fit_rows": 682,
+      "inner_stop_rows": 121,
+      "outer_fit_rows": 803,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.007841447572215101
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.00744767232633925
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.006993869543641205
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00011610172881488486,
+      "outer_weight_l2": 0.12750682467358854,
+      "model_id": "RidgeResidualCLR",
+      "features": 7
+    }
+  ]
+}

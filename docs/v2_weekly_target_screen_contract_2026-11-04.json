@@ -1,0 +1,17 @@
+{
+  "experiment_id": "V2-H7-five-trading-day-target-screen-01",
+  "status": "fixed before any five-day target fits; exploratory development study after V1 final and earlier V2 results were viewed",
+  "reason": "Test whether a one-week REIT price change has usable signal when next-day return does not",
+  "target": "log(SRT_close[t+5] / SRT_close[t]) on five consecutive SRT trading rows",
+  "forecast_time": "after SRT close on t",
+  "label_end_time": "after SRT close on t+5",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "development_cutoff": "2025-09-30",
+  "boundary": "discard evaluation windows whose five-day label ends after development_cutoff; training labels must end strictly before first evaluation forecast date; repeat purge for inner stopping",
+  "features": "original 20x6 saved V1 inputs, no new indicators",
+  "alpha_grid": [10.0, 100.0, 1000.0],
+  "alpha_selection": "inner-stop raw five-day return RMSE; larger alpha on exact tie; full outer training refit",
+  "baselines": ["zero five-day return", "outer-training mean five-day return", "past five-day momentum"],
+  "advance_rule": "Ridge must improve pooled RMSE by at least 1% against the strongest pooled baseline, improve over it in at least two folds, and have pooled MAE no more than 1% worse; only then consider matched LSTM/fuzzy training",
+  "interpretation": "five-day errors are not comparable numerically to one-day errors; overlapping labels reduce effective independent observations; no final_holdout data can enter evaluation or model selection"
+}

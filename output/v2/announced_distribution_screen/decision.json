@@ -1,0 +1,13 @@
+{
+  "experiment_id": "V2-H8-announced-distribution-baseline-01",
+  "event_count": 3,
+  "z0_rmse": 0.00943073954460879,
+  "schedule_rmse": 0.009170131621064458,
+  "rmse_improvement_pct": 2.7633879857631327,
+  "z0_mae": 0.006289873868732088,
+  "schedule_mae": 0.006147848962302404,
+  "mae_improvement_pct": 2.257992916769147,
+  "fold_wins": 2,
+  "passes_development_gate": true,
+  "attribution": "The announced distribution is external deterministic information; this decision does not establish a fuzzy-model gain."
+}

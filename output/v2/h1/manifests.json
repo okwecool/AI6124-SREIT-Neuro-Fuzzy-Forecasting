@@ -1,0 +1,89 @@
+[
+  {
+    "fold": "validation_1",
+    "experiment_id": "V2-H1-simple-baselines",
+    "inner_fit_rows": 470,
+    "inner_stop_rows": 83,
+    "outer_fit_rows": 553,
+    "eval_rows": 126,
+    "alpha_trials": [
+      {
+        "alpha": 0.1,
+        "inner_stop_rmse_raw": 0.010453989765166948
+      },
+      {
+        "alpha": 1.0,
+        "inner_stop_rmse_raw": 0.0104680392782139
+      },
+      {
+        "alpha": 10.0,
+        "inner_stop_rmse_raw": 0.010389124415589035
+      }
+    ],
+    "selected_alpha": 10.0,
+    "outer_train_target_mean_raw": -0.0004135462039471966,
+    "ridge_weight_l2_standardized": 1.0249767676815909,
+    "data_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+    "contract_sha256": "bb61ca8b68157e1ba4a9eb73ade5acd4aaa1726a9de530ce0a337a95a0840930",
+    "source_sha256": "912db310524cc9c93337898ce9daec8880556c84e385fb34257f69bb2f0ced89"
+  },
+  {
+    "fold": "validation_2",
+    "experiment_id": "V2-H1-simple-baselines",
+    "inner_fit_rows": 577,
+    "inner_stop_rows": 102,
+    "outer_fit_rows": 679,
+    "eval_rows": 124,
+    "alpha_trials": [
+      {
+        "alpha": 0.1,
+        "inner_stop_rmse_raw": 0.010145490175229666
+      },
+      {
+        "alpha": 1.0,
+        "inner_stop_rmse_raw": 0.010098718707121151
+      },
+      {
+        "alpha": 10.0,
+        "inner_stop_rmse_raw": 0.009985929815409656
+      }
+    ],
+    "selected_alpha": 10.0,
+    "outer_train_target_mean_raw": -0.0002205739895414029,
+    "ridge_weight_l2_standardized": 1.0025377235669963,
+    "data_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+    "contract_sha256": "bb61ca8b68157e1ba4a9eb73ade5acd4aaa1726a9de530ce0a337a95a0840930",
+    "source_sha256": "912db310524cc9c93337898ce9daec8880556c84e385fb34257f69bb2f0ced89"
+  },
+  {
+    "fold": "validation_3",
+    "experiment_id": "V2-H1-simple-baselines",
+    "inner_fit_rows": 682,
+    "inner_stop_rows": 121,
+    "outer_fit_rows": 803,
+    "eval_rows": 128,
+    "alpha_trials": [
+      {
+        "alpha": 0.1,
+        "inner_stop_rmse_raw": 0.008508412400849413
+      },
+      {
+        "alpha": 1.0,
+        "inner_stop_rmse_raw": 0.008457330932811096
+      },
+      {
+        "alpha": 10.0,
+        "inner_stop_rmse_raw": 0.008323753213148037
+      }
+    ],
+    "selected_alpha": 10.0,
+    "outer_train_target_mean_raw": -0.00033185843425857396,
+    "ridge_weight_l2_standardized": 0.9823594696614695,
+    "data_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+    "contract_sha256": "bb61ca8b68157e1ba4a9eb73ade5acd4aaa1726a9de530ce0a337a95a0840930",
+    "source_sha256": "912db310524cc9c93337898ce9daec8880556c84e385fb34257f69bb2f0ced89"
+  }
+]

@@ -1,0 +1,159 @@
+{
+  "experiment_id": "V2-H9-distribution-residual-fuzzy-01",
+  "fold": "validation_1",
+  "seed": 23,
+  "best_epoch": 6,
+  "best_inner_stop_mse_scaled": 0.9469609260559082,
+  "inner_fit_rows": 470,
+  "inner_stop_rows": 83,
+  "outer_fit_rows": 553,
+  "eval_rows": 126,
+  "inner_seconds": 0.6394737004302442,
+  "refit_seconds": 0.16431029979139566,
+  "inner_trace": [
+    {
+      "epoch": 1,
+      "train_mse_scaled": 1.0116378236324228,
+      "stop_mse_scaled": 0.9607996940612793
+    },
+    {
+      "epoch": 2,
+      "train_mse_scaled": 1.0069130968540272,
+      "stop_mse_scaled": 0.9574289917945862
+    },
+    {
+      "epoch": 3,
+      "train_mse_scaled": 1.0034500090365714,
+      "stop_mse_scaled": 0.9539057612419128
+    },
+    {
+      "epoch": 4,
+      "train_mse_scaled": 1.0001239533120014,
+      "stop_mse_scaled": 0.950976550579071
+    },
+    {
+      "epoch": 5,
+      "train_mse_scaled": 0.9968499191263889,
+      "stop_mse_scaled": 0.9484133720397949
+    },
+    {
+      "epoch": 6,
+      "train_mse_scaled": 0.9944073540099123,
+      "stop_mse_scaled": 0.9469609260559082
+    },
+    {
+      "epoch": 7,
+      "train_mse_scaled": 0.9929314035050413,
+      "stop_mse_scaled": 0.946976900100708
+    },
+    {
+      "epoch": 8,
+      "train_mse_scaled": 0.9922686181169875,
+      "stop_mse_scaled": 0.9473843574523926
+    },
+    {
+      "epoch": 9,
+      "train_mse_scaled": 0.9914859619546443,
+      "stop_mse_scaled": 0.9481546878814697
+    },
+    {
+      "epoch": 10,
+      "train_mse_scaled": 0.9904440560239427,
+      "stop_mse_scaled": 0.948658287525177
+    },
+    {
+      "epoch": 11,
+      "train_mse_scaled": 0.9893331986792544,
+      "stop_mse_scaled": 0.9490146636962891
+    },
+    {
+      "epoch": 12,
+      "train_mse_scaled": 0.9885918454920992,
+      "stop_mse_scaled": 0.9499195218086243
+    },
+    {
+      "epoch": 13,
+      "train_mse_scaled": 0.9877646684646606,
+      "stop_mse_scaled": 0.9504982829093933
+    },
+    {
+      "epoch": 14,
+      "train_mse_scaled": 0.9873033280068255,
+      "stop_mse_scaled": 0.9507063627243042
+    },
+    {
+      "epoch": 15,
+      "train_mse_scaled": 0.9860344742206817,
+      "stop_mse_scaled": 0.9513719081878662
+    },
+    {
+      "epoch": 16,
+      "train_mse_scaled": 0.9849087456439404,
+      "stop_mse_scaled": 0.9522791504859924
+    },
+    {
+      "epoch": 17,
+      "train_mse_scaled": 0.9840897839120094,
+      "stop_mse_scaled": 0.9526182413101196
+    },
+    {
+      "epoch": 18,
+      "train_mse_scaled": 0.9824883757753575,
+      "stop_mse_scaled": 0.9532021880149841
+    },
+    {
+      "epoch": 19,
+      "train_mse_scaled": 0.9815346456588583,
+      "stop_mse_scaled": 0.9545130133628845
+    },
+    {
+      "epoch": 20,
+      "train_mse_scaled": 0.9804647876861248,
+      "stop_mse_scaled": 0.9550233483314514
+    },
+    {
+      "epoch": 21,
+      "train_mse_scaled": 0.9781566066944852,
+      "stop_mse_scaled": 0.9546622633934021
+    },
+    {
+      "epoch": 22,
+      "train_mse_scaled": 0.9774082538929392,
+      "stop_mse_scaled": 0.9553404450416565
+    },
+    {
+      "epoch": 23,
+      "train_mse_scaled": 0.9762114055613254,
+      "stop_mse_scaled": 0.9560918211936951
+    },
+    {
+      "epoch": 24,
+      "train_mse_scaled": 0.9742887882476158,
+      "stop_mse_scaled": 0.9572521448135376
+    },
+    {
+      "epoch": 25,
+      "train_mse_scaled": 0.9721155714481435,
+      "stop_mse_scaled": 0.9578973054885864
+    },
+    {
+      "epoch": 26,
+      "train_mse_scaled": 0.9722182294155689,
+      "stop_mse_scaled": 0.9596500396728516
+    }
+  ],
+  "outer_refit_train_mse_scaled": [
+    1.0109327065793774,
+    1.0047879721329398,
+    1.0018201236483417,
+    0.9980296439762357,
+    0.9964349275256151,
+    0.994966901555846
+  ],
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "v1_training_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "source_sha256": "dbfa7f6e0e3ce51569b629c73a8753697306f0fd5825d1612cd084b695f13810",
+  "contract_sha256": "0a2b8b365c951e630a2b1a1f0362dd191daab1f4169174e26c95c7a96eed1a34",
+  "data_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "event_file_sha256": "95df737717a100e4a86653562c0e86bbfccd2bdd0949da8a9e5c2d039d9c8215"
+}

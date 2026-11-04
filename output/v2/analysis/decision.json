@@ -1,0 +1,15 @@
+{
+  "status": "development_screen_only",
+  "fixed_h1_benchmark": "Z0",
+  "fixed_h1_benchmark_rmse": 0.00943073954460879,
+  "h3_mean_pooled_rmse": 0.009505040975129726,
+  "relative_rmse_gain_vs_fixed_reference": -0.007878643044851225,
+  "relative_mae_change_vs_fixed_reference": 0.017479666444171277,
+  "folds_better_than_fixed_reference": 0,
+  "paired_fold_seed_wins_vs_v1_fuzzy2": 4,
+  "folds_with_both_rules_local_advantage_in_same_seed": 0,
+  "forecast_promotion_gate_passed": false,
+  "local_specialization_gate_passed": false,
+  "both_gates_passed": false,
+  "final_holdout_used_for_v2_selection": false
+}

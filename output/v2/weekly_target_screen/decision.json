@@ -1,0 +1,10 @@
+{
+  "experiment_id": "V2-H7-five-trading-day-target-screen-01",
+  "best_simple_baseline": "Z0_5day",
+  "best_baseline_rmse": 0.02156120783515379,
+  "ridge_rmse": 0.023084121077251496,
+  "relative_rmse_improvement_pct": -7.06320932362019,
+  "fold_wins": 1,
+  "eval_rows_per_model": 374,
+  "passes_screen": false
+}

@@ -1,0 +1,159 @@
+{
+  "experiment_id": "V2-H9-distribution-residual-fuzzy-01",
+  "fold": "validation_2",
+  "seed": 11,
+  "best_epoch": 6,
+  "best_inner_stop_mse_scaled": 0.9737545251846313,
+  "inner_fit_rows": 577,
+  "inner_stop_rows": 102,
+  "outer_fit_rows": 679,
+  "eval_rows": 124,
+  "inner_seconds": 0.8550891000777483,
+  "refit_seconds": 0.22605779999867082,
+  "inner_trace": [
+    {
+      "epoch": 1,
+      "train_mse_scaled": 1.062948326717423,
+      "stop_mse_scaled": 1.0952268838882446
+    },
+    {
+      "epoch": 2,
+      "train_mse_scaled": 1.0409755532854144,
+      "stop_mse_scaled": 1.071352243423462
+    },
+    {
+      "epoch": 3,
+      "train_mse_scaled": 1.0244039210331088,
+      "stop_mse_scaled": 1.034543752670288
+    },
+    {
+      "epoch": 4,
+      "train_mse_scaled": 1.005679097497897,
+      "stop_mse_scaled": 1.0003457069396973
+    },
+    {
+      "epoch": 5,
+      "train_mse_scaled": 0.9960467662868869,
+      "stop_mse_scaled": 0.9755850434303284
+    },
+    {
+      "epoch": 6,
+      "train_mse_scaled": 0.9966063127567285,
+      "stop_mse_scaled": 0.9737545251846313
+    },
+    {
+      "epoch": 7,
+      "train_mse_scaled": 0.9957000688686838,
+      "stop_mse_scaled": 0.9769197106361389
+    },
+    {
+      "epoch": 8,
+      "train_mse_scaled": 0.9941116458828363,
+      "stop_mse_scaled": 0.9916390776634216
+    },
+    {
+      "epoch": 9,
+      "train_mse_scaled": 0.9923753439863592,
+      "stop_mse_scaled": 0.9857606291770935
+    },
+    {
+      "epoch": 10,
+      "train_mse_scaled": 0.9912253890180092,
+      "stop_mse_scaled": 0.9844733476638794
+    },
+    {
+      "epoch": 11,
+      "train_mse_scaled": 0.9902521468944319,
+      "stop_mse_scaled": 0.9944556951522827
+    },
+    {
+      "epoch": 12,
+      "train_mse_scaled": 0.9895321314563681,
+      "stop_mse_scaled": 1.0084247589111328
+    },
+    {
+      "epoch": 13,
+      "train_mse_scaled": 0.9889149566663613,
+      "stop_mse_scaled": 1.0069994926452637
+    },
+    {
+      "epoch": 14,
+      "train_mse_scaled": 0.9874257207436542,
+      "stop_mse_scaled": 0.9923948645591736
+    },
+    {
+      "epoch": 15,
+      "train_mse_scaled": 0.986041943369953,
+      "stop_mse_scaled": 0.9846687912940979
+    },
+    {
+      "epoch": 16,
+      "train_mse_scaled": 0.98475489283765,
+      "stop_mse_scaled": 0.9856317639350891
+    },
+    {
+      "epoch": 17,
+      "train_mse_scaled": 0.9856554632376964,
+      "stop_mse_scaled": 0.9962472319602966
+    },
+    {
+      "epoch": 18,
+      "train_mse_scaled": 0.9828030192898506,
+      "stop_mse_scaled": 0.9914670586585999
+    },
+    {
+      "epoch": 19,
+      "train_mse_scaled": 0.982076091114012,
+      "stop_mse_scaled": 0.983543872833252
+    },
+    {
+      "epoch": 20,
+      "train_mse_scaled": 0.9810375185938394,
+      "stop_mse_scaled": 0.9882652163505554
+    },
+    {
+      "epoch": 21,
+      "train_mse_scaled": 0.9797136537743606,
+      "stop_mse_scaled": 0.9926227331161499
+    },
+    {
+      "epoch": 22,
+      "train_mse_scaled": 0.9795561505923858,
+      "stop_mse_scaled": 0.9896466732025146
+    },
+    {
+      "epoch": 23,
+      "train_mse_scaled": 0.9771022949516257,
+      "stop_mse_scaled": 1.000144600868225
+    },
+    {
+      "epoch": 24,
+      "train_mse_scaled": 0.9755317921035211,
+      "stop_mse_scaled": 1.0076583623886108
+    },
+    {
+      "epoch": 25,
+      "train_mse_scaled": 0.9738870235929706,
+      "stop_mse_scaled": 0.9940779209136963
+    },
+    {
+      "epoch": 26,
+      "train_mse_scaled": 0.9717409519843461,
+      "stop_mse_scaled": 0.9868848919868469
+    }
+  ],
+  "outer_refit_train_mse_scaled": [
+    1.059651352520017,
+    1.0318868411307132,
+    1.014416456924798,
+    0.9998021782410162,
+    0.9994484978852812,
+    0.9966030468470218
+  ],
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "v1_training_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+  "source_sha256": "dbfa7f6e0e3ce51569b629c73a8753697306f0fd5825d1612cd084b695f13810",
+  "contract_sha256": "0a2b8b365c951e630a2b1a1f0362dd191daab1f4169174e26c95c7a96eed1a34",
+  "data_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "event_file_sha256": "95df737717a100e4a86653562c0e86bbfccd2bdd0949da8a9e5c2d039d9c8215"
+}

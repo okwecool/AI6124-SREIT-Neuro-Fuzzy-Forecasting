@@ -1,0 +1,11 @@
+{
+  "experiment_id": "V2-H9-distribution-residual-fuzzy-01",
+  "schedule_rmse": 0.009170131621064458,
+  "residual_fuzzy_mean_rmse": 0.009231702215572402,
+  "relative_rmse_gain_pct": -0.6714254173463718,
+  "schedule_mae": 0.006147848962302404,
+  "residual_fuzzy_mean_mae": 0.006231198178711653,
+  "fold_wins_vs_schedule": 0,
+  "paired_wins_vs_naive_hybrid": 7,
+  "passes_development_gate": false
+}
