@@ -172,6 +172,8 @@ The final submission is one reproducible **Jupyter Notebook** containing code, d
 
 If a necessary repair changes a fixed row, record the old/new value, reason, approver, date, and rerun IDs. Finish selection using the three development folds before opening the final holdout. Protocol changes after seeing test outcomes must be labeled **post hoc** and cannot replace the preregistered result.
 
+**Implementation note (4 November 2026).** The Phase 3 choices were frozen in `output/development/final_configuration_pretest.json` and committed as `d7808a3` before the 251-day test was evaluated. Phase 4's once-only result is committed as `48b015e` and reported in `docs/final_results_2026-11-04.md`. The completed comparison shows a 0.44% `Fuzzy2` RMSE advantage over the unchanged-price baseline, but no gain over cash in the predeclared trading test and no confirmed economic interpretation of the two rules. The artifact audit's later presentation and reproducibility repairs do not alter this protocol, fit selection or final predictions.
+
 ## Source materials
 
 - Local course PDF: `AI6124 - week 8 - Neural in Neuro-Fuzzy Systems.pdf`, especially pages 17, 20–23 and 31–39.

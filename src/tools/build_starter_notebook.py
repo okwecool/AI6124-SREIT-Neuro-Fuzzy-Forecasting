@@ -1,12 +1,14 @@
-"""Build the Group 1 course Notebook scaffold from the reviewed handoff files."""
+"""Build and execute the single Group 1 course Notebook from frozen results."""
 
+import argparse
 from pathlib import Path
 
 import nbformat as nbf
+from nbclient import NotebookClient
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUTPUT = ROOT / "docs" / "AI6124_Group1_Project_Starter.ipynb"
+OUTPUT = ROOT / "docs" / "AI6124_Group1_Final_Project.ipynb"
 
 
 def md(source: str):
@@ -18,11 +20,7 @@ def code(source: str):
 
 
 literature = (ROOT / "docs" / "literature_review_draft_en.md").read_text(encoding="utf-8")
-literature = literature.replace("# Literature Review Draft — LSTM-Encoded Fuzzy Local Experts", "## Literature review")
-literature = literature.replace(
-    "**Status:** An English starting section for the final Jupyter Notebook, 30 October 2026. Verify the final bibliography format and add discussion of the team's actual results before submission.",
-    "This section is a pretraining draft. Add the team's measured results and final discussion before submission.",
-)
+literature = literature.replace("# Literature Review and Result Comparison — LSTM-Encoded Fuzzy Local Experts", "## Literature review and result comparison")
 
 notebook = nbf.v4.new_notebook()
 notebook.metadata = {
@@ -34,9 +32,9 @@ notebook.cells = [
 # AI6124 Group 1 — LSTM-Encoded Fuzzy Local Experts for SRT
 
 **Zou Runze (Ryan) · Ngeow Shan Yong Destin**  
-**Working Notebook scaffold, 30 October 2026.**
+**Final course Notebook, 4 November 2026.**
 
-This Notebook starts the final course deliverable. It runs the frozen data audit, a no-change baseline and the causal development-period wealth ledger. When `output/development/` is present, it also reads the complete pretest development comparison. The reserved final holdout and final conclusions still have to be added. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`.
+This single Notebook contains the method, code entry points, chronological data checks, development and frozen final results, interpretation, trading simulation, literature comparison and conclusion. It reads the already saved final predictions; rerunning these cells does not refit a model or select settings on the final holdout. Protocol v1.2 is in `docs/experiment_protocol_lstm_fuzzy_local_experts.md`.
 
 **Research question:** Can an LSTM learn three features from recent SRT/SORA/STI data that support a two-rule fuzzy mixture of local experts for next-day raw SRT return prediction?
 """),
@@ -159,7 +157,7 @@ print("Outer train scaled target mean:", round(float(outer.y_train.mean()), 6))
     md("""
 ## No-change baseline on the three development folds
 
-The no-change predictor needs no fitting and is evaluated only on the development folds here. The final test remains reserved for the frozen set of trained models. Directional accuracy excludes zero true returns; the majority-direction reference is learned from each fold's training labels.
+The no-change predictor needs no fitting. The code below shows its three development folds; the frozen final comparison appears later. Directional accuracy excludes zero true returns; the majority-direction reference is learned from each fold's training labels.
 """),
     code("""
 zero_predictions = data.zero_predictions()
@@ -229,7 +227,7 @@ if model_predictions is not None:
     md("""
 ## Fuzzy-rule diagnostics
 
-Protocol v1.2 requires a case table with the full `(model_id,source_group,rule_count,fold,seed,window_id)` key and `z1,z2,z3,y_mix_raw`, plus a rule-long table with that key and `rule_id,alpha,expert_raw,log_membership,distance2`. The validator checks one case and exactly `rule_count` rule rows per fuzzy forecast, including the raw-return weighted-mixture identity. Local-error and regime analyses remain to implement; rule-number switching across seeds must be considered before attaching market labels.
+Protocol v1.2 requires a case table with the full `(model_id,source_group,rule_count,fold,seed,window_id)` key and `z1,z2,z3,y_mix_raw`, plus a rule-long table with that key and `rule_id,alpha,expert_raw,log_membership,distance2`. The validator checks one case and exactly `rule_count` rule rows per fuzzy forecast, including the raw-return weighted-mixture identity. The saved training-cut local-error analysis appears below; rule-number switching across seeds limits semantic labels.
 """),
     code("""
 case_file = Path("output/development/cases.csv")
@@ -267,7 +265,7 @@ ax.set_ylabel("Price-only wealth / initial SGD")
 ax.set_title("Causal development wealth paths, validation 1")
 plt.show()
 if model_predictions is not None:
-    model_ledger, model_wealth = data.portfolio_ledger(model_predictions, cost_bps=10)
+    model_wealth = pd.read_csv("output/development/wealth_summary_price_only_10bps.csv")
     display(model_wealth.loc[
         model_wealth.source_group.eq("all") & model_wealth.seed.eq(11)
         & model_wealth.strategy.eq("signal_long_cash"),
@@ -297,18 +295,103 @@ else:
     print("Development comparison files are not present yet.")
 """),
     md("""
-## Discussion and conclusion — complete after training
+## Frozen final evaluation and course conclusion
 
-1. **Forecast comparison.** Report each development fold, three seeds, pooled validation scores and the once-opened final holdout. Explain the size and variability of `Fuzzy2 − LSTM32` and `Fuzzy2 − LSTM3` differences.
-2. **Sources and parameters.** Explain SRT-only versus +SORA versus +STI, and the one/two/three-rule diagnostic. Describe when additional inputs or rules fail to help.
-3. **Interpretability.** Plot both rule weights and expert predictions; check their distribution and relationship with *past-only* volatility and momentum. State if rules collapse or swap labels across seeds.
-4. **Trading.** Compare price-only next-open performance at three costs with always-long/cash, and acknowledge the forecast/trading-horizon mismatch and unverified distributions.
-5. **Limitations and future research.** Address short ETF history, possible overfitting, learned latent features without fixed economic meaning, one missing open, distribution verification, and possible future tests on a longer REIT series.
-
-This section remains open for the once-only final test and the course conclusion. Development-period negative results are reported above without changing the primary method.
+The next cells read `output/final/`. The 931/251 train/test split, four models, three seeds, fixed final epochs, baselines and policies were frozen before these 251 targets were scored. All final model predictions were generated once. A control-table error occurred after those predictions had been saved; the analysis resumed from the identical files without a second fit. The execution records and hashes preserve that sequence.
 """),
 ]
 
+notebook.cells.extend([
+    md("""
+### Executable model and training interface
+
+`src/models.py` contains the 32-unit LSTM encoder, compact 3D projection, two diagonal-Gaussian antecedents and affine experts. For `Fuzzy2`, `z∈R³`, `αₖ=softmax(-dₖ²/2)`, and `ŷ=Σₖαₖeₖ(z)`. The centers start at `(-0.25,0,0)` and `(0.25,0,0)`; there is no K-means initialization or auxiliary clustering loss. `src/train.py` trains standardized returns with AdamW, global MSE, chronological inner stopping and same-seed outer refit. Final refit epochs are fixed medians of the nine development best epochs, not chosen from final labels.
+
+To reproduce training from scratch in a **new** directory, use `python -m src.tools.run_development_matrix --include-gate --device cpu --out output/runs/reproduction/development`, then the commands in `docs/README_DESTIN_HANDOFF.md`. The once-only final exports are already stored; this Notebook performs read-only final analysis.
+"""),
+    code("""
+from src.models import build_model, parameter_count
+from src.tools.run_final_holdout import preflight
+frozen, _ = preflight()
+model_sizes = pd.DataFrame([
+    {"model": name, "parameters": parameter_count(build_model(name, 6)),
+     "final_fixed_epochs": frozen["final_refit_epochs_by_model"][name]}
+    for name in frozen["final_models"]
+])
+display(model_sizes)
+print("Final train/test windows:", frozen["final_train_windows"], frozen["final_eval_windows"])
+"""),
+    md("""
+### Final forecasting result
+
+The primary metric is raw next-close log-return RMSE. `Z0` predicts zero return, equivalent to an unchanged closing price. Final `Fuzzy2` RMSE is 0.006349, about 0.44% below `Z0` and 0.55% below ordinary `LSTM32`; the absolute margins are small. `Z0` has the best MAE. The three seeds share one 251-day test period, so seed spread is not a cross-market uncertainty interval. The mechanical zero directional accuracy exported for `Z0` is not an informative directional benchmark.
+"""),
+    code("""
+from IPython.display import Image
+final_dir = Path("output/final")
+subprocess.run([sys.executable, "-m", "src.tools.verify_final_outputs"], check=True)
+display(pd.read_csv(final_dir / "forecast_summary.csv"))
+display(pd.read_csv(final_dir / "forecast_paired_fuzzy2.csv"))
+display(Image(filename=str(final_dir / "forecast_rmse.png")))
+display(Image(filename=str(final_dir / "prediction_vs_actual_seed11.png")))
+"""),
+    md("""
+### Why trading almost never occurred
+
+The primary policy enters at the next observed SRT open only when the return prediction exceeds zero, with 10 bps cost per side. `Fuzzy2` predicts a narrow range around zero: seed 11 is positive on six of 251 target days; seeds 23 and 37 are never positive. The latter two policies remain in cash. The development-selected secondary thresholds make **all 12** final model-seed policies stay in cash; that is a sensitivity result, not successful trading. The single missing 2025-10-24 open uses the frozen no-trade-and-carry rule.
+"""),
+    code("""
+display(pd.read_csv(final_dir / "fuzzy_prediction_distribution.csv"))
+display(pd.read_csv(final_dir / "fuzzy_position_summary.csv"))
+display(Image(filename=str(final_dir / "fuzzy_prediction_distribution.png")))
+display(Image(filename=str(final_dir / "fuzzy_positions_by_seed.png")))
+primary_wealth = pd.read_csv(final_dir / "wealth_comparison.csv")
+display(primary_wealth.query("wealth_mode == 'price_only' and cost_bps_per_side == 10"))
+display(pd.read_csv(final_dir / "wealth_selected_threshold_10bps.csv")[[
+    "model_id", "seed", "threshold", "terminal_wealth_multiple", "one_way_trade_count"]])
+display(Image(filename=str(final_dir / "wealth_paths_price_only_10bps.png")))
+"""),
+    md("""
+### Rule behavior and local evidence
+
+The fuzzy case/rule tables satisfy the weighted-mixture identity. Final maximum rule weights average only 0.511–0.563, with no case above 0.8; one rule has no cases above its **training-defined** high-activation cut in one seed. Rule contributions are inspectable, but rule index 1 or 2 does not have a stable bull/bear meaning. The examples below were chosen *after* evaluation for explanation only (largest absolute forecast, largest absolute error, strongest weight); they were not used to select models or policies.
+"""),
+    code("""
+final_predictions = pd.read_csv(final_dir / "predictions.csv")
+final_cases = pd.read_csv(final_dir / "cases.csv")
+final_rules = pd.read_csv(final_dir / "rules.csv")
+data.validate_fuzzy_diagnostics(final_predictions, final_cases, final_rules)
+display(pd.read_csv(final_dir / "fuzzy_local_checks.csv"))
+display(pd.read_csv(final_dir / "fuzzy_case_examples_seed11.csv"))
+display(Image(filename=str(final_dir / "fuzzy_rules_contributions_seed11.png")))
+"""),
+    md("""
+### Training choice, input sources and rule count
+
+The curves below show **inner development stopping** for seed 11, not final-test fitting. The final epochs (1/6/3/4) are the predeclared nine-run medians for `LSTM32`/`LSTM3`/`Fuzzy2`/`Gate2`. Early stopping may reflect weak signal and noisy short history; it does not by itself prove a training bug or sufficient convergence. In development, adding SORA or STI changed `Fuzzy2` RMSE only slightly. The seed-11 K=1/2/3 diagnostic favored K=2 over K=3, but it did not support a broad rule-count claim.
+"""),
+    code("""
+display(pd.read_csv(development_dir / "fuzzy2_source_ablation.csv"))
+display(pd.read_csv(development_dir / "rule_count_sensitivity_seed11.csv")[[
+    "model_id", "effective_k", "return_rmse"]])
+display(Image(filename=str(final_dir / "development_inner_stopping.png")))
+"""),
+    md("""
+### Conclusion and limitations
+
+The simplified LSTM→3D→two-rule fuzzy mixture achieved a **small, metric-dependent** final RMSE advantage over the ordinary LSTM and unchanged-price reference. It did not improve MAE over the reference, did not beat cash after trading costs, and did not produce clear market-regime specialists. Its near-zero, mostly negative predictions explain much of the trading result. The executable next-open return also differs from the next-close forecast target; the 248-date horizon check is in `output/final/three_return_horizon_correlations.csv`.
+
+This test covers one ETF and one future period. The 2025-10-24 opening quote is unavailable, so trading paths are constrained-data simulations. The full issuer-verified table has nine distribution events; **two** fall inside the final holdout, and price-only and gross-distribution wealth are reported separately. Gross receipts are not investor-specific after-tax returns. This frozen test cannot be used to tune another model. Future research should test local objectives that prevent empty rules, the stability of learned rule semantics across refits, and concept drift on new periods or instruments. A building-load application and its chronological test design are specified in the literature section above.
+"""),
+])
+
 nbf.validate(notebook)
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--no-execute", action="store_true", help="Write source cells without saved outputs")
+args = parser.parse_args()
+if not args.no_execute:
+    notebook = NotebookClient(notebook, timeout=600, kernel_name="python3",
+                              resources={"metadata": {"path": str(ROOT)}}).execute()
+    nbf.validate(notebook)
 nbf.write(notebook, OUTPUT)
-print(OUTPUT)
+print(f"{OUTPUT} ({'source only' if args.no_execute else 'executed with saved outputs'})")

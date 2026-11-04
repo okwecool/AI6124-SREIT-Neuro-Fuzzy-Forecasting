@@ -357,8 +357,10 @@ def freeze_pretest_configuration(resources: pd.DataFrame, run_root: Path,
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--runs", type=Path, required=True)
-    parser.add_argument("--aggregate", type=Path, required=True)
+    parser.add_argument("--runs", type=Path)
+    parser.add_argument("--aggregate", type=Path, default=Path("output/development"))
+    parser.add_argument("--saved-only", action="store_true",
+                        help="Audit saved exports without checkpoints or writing analysis files")
     args = parser.parse_args()
     out = args.aggregate
     out.mkdir(parents=True, exist_ok=True)
@@ -368,6 +370,31 @@ def main() -> None:
     rules = pd.read_csv(out / "rules.csv")
     joined = data.validate_predictions(predictions)
     data.validate_fuzzy_diagnostics(predictions, cases, rules)
+    if args.saved_only:
+        summary = pd.read_csv(out / "forecast_primary_summary.csv")
+        recomputed = data.pooled_validation_scores(predictions)
+        for row in summary.itertuples():
+            if row.model_id == "Z0":
+                continue
+            matches = recomputed.loc[recomputed.model_id.eq(row.model_id) &
+                                     recomputed.source_group.eq(row.source_group) &
+                                     recomputed.rule_count.eq(row.rule_count)]
+            if len(matches) != row.seeds or not np.isclose(
+                matches.return_rmse.mean(), row.mean_return_rmse, atol=1e-12, rtol=0
+            ):
+                raise ValueError(f"Saved development score differs: {row.model_id}/{row.source_group}")
+        for name in ("fuzzy_coverage.csv", "fuzzy_local_errors.csv",
+                     "fuzzy_training_defined_cuts.json", "wealth_compounded_by_seed.csv",
+                     "selected_policy_thresholds.json", "final_configuration_pretest.json"):
+            if not (out / name).exists():
+                raise FileNotFoundError(out / name)
+        print(json.dumps({"status": "saved_development_audit_pass",
+                          "prediction_rows": len(predictions), "fuzzy_cases": len(cases),
+                          "fuzzy_rule_rows": len(rules),
+                          "score_groups": len(summary), "checkpoint_required": False}, indent=2))
+        return
+    if args.runs is None:
+        parser.error("--runs is required unless --saved-only is used")
     resources = resource_summary(args.runs, out)
     forecast = forecast_comparisons(data, predictions, out)
     fuzzy = fuzzy_diagnostics(data, joined, cases, rules, args.runs, out)

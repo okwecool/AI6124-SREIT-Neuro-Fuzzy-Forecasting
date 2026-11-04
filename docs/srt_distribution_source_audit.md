@@ -1,6 +1,6 @@
 # SRT distribution and missing-open source audit — 3 November 2026
 
-This audit cross-checks the nine ex-date records in `data/processed/srt_dividends_yahoo.csv` against issuer announcements or an issuer annual report hosted by SGX. Amounts are **gross SGD per SRT unit**. These records are evidence for a future distribution ledger; the current model label and saved feature snapshot remain the raw close-price series. No distribution-inclusive backtest has been implemented yet.
+This audit cross-checks the nine ex-date records in `data/processed/srt_dividends_yahoo.csv` against issuer announcements or an issuer annual report hosted by SGX. Amounts are **gross SGD per SRT unit**. The model label and saved feature snapshot remain the raw close-price series. A separate gross-distribution ledger is implemented for evaluation; two of the nine verified ex-dates (2026-01-19 and 2026-07-20) fall within the final holdout.
 
 | Ex-date | Yahoo SGD | Issuer SGD | Payment date | Primary record | Status |
 | --- | ---: | ---: | --- | --- | --- |
@@ -16,4 +16,4 @@ This audit cross-checks the nine ex-date records in `data/processed/srt_dividend
 
 **2025-10-24 open remains unresolved.** The saved snapshot has a repaired close of SGD 0.801 and no open. A targeted search did not establish an independently verifiable SRT open for that date. Do not infer it from close, high or low. The causal no-trade-and-carry rule in protocol v1.2 applies unless a dated source supplies a traceable opening print; any repair requires a new source hash, data audit and protocol version before final wealth reporting.
 
-For a distribution-inclusive ledger, book entitlement from units held immediately before each ex-date, a receivable on ex-date and cash only on payment date. Declare gross-individual-investor and price-only assumptions separately; actual after-tax receipts vary by investor category. The 2022-07-19 row requires one combined ex-date entry with two underlying issuer announcements, not two independently traded ex-date events.
+The distribution-inclusive ledger books entitlement from units held immediately before each ex-date, a receivable on ex-date and cash only on payment date. Declare gross and price-only assumptions separately; actual after-tax receipts vary by investor category. The 2022-07-19 row requires one combined ex-date entry with two underlying issuer announcements, not two independently traded ex-date events.

@@ -60,7 +60,7 @@ Review evidence: development-only forecast and wealth tables/plots, selected thr
 
 Review evidence: frozen configuration record, final results, leakage check and proposed commit message.
 
-**Implementation status, 4 November — awaiting review and Git commit:** `src/tools/run_final_holdout.py` verified the committed freeze and performed the 12 fixed full-pretest refits and single holdout prediction export. An analysis-only recovery after a control-table column collision completed the forecast, causal wealth, fuzzy-local and horizon outputs from those original saved predictions; no refit was repeated. `docs/final_results_2026-11-04.md` reports the small, metric-dependent RMSE gain and negative trading/mechanism findings. The final outputs and execution/recovery records are under `output/final/` and `output/runs/final/`. Proposed commit: `feat: evaluate frozen final holdout and record results`.
+**Implementation status, 4 November — committed as `48b015e`:** `src/tools/run_final_holdout.py` verified the committed freeze and performed the 12 fixed full-pretest refits and single holdout prediction export. An analysis-only recovery after a control-table column collision completed the forecast, causal wealth, fuzzy-local and horizon outputs from those original saved predictions; no refit was repeated. `docs/final_results_2026-11-04.md` reports the small, metric-dependent RMSE gain and negative trading/mechanism findings. The final outputs and execution/recovery records are under `output/final/` and `output/runs/final/`.
 
 ## Phase 5 — course delivery
 
@@ -70,3 +70,5 @@ Review evidence: frozen configuration record, final results, leakage check and p
 - Both students check their NTULearn submission requirements and submit by **18 November 2026, 23:59 Singapore time**. Record the peer-review allocation by 23 November and the designated group member's peer-review score submission by **27 November 2026, 23:59**.
 
 Review evidence: clean rerun, Notebook/slides preview, submission checklist and proposed commit message.
+
+**Implementation status, 4 November — review pending:** The separate artifact review `docs/artifact_review_2026-11-04_zh.md` prompted a complete executed final Notebook, final-results deck, added frozen-result figures and discussion, dependency list, checkpoint-aware reproduction path, read-only audit, repaired final verifier and refreshed handoff package. The original final predictions and model selection have not changed. An extracted-package audit is part of the delivery check. Present these changes for Ryan's inspection before a Phase 5 Git commit.

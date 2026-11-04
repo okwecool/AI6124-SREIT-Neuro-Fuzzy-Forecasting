@@ -26,9 +26,23 @@ def matrix(include_gate: bool) -> list[tuple[str, str, str, int]]:
     return specs
 
 
+def reusable_run(run_dir: Path, model_id: str) -> bool:
+    manifest_file = run_dir / "manifest.json"
+    if not manifest_file.exists():
+        return False
+    previous = json.loads(manifest_file.read_text(encoding="utf-8"))
+    required = [run_dir / "predictions.csv", run_dir / "checkpoint.pt"]
+    if model_id.startswith("Fuzzy"):
+        required.extend((run_dir / "cases.csv", run_dir / "rules.csv"))
+    return (previous.get("status") == "development" and
+            previous.get("train_source_sha256") == _sha256(Path(run_development.__code__.co_filename)) and
+            previous.get("model_source_sha256") == _sha256(Path(__file__).resolve().parents[1] / "models.py") and
+            all(path.exists() for path in required))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, default=Path("output/runs/development"))
+    parser.add_argument("--out", type=Path, default=Path("output/runs/reproduction/development"))
     parser.add_argument("--include-gate", action="store_true")
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     args = parser.parse_args()
@@ -44,13 +58,12 @@ def main() -> None:
         run_dir = args.out / fold / group / model_id / f"seed_{seed}"
         manifest_file = run_dir / "manifest.json"
         if manifest_file.exists():
-            previous = json.loads(manifest_file.read_text(encoding="utf-8"))
-            if (previous.get("status") == "development" and
-                previous.get("train_source_sha256") == _sha256(Path(run_development.__code__.co_filename)) and
-                previous.get("model_source_sha256") == _sha256(Path(__file__).resolve().parents[1] / "models.py") and
-                (run_dir / "predictions.csv").exists()):
+            if reusable_run(run_dir, model_id):
                 print(f"[{number}/{len(specs)}] verified existing {model_id} {group} {fold} seed={seed}", flush=True)
                 continue
+            raise ValueError(f"Incomplete or stale run at {run_dir}; use a new --out reproduction directory")
+        if run_dir.exists() and any(run_dir.iterdir()):
+            raise ValueError(f"Unmanifested files at {run_dir}; use a new --out reproduction directory")
         result = run_development(data, model_id, group, fold, seed, args.out, device=args.device)
         print(f"[{number}/{len(specs)}] {model_id} {group} {fold} seed={seed} "
               f"best={result['best_epoch']} inner={result['inner_seconds']:.2f}s "

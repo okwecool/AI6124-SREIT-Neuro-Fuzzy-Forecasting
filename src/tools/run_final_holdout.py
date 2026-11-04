@@ -372,6 +372,9 @@ def run(config_path: Path, output_dir: Path, run_root: Path, device_name: str) -
     _fuzzy_final_checks(data, case_table, rule_table, run_root, output_dir)
     _horizon_final(data, all_predictions, output_dir)
     completed = {**started, "status": "final_execution_complete",
+                 "prediction_file_sha256": _sha256(output_dir / "predictions.csv"),
+                 "cases_file_sha256": _sha256(output_dir / "cases.csv"),
+                 "rules_file_sha256": _sha256(output_dir / "rules.csv"),
                  "learned_fits": len(manifests), "prediction_rows": len(all_predictions),
                  "fuzzy_cases": len(case_table), "fuzzy_rule_rows": len(rule_table),
                  "forecast_summary": forecast[["model_id", "return_rmse_mean"]].to_dict(orient="records"),

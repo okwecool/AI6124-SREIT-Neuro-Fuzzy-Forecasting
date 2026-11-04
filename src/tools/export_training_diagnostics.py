@@ -23,6 +23,11 @@ def export_all(run_root: Path) -> dict:
         if manifest["status"] != "development" or not manifest["model_id"].startswith("Fuzzy"):
             continue
         run_dir = manifest_path.parent
+        if not (run_dir / "checkpoint.pt").exists():
+            raise FileNotFoundError(
+                f"{run_dir}/checkpoint.pt is required for training diagnostics; "
+                "rebuild the matrix in output/runs/reproduction/development"
+            )
         outer = data.prepare(manifest["fold"], manifest["source_group"])
         checkpoint = torch.load(run_dir / "checkpoint.pt", map_location="cpu", weights_only=True)
         if not np.allclose(outer.scaler.x_mean, checkpoint["scaler"]["x_mean"]) or not np.isclose(

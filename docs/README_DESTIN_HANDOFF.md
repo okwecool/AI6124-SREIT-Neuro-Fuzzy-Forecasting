@@ -1,8 +1,8 @@
 # Group 1 handoff — SRT LSTM/fuzzy project
 
-**Prepared by Ryan's side, 30 October 2026; updated 3 November 2026.** This file is the short implementation entry point for Destin. The approved architecture and revised evaluation design are in `experiment_protocol_lstm_fuzzy_local_experts.md` (v1.2); follow that document when a detail here is abbreviated. Review findings F1–F7 are recorded in `design_review_2026-11-03_zh.md`.
+**Prepared by Ryan's side, 30 October 2026; updated 4 November 2026.** This file is the short implementation entry point for Destin. The approved architecture and revised evaluation design are in `experiment_protocol_lstm_fuzzy_local_experts.md` (v1.2); follow that document when a detail here is abbreviated. Review findings F1–F7 are recorded in `design_review_2026-11-03_zh.md`; final-artifact findings R1–R7 are in `artifact_review_2026-11-04_zh.md`.
 
-The existing `output/AI6124_Group1_Early_Work_Handoff_2026-11-03.zip` is a **pre-Phase-1 snapshot**. Use this working tree for the model, validator, training runner, wealth ledger and measured results. Rebuild the shareable archive after Ryan reviews and commits Phase 4; the older ZIP already contains the `data/` folder but does not include these new files.
+The current shareable package is `output/AI6124_Group1_Final_Handoff_2026-11-04.zip`. The older `output/AI6124_Group1_Early_Work_Handoff_2026-11-03.zip` is a **pre-Phase-1 snapshot** and should not be used for final results. The final package contains the source, dataset, result exports, executed Notebook and final deck, plus a SHA-256 file manifest. Large PyTorch checkpoints are intentionally excluded; rebuilding them requires a new `output/runs/reproduction/` directory.
 
 ## Ready now
 
@@ -14,29 +14,32 @@ The existing `output/AI6124_Group1_Early_Work_Handoff_2026-11-03.zip` is a **pre
 - `src/train.py` performs inner early stopping followed by same-seed outer refit on development folds only; it writes full-key predictions, fuzzy diagnostics, checkpoints with scalers and a run manifest. `src/tools/collect_runs.py` validates and combines complete runs and writes matched forecast and wealth tables.
 - `output/zero_baseline_validation.csv`, `output/zero_baseline_validation_scores.csv` and `output/zero_baseline_validation_pooled.csv` contain the no-change development baseline. They are actual calculations, not trained-model claims.
 - `output/development/` contains all three-fold development comparisons from **48 core runs plus nine `Gate2` controls**. `docs/development_results_2026-11-03.md` explains the qualified negative findings, and `output/development/final_configuration_pretest.json` records the choices frozen **before** the reserved holdout was opened. The 12 final learned fits and original predictions are in `output/runs/final/` and `output/final/`; `docs/final_results_2026-11-04.md` explains the small final RMSE gain and the negative trading result.
-- `docs/literature_review_draft_en.md` is an initial chronological/taxonomy review. `docs/AI6124_Group1_Project_Starter.ipynb` loads development outputs but still needs final-test and course-conclusion sections. `docs/srt_distribution_source_audit.md` cross-checks all nine Yahoo ex-date records with issuer documents; the 2025-10-24 open remains unresolved.
+- `docs/literature_review_draft_en.md` now includes the measured method comparison and future questions. `docs/AI6124_Group1_Final_Project.ipynb` is the executed single Notebook with code, results and discussion. `docs/srt_distribution_source_audit.md` cross-checks all nine Yahoo ex-date records with issuer documents; the 2025-10-24 open remains unresolved.
 
 ## First commands
 
-Run from the project directory with a Python environment containing NumPy, pandas, matplotlib, nbformat and PyTorch for model training:
+Run from the project directory with Python 3.10 and the packages in `requirements.txt`, including PyTorch. On Ryan's Windows machine, `E:\Environment\Anaconda3\envs\env_cuda\python.exe` is the verified interpreter; the default `python` on PATH lacks PyTorch. Select the matching Jupyter kernel for the Notebook:
 
 ```powershell
 python data/verify_dataset.py
 python -m unittest discover -s tests -v
 python src/tools/build_starter_notebook.py
 python src/tools/verify_starter_notebook.py
+python -m src.tools.verify_final_outputs
+python -m src.tools.analyze_development --saved-only
+python -m src.tools.package_handoff --out output/AI6124_Group1_Final_Handoff_REBUILD.zip
 ```
 
-The last command executes the Notebook's code cells in a regular Python process without opening final-holdout results. A Jupyter kernel can run the same Notebook interactively. To reproduce the full development matrix and analysis:
+The builder executes the Notebook in a Jupyter `python3` kernel and saves its outputs; the Notebook checker confirms that every code cell executed without a saved error. The result checks read the already frozen exports and do not fit models. To **rebuild** the development experiment independently, use a new reproduction directory; this does not overwrite the committed results:
 
 ```powershell
-python -m src.tools.run_development_matrix --include-gate --device cpu --out output/runs/development
-python -m src.tools.export_training_diagnostics --runs output/runs/development
-python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode price_only --cost-bps 10
-python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode price_only --cost-bps 0
-python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode price_only --cost-bps 20
-python -m src.tools.collect_runs --runs output/runs/development --out output/development --wealth-mode gross_distribution --cost-bps 10
-python -m src.tools.analyze_development --runs output/runs/development --aggregate output/development
+python -m src.tools.run_development_matrix --include-gate --device cpu --out output/runs/reproduction/development
+python -m src.tools.export_training_diagnostics --runs output/runs/reproduction/development
+python -m src.tools.collect_runs --runs output/runs/reproduction/development --out output/runs/reproduction/aggregate --wealth-mode price_only --cost-bps 10
+python -m src.tools.collect_runs --runs output/runs/reproduction/development --out output/runs/reproduction/aggregate --wealth-mode price_only --cost-bps 0
+python -m src.tools.collect_runs --runs output/runs/reproduction/development --out output/runs/reproduction/aggregate --wealth-mode price_only --cost-bps 20
+python -m src.tools.collect_runs --runs output/runs/reproduction/development --out output/runs/reproduction/aggregate --wealth-mode gross_distribution --cost-bps 10
+python -m src.tools.analyze_development --runs output/runs/reproduction/development --aggregate output/runs/reproduction/aggregate
 ```
 
 ## Destin's model interface
@@ -86,10 +89,10 @@ For fuzzy interpretation, save a case table keyed by the **full prediction key**
 
 ## What remains for the final course submission
 
-1. **Phases 1–4 implemented:** the full development comparison, source/rule ablations, `Gate2` control, causal wealth paths, training-defined fuzzy diagnostics, horizon check and selected-threshold manifest are available. Phase 3 is committed as `d7808a3`; review `docs/final_results_2026-11-04.md` and `output/final/execution_complete.json` before the Phase 4 Git commit.
+1. **Phases 1–4 implemented and committed:** the full development comparison, source/rule ablations, `Gate2` control, causal wealth paths, training-defined fuzzy diagnostics, horizon check and selected-threshold manifest are available. Phase 3 is `d7808a3` and Phase 4 is `48b015e`. See `docs/final_results_2026-11-04.md` and `output/final/execution_complete.json`.
 2. **For final wealth reporting:** the nine ex-date distribution records have issuer corroboration and the gross ledger is implemented. The 2025-10-24 open remains unverified. The saved final path applies the no-trade-and-carry rule; label it a constrained-data simulation and report price-only and gross-distribution wealth separately.
 3. The four frozen learned heads have been refit on 931 pretest rows with the fixed median epoch counts and seeds. The 251-target holdout was forecast once. The **core** fit count is 105 across development and final phases; `Gate2` adds 18 development fits and three frozen final fits, for **126** fits in total. The first final analysis stopped after all predictions were saved; recovery used those same files and did not repeat fitting.
-4. Complete the Notebook with forecast and matched-date wealth results, a literature taxonomy and result-level comparison with the source paper, theory-focused future work and another plausible application. Create a new final-results deck; preserve the submitted three-slide proposal as a historical record and correct its method differences in the new deck.
+4. The executed `docs/AI6124_Group1_Final_Project.ipynb` and separate eight-slide `output/final_slides/AI6124_Group1_Final_Results_2026-11-04_v2.pptx` cover the final forecast, matched-date wealth, fuzzy diagnostics, literature, limitations and further work. Both are ready for joint content review. Keep the submitted three-slide proposal as a historical record.
 5. Both students must submit the final Notebook and slides in NTULearn by **18 November 2026, 23:59 Singapore time**. Record the peer-review assignment by 23 November and the designated member's score submission by **27 November 2026, 23:59**.
 
 ## Suggested checkpoints

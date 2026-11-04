@@ -14,11 +14,20 @@ from src.train import _sha256
 from src.tools.run_final_holdout import CONFIG, FINAL_MODELS, ROOT, SEEDS, preflight
 
 
+def validate_completion_record(complete: dict) -> None:
+    if complete.get("status") not in (
+        "final_execution_complete", "final_analysis_complete_from_original_predictions"
+    ):
+        raise ValueError("Final execution is incomplete or has unexpected status")
+    for field in ("prediction_file_sha256", "cases_file_sha256", "rules_file_sha256"):
+        if not isinstance(complete.get(field), str) or len(complete[field]) != 64:
+            raise ValueError(f"Final completion record lacks a valid {field}")
+
+
 def verify(folder: Path = ROOT / "output/final") -> dict:
     frozen, data = preflight(CONFIG)
     complete = json.loads((folder / "execution_complete.json").read_text(encoding="utf-8"))
-    if complete["status"] != "final_analysis_complete_from_original_predictions":
-        raise ValueError("Final execution is incomplete or has unexpected status")
+    validate_completion_record(complete)
     for name, key in (("predictions.csv", "prediction_file_sha256"),
                       ("cases.csv", "cases_file_sha256"),
                       ("rules.csv", "rules_file_sha256")):
