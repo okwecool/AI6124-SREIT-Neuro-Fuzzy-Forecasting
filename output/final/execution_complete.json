@@ -1,0 +1,74 @@
+{
+  "status": "final_analysis_complete_from_original_predictions",
+  "frozen_config_sha256": "96d41252ae3bc29b6d2dfb78b743989a4126369e0ba7affaded38b15766fb13f",
+  "git_revision_before_phase4_code_commit": "d7808a362902e9803ac736240ee426602ecb7165",
+  "runner_sha256": "9929992761020d3ad684f1a8e419ca3dfcaf53596f6fc8fd8c462a5552fddc22",
+  "device": "cpu",
+  "rule": "one final evaluation; no automatic rerun after a partial execution",
+  "recovery_reason": "Control-table column-name collision after all 12 fits and exports",
+  "recovery_runner_sha256": "557168dd451f59b916429e0148064982ae38f0ae1a3e7d189be7eeda03552491",
+  "prediction_file_sha256": "d97c081a4fff4fda0c9e0e4f20e3007fb4cc71a3c3adfbe829e8663b0d99483c",
+  "cases_file_sha256": "bb140bd3aaa43d83abdcd0bcfe2724c085b75e233b73b8be53e829a39823e1b9",
+  "rules_file_sha256": "e9442fe24d50cb1475993cd1daed5c4e558939c3fee9ebb1e56daa1f24c53b45",
+  "learned_fits": 12,
+  "prediction_rows": 3263,
+  "fuzzy_cases": 753,
+  "fuzzy_rule_rows": 1506,
+  "forecast_summary": [
+    {
+      "model_id": "Fuzzy2",
+      "return_rmse_mean": 0.006348866810483668
+    },
+    {
+      "model_id": "Gate2",
+      "return_rmse_mean": 0.006353128096776122
+    },
+    {
+      "model_id": "LSTM3",
+      "return_rmse_mean": 0.006354878437094446
+    },
+    {
+      "model_id": "Z0",
+      "return_rmse_mean": 0.006376969504269124
+    },
+    {
+      "model_id": "LSTM32",
+      "return_rmse_mean": 0.00638403184437353
+    }
+  ],
+  "primary_wealth": [
+    {
+      "model_id": "Fuzzy2",
+      "terminal_wealth_mean": 0.9991711891770293
+    },
+    {
+      "model_id": "Gate2",
+      "terminal_wealth_mean": 0.9695830480097666
+    },
+    {
+      "model_id": "LSTM3",
+      "terminal_wealth_mean": 0.9839266926611661
+    },
+    {
+      "model_id": "LSTM32",
+      "terminal_wealth_mean": 0.9631906682780396
+    },
+    {
+      "model_id": "Z0",
+      "terminal_wealth_mean": 1.0
+    },
+    {
+      "model_id": "always_cash",
+      "terminal_wealth_mean": 1.0
+    },
+    {
+      "model_id": "always_long",
+      "terminal_wealth_mean": 0.8782417612602315
+    },
+    {
+      "model_id": "momentum_long_cash",
+      "terminal_wealth_mean": 0.9244896234352313
+    }
+  ],
+  "missing_open_treatment": "no_trade_and_carry; label constrained-data simulation"
+}

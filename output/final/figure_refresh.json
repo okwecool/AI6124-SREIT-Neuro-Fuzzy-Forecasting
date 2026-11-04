@@ -1,0 +1,8 @@
+{
+  "status": "plots_refreshed_from_saved_ledgers",
+  "runner_sha256": "a0e781b5cc99a2da3f9357355ad1d17288f78660ee6f6f6b452557862bb91582",
+  "figures": [
+    "wealth_paths_price_only_10bps.png",
+    "wealth_paths_gross_distribution_10bps.png"
+  ]
+}

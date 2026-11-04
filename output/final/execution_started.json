@@ -1,0 +1,8 @@
+{
+  "status": "final_execution_started",
+  "frozen_config_sha256": "96d41252ae3bc29b6d2dfb78b743989a4126369e0ba7affaded38b15766fb13f",
+  "git_revision_before_phase4_code_commit": "d7808a362902e9803ac736240ee426602ecb7165",
+  "runner_sha256": "9929992761020d3ad684f1a8e419ca3dfcaf53596f6fc8fd8c462a5552fddc22",
+  "device": "cpu",
+  "rule": "one final evaluation; no automatic rerun after a partial execution"
+}

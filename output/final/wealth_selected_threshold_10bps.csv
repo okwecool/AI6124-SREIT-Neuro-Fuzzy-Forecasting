@@ -1,0 +1,13 @@
+model_id,source_group,rule_count,fold,seed,strategy,wealth_mode,cost_bps_per_side,threshold,calendar_first_open,calendar_last_open,observed_opens,missing_open_events,terminal_wealth_multiple,cumulative_return,calendar_annualized_return,max_drawdown,one_way_traded_notional_over_initial_wealth,fees_sgd_per_initial_sgd,one_way_trade_count,distribution_cash_sgd_per_initial_sgd
+LSTM32,all,0,final_holdout,11,signal_long_cash,price_only,10,0.003,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+LSTM32,all,0,final_holdout,23,signal_long_cash,price_only,10,0.003,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+LSTM32,all,0,final_holdout,37,signal_long_cash,price_only,10,0.003,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+LSTM3,all,0,final_holdout,11,signal_long_cash,price_only,10,0.002,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+LSTM3,all,0,final_holdout,23,signal_long_cash,price_only,10,0.002,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+LSTM3,all,0,final_holdout,37,signal_long_cash,price_only,10,0.002,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+Fuzzy2,all,2,final_holdout,11,signal_long_cash,price_only,10,0.002,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+Fuzzy2,all,2,final_holdout,23,signal_long_cash,price_only,10,0.002,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+Fuzzy2,all,2,final_holdout,37,signal_long_cash,price_only,10,0.002,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+Gate2,all,0,final_holdout,11,signal_long_cash,price_only,10,0.001,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+Gate2,all,0,final_holdout,23,signal_long_cash,price_only,10,0.001,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0
+Gate2,all,0,final_holdout,37,signal_long_cash,price_only,10,0.001,2025-10-01,2026-09-30,250,1,1.0,0.0,0.0,0.0,0.0,0.0,0,0.0

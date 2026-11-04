@@ -1,0 +1,24 @@
+{
+  "status": "final_frozen_refit",
+  "model_id": "Gate2",
+  "source_group": "all",
+  "fold": "final_holdout",
+  "seed": 11,
+  "rule_count": 0,
+  "fixed_epochs": 4,
+  "train_windows": 931,
+  "test_windows": 251,
+  "parameters": 5241,
+  "train_mse_scaled_by_epoch": [
+    1.0054128228913828,
+    0.9987767437987117,
+    0.9968358353820702,
+    0.9949510721079645
+  ],
+  "fit_seconds": 0.3183864997699857,
+  "checkpoint": "E:\\Courses\\AI6124 Neuro Evolution & Fuzzy Intelligence\\Project\\output\\runs\\final\\final_holdout\\all\\Gate2\\seed_11\\checkpoint.pt",
+  "device": "cpu",
+  "dataset_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "model_source_sha256": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+  "train_source_sha256": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a"
+}

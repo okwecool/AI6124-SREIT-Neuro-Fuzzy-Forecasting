@@ -51,7 +51,7 @@ Review evidence: one complete fold for all three learned models, run manifest, v
 
 Review evidence: development-only forecast and wealth tables/plots, selected threshold manifest, rule coverage/local-error evidence, three-return horizon diagnostic, mechanism-attribution decision and proposed commit message.
 
-**Implementation status, 3 November — awaiting review and Git commit:** the 48 core development configurations and nine optional `Gate2` controls ran on CPU across the three validation folds. `K=1` is represented by functionally identical `LSTM3`; a two-epoch same-seed equivalence test passes. `output/development/` contains the pooled and paired forecast comparison, source/rule ablations, 0/10/20-bps price-only and 10-bps gross-distribution wealth summaries, training-cut fuzzy local-error/coverage tables, the three-return horizon check, threshold selection and `final_configuration_pretest.json`. The qualified interpretation is in `docs/development_results_2026-11-03.md`. No final-holdout forecast or metric was calculated. The learned-rule evidence does not support a market-regime-specialist or Gaussian-specific superiority claim. Proposed commit: `feat: run development comparisons and freeze final configuration`.
+**Implementation status:** Phase 3 was reviewed and committed as `d7808a3`. The 48 core development configurations and nine optional `Gate2` controls ran on CPU across the three validation folds. `K=1` is represented by functionally identical `LSTM3`; a two-epoch same-seed equivalence test passes. `output/development/` contains the pooled and paired forecast comparison, source/rule ablations, 0/10/20-bps price-only and 10-bps gross-distribution wealth summaries, training-cut fuzzy local-error/coverage tables, the three-return horizon check, threshold selection and `final_configuration_pretest.json`. The qualified interpretation is in `docs/development_results_2026-11-03.md`.
 
 ## Phase 4 — frozen final evaluation
 
@@ -59,6 +59,8 @@ Review evidence: development-only forecast and wealth tables/plots, selected thr
 - Store final version-2 predictions, case/rule diagnostics and wealth paths separately from development outputs. Report both forecast metrics and the final `V_T` difference against model-free and fixed-position controls, including variation across seeds, the price-only or verified-distribution branch, missing-open handling and the close/open horizon mismatch. Report a failure to improve wealth without altering test rules.
 
 Review evidence: frozen configuration record, final results, leakage check and proposed commit message.
+
+**Implementation status, 4 November — awaiting review and Git commit:** `src/tools/run_final_holdout.py` verified the committed freeze and performed the 12 fixed full-pretest refits and single holdout prediction export. An analysis-only recovery after a control-table column collision completed the forecast, causal wealth, fuzzy-local and horizon outputs from those original saved predictions; no refit was repeated. `docs/final_results_2026-11-04.md` reports the small, metric-dependent RMSE gain and negative trading/mechanism findings. The final outputs and execution/recovery records are under `output/final/` and `output/runs/final/`. Proposed commit: `feat: evaluate frozen final holdout and record results`.
 
 ## Phase 5 — course delivery
 
