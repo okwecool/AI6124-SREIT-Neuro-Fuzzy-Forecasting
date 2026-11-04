@@ -1,0 +1,7 @@
+challenger,benchmark,days,seed_aggregation,mean_squared_loss_difference,block_days,descriptive_95pct_low,descriptive_95pct_high
+Fuzzy2,Z0,251,mean daily paired loss across 3 shared-date seeds,-3.575562130706057e-07,5,-1.037761841683428e-06,2.8662930739159614e-07
+Fuzzy2,Z0,251,mean daily paired loss across 3 shared-date seeds,-3.575562130706057e-07,10,-1.0155261187743248e-06,2.750916842212082e-07
+Fuzzy2,Z0,251,mean daily paired loss across 3 shared-date seeds,-3.575562130706057e-07,20,-1.0063200202252472e-06,2.1665507968237488e-07
+Fuzzy2,LSTM32,251,mean daily paired loss across 3 shared-date seeds,-4.4833690036471294e-07,5,-9.616909043585665e-07,9.179777803367951e-08
+Fuzzy2,LSTM32,251,mean daily paired loss across 3 shared-date seeds,-4.4833690036471294e-07,10,-9.696683281682594e-07,9.68364205864356e-08
+Fuzzy2,LSTM32,251,mean daily paired loss across 3 shared-date seeds,-4.4833690036471294e-07,20,-9.559636979003907e-07,1.0780811221569354e-07
