@@ -1,0 +1,18 @@
+{
+  "experiment_id": "V7-H19-chronological-calibration-staged-experts-01",
+  "gaussian_rmse": 0.009489220521725286,
+  "common_rmse": 0.009442775273818857,
+  "z0_rmse": 0.00943073954460879,
+  "gain_vs_common_pct": -0.4918601423800073,
+  "gain_vs_z0_pct": -0.6201101922057362,
+  "fold_wins": {
+    "V7Common": 0,
+    "Z0": 0
+  },
+  "paired_wins_vs_common": 0,
+  "mae_within_z0_1pct": false,
+  "scope": "development-only; no final holdout evaluation",
+  "gaussian_nonzero_local_selections": 4,
+  "candidate_gate": false,
+  "substantial_goal": false
+}
