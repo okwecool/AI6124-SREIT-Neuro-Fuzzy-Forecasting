@@ -1,0 +1,32 @@
+{
+  "experiment_id": "V5-H17-model-only-shared-local-01",
+  "status": "fixed before V5 fits; exploratory after several development rounds and the original final result were viewed",
+  "objective": "Test model/training improvement on exactly the original six inputs, forecast close, raw next-close return and development calendar; no new information, announcement offset, target change or shortened lead time",
+  "primary_candidate": "gaussian_shared_local",
+  "unchanged": ["original saved 20x6 windows, byte-identical values", "SRT target asset", "original after-close forecast time", "original y_raw next-close log return", "original three development folds and seeds 11/23/37", "LSTM hidden size 32, tanh projection dimension 3", "two Gaussian rules and two affine experts"],
+  "model": "u=training-normalized tanh(W h+b), q=[u,1], alpha=normalized diagonal Gaussian memberships, expert1=q@(b+d), expert2=q@(b-d), prediction=q@b+(alpha1-alpha2)*(q@d)",
+  "algebra": "For independent experts beta1=b+d, beta2=b-d, lambda*(||beta1||^2+||beta2||^2)=2*lambda*(||b||^2+||d||^2). Reparameterization with the mapped penalty is exactly equivalent and is tested, not counted as an empirical improvement.",
+  "arms": {
+    "linear": {"head": "linear", "basis": "shared", "lambda_common": 0.1},
+    "gaussian_independent": {"head": "gaussian", "basis": "independent", "lambda_expert": 0.1},
+    "gaussian_common_matched": {"head": "gaussian", "basis": "shared", "lambda_common": 0.1, "lambda_local": 0.2},
+    "gaussian_shared_local": {"head": "gaussian", "basis": "shared", "lambda_common": 0.1, "lambda_local": 1.0},
+    "gate_shared_local": {"head": "gate", "basis": "shared", "lambda_common": 0.1, "lambda_local": 1.0}
+  },
+  "attribution": ["independent corresponds to shared penalties 0.2/0.2", "common_matched changes only common penalty from 0.2 to 0.1", "primary changes only local penalty from 0.2 to 1.0 relative to common_matched", "linear removes local branch but has the same common penalty", "gate control has the same shared/local objective; Gaussian-specific superiority is secondary, not required to call a whole-model training gain"],
+  "common_training_extensions_vs_V1": ["reuse H12 train-only latent affine normalization and deterministic two-cluster Gaussian initialization", "positive widths softplus+0.05, not V1 bounded widths", "differentiable ridge solve for all affine coefficients including intercepts", "raw y divided by training standard deviation without centering; zero standardized prediction means zero raw return", "full-batch AdamW; select epoch zero or trained representation within inner set; zero prediction is an explicit fallback, never called a learned improvement"],
+  "training": {"learning_rate": 0.001, "weight_decay": 0.0001, "gradient_clip": 1.0, "max_epochs": 150, "patience": 20, "min_improvement": 0.0001, "inner_stop_fraction": 0.15},
+  "selection": "Track best fitted model from epoch 0 by inner raw-target scaled MSE; early stop after 20 unimproved epochs. Use it only if its inner loss improves zero prediction by at least 1e-4; otherwise output zero. Reinitialize with identical seed and refit full outer train for the selected fitted epoch. Save fitted predictions even when fallback is used, for labeled diagnosis only; do not promote them based on outer results.",
+  "budget": "five configurations x three folds x three seeds =45 inner/outer runs; no hyperparameter, width, seed or penalty search after results; stop this package if primary fails",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "seeds": [11, 23, 37],
+  "necessary_references": ["Z0", "original V1 Fuzzy2, LSTM3, LSTM32 and Gate2", "original six-input Ridge and train mean", "matched new linear and ordinary gate", "independent/common-matched Gaussian ablations"],
+  "metrics": "seed-mean pooled RMSE/MAE on 378 common development dates; every seed and fold; no seed ensemble",
+  "model_material_goal": ">=3% lower RMSE than Z0 and original V1 Fuzzy2 and LSTM3, >=2/3 fold wins against each, >=6/9 paired wins against original learned references, MAE <=1% worse against each. This is a project decision criterion, not an instructor requirement or a significance claim.",
+  "candidate_floor": "same comparisons and stability with >=1% RMSE gain; winning only against a weak learned reference or reverting to Z0 is insufficient",
+  "head_contribution": "report primary vs same-training linear, gate, independent and common-matched separately. No claim of local or Gaussian contribution when only common training improves. >=1% gain, >=2 folds and >=6/9 paired wins is a descriptive head-increment candidate threshold.",
+  "mechanism": "save common/local predictions, expert difference, weights, raw-membership coverage, train-defined local regions and per-region expert errors; compare removing only the fitted local term as a diagnostic, not another selectable model; report fallback and fitted-only losses separately",
+  "uncertainty": "paired loss circular block bootstrap within folds, lengths5/10/20,5000 resamples,seed20261105; average seed loss by date, do not count seeds as independent dates; descriptive only, no correction for earlier multi-round exploration",
+  "boundary": "original final period excluded from training, stopping, new predictions and ranking; old frozen files unchanged; no trading policy optimization; no new external data",
+  "authorization": "Ryan explicitly requested one round of this model-only direction; course approval is reported for the core architecture, not asserted for these new training details"
+}

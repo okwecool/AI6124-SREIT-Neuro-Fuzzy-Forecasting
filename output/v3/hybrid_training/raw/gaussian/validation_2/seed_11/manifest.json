@@ -1,0 +1,158 @@
+{
+  "experiment_id": "V3-H12-anchored-hybrid-training-01",
+  "input_arm": "raw",
+  "head": "gaussian",
+  "fold": "validation_2",
+  "seed": 11,
+  "chosen_epoch": 6,
+  "zero_fallback": false,
+  "inner_seconds": 0.4425405003130436,
+  "outer_seconds": 0.14248970011249185,
+  "train_rows": 679,
+  "eval_rows": 124,
+  "trace": [
+    {
+      "epoch": 0,
+      "train_penalized_objective": null,
+      "stop_mse": 0.9677613377571106
+    },
+    {
+      "epoch": 1,
+      "train_penalized_objective": 0.988976776599884,
+      "stop_mse": 0.9678643941879272
+    },
+    {
+      "epoch": 2,
+      "train_penalized_objective": 0.985781729221344,
+      "stop_mse": 0.9695563912391663
+    },
+    {
+      "epoch": 3,
+      "train_penalized_objective": 0.9832855463027954,
+      "stop_mse": 0.9694264531135559
+    },
+    {
+      "epoch": 4,
+      "train_penalized_objective": 0.9812151789665222,
+      "stop_mse": 0.9677860140800476
+    },
+    {
+      "epoch": 5,
+      "train_penalized_objective": 0.9790006875991821,
+      "stop_mse": 0.9663283228874207
+    },
+    {
+      "epoch": 6,
+      "train_penalized_objective": 0.9770190119743347,
+      "stop_mse": 0.9658111929893494
+    },
+    {
+      "epoch": 7,
+      "train_penalized_objective": 0.975186824798584,
+      "stop_mse": 0.9661741852760315
+    },
+    {
+      "epoch": 8,
+      "train_penalized_objective": 0.9733099937438965,
+      "stop_mse": 0.9672386050224304
+    },
+    {
+      "epoch": 9,
+      "train_penalized_objective": 0.9712631106376648,
+      "stop_mse": 0.9689028859138489
+    },
+    {
+      "epoch": 10,
+      "train_penalized_objective": 0.9690199494361877,
+      "stop_mse": 0.9710652828216553
+    },
+    {
+      "epoch": 11,
+      "train_penalized_objective": 0.966606616973877,
+      "stop_mse": 0.9735246300697327
+    },
+    {
+      "epoch": 12,
+      "train_penalized_objective": 0.9640461206436157,
+      "stop_mse": 0.9760293364524841
+    },
+    {
+      "epoch": 13,
+      "train_penalized_objective": 0.9613860845565796,
+      "stop_mse": 0.9784640073776245
+    },
+    {
+      "epoch": 14,
+      "train_penalized_objective": 0.9587060213088989,
+      "stop_mse": 0.9809643626213074
+    },
+    {
+      "epoch": 15,
+      "train_penalized_objective": 0.9560362100601196,
+      "stop_mse": 0.9838544130325317
+    },
+    {
+      "epoch": 16,
+      "train_penalized_objective": 0.9534009695053101,
+      "stop_mse": 0.9873256087303162
+    },
+    {
+      "epoch": 17,
+      "train_penalized_objective": 0.9509338140487671,
+      "stop_mse": 0.9907844662666321
+    },
+    {
+      "epoch": 18,
+      "train_penalized_objective": 0.9486332535743713,
+      "stop_mse": 0.9936719536781311
+    },
+    {
+      "epoch": 19,
+      "train_penalized_objective": 0.9462623000144958,
+      "stop_mse": 0.9968416094779968
+    },
+    {
+      "epoch": 20,
+      "train_penalized_objective": 0.943868100643158,
+      "stop_mse": 1.0008138418197632
+    },
+    {
+      "epoch": 21,
+      "train_penalized_objective": 0.9413686394691467,
+      "stop_mse": 1.0046892166137695
+    },
+    {
+      "epoch": 22,
+      "train_penalized_objective": 0.9385885000228882,
+      "stop_mse": 1.0077193975448608
+    },
+    {
+      "epoch": 23,
+      "train_penalized_objective": 0.9354098439216614,
+      "stop_mse": 1.0110387802124023
+    },
+    {
+      "epoch": 24,
+      "train_penalized_objective": 0.9322862029075623,
+      "stop_mse": 1.0161784887313843
+    },
+    {
+      "epoch": 25,
+      "train_penalized_objective": 0.9294599890708923,
+      "stop_mse": 1.0209816694259644
+    },
+    {
+      "epoch": 26,
+      "train_penalized_objective": 0.9266557693481445,
+      "stop_mse": 1.0234382152557373
+    }
+  ],
+  "mean_max_weight": 0.8711689710617065,
+  "fraction_max_weight_above_08": 0.75,
+  "residual_expert_disagreement": 0.0027069200108574675,
+  "output_sha256": {
+    "cases.csv": "37f32c9d8ffd9bbf82a5c13241f3c9c50e267ada21d68c0558191ad9ef7ae820",
+    "predictions.csv": "7aa3c9894bbd8df4ba535dc934f0d3f5f40f3386fbef93d0ad5ce7ae3acddcda",
+    "rules.csv": "ccf53928bd1cc62038c4e265a9d5aa4fbb56ed26042c9328e349ddee20c1cab7"
+  }
+}

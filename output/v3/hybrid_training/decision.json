@@ -1,0 +1,37 @@
+{
+  "experiment_id": "V3-H12-anchored-hybrid-training-01",
+  "primary_candidate": "gross/gaussian",
+  "comparisons": [
+    {
+      "reference": "DivSchedule",
+      "rmse_gain_pct": -0.5788848525277057,
+      "mae_change_pct": 1.1297584777352432,
+      "fold_wins": 0,
+      "paired_wins": null
+    },
+    {
+      "reference": "gross/linear",
+      "rmse_gain_pct": -0.4594985545264718,
+      "mae_change_pct": 0.9006296251316437,
+      "fold_wins": 1,
+      "paired_wins": 1
+    },
+    {
+      "reference": "gross/gate",
+      "rmse_gain_pct": -0.47509240741474557,
+      "mae_change_pct": 0.9128585693976898,
+      "fold_wins": 1,
+      "paired_wins": 1
+    }
+  ],
+  "non_event_rmse_gain_vs_schedule_pct": -0.5703411184047935,
+  "material_goal_passed": false,
+  "candidate_floor_passed": false,
+  "total_runs": 54,
+  "zero_fallback_runs": 38,
+  "selected_random_representation_runs": 9,
+  "selected_updated_representation_runs": 7,
+  "recorded_fit_and_export_seconds": 20.790931899100542,
+  "gaussian_runs_validated": 18,
+  "status": "stop this training package; no demonstrated optimization"
+}

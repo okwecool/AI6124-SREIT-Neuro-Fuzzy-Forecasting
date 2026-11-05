@@ -1,0 +1,170 @@
+{
+  "experiment_id": "V5-H17-model-only-shared-local-01",
+  "arm": "gaussian_independent",
+  "fold": "validation_2",
+  "seed": 23,
+  "head": "gaussian",
+  "best_fitted_epoch": 2,
+  "zero_fallback": true,
+  "inner_zero_mse": 1.011342348554542,
+  "inner_fitted_mse": 1.015868084963562,
+  "trace": [
+    {
+      "epoch": 0,
+      "train_penalized_objective": null,
+      "stop_mse": 1.0170151834211254
+    },
+    {
+      "epoch": 1,
+      "train_penalized_objective": 0.9982601751176156,
+      "stop_mse": 1.016203297515693
+    },
+    {
+      "epoch": 2,
+      "train_penalized_objective": 0.9971610213083173,
+      "stop_mse": 1.015868084963562
+    },
+    {
+      "epoch": 3,
+      "train_penalized_objective": 0.995878118162125,
+      "stop_mse": 1.0161465061197728
+    },
+    {
+      "epoch": 4,
+      "train_penalized_objective": 0.9944700046478547,
+      "stop_mse": 1.0169186588561736
+    },
+    {
+      "epoch": 5,
+      "train_penalized_objective": 0.9929539998930613,
+      "stop_mse": 1.0180889216274667
+    },
+    {
+      "epoch": 6,
+      "train_penalized_objective": 0.9913413814999789,
+      "stop_mse": 1.0195822231931169
+    },
+    {
+      "epoch": 7,
+      "train_penalized_objective": 0.9896475945899097,
+      "stop_mse": 1.021400762961219
+    },
+    {
+      "epoch": 8,
+      "train_penalized_objective": 0.9878765636307613,
+      "stop_mse": 1.0235408323806805
+    },
+    {
+      "epoch": 9,
+      "train_penalized_objective": 0.9860345834207586,
+      "stop_mse": 1.0259888222850575
+    },
+    {
+      "epoch": 10,
+      "train_penalized_objective": 0.9841365396712735,
+      "stop_mse": 1.0287155499123672
+    },
+    {
+      "epoch": 11,
+      "train_penalized_objective": 0.9822035405807985,
+      "stop_mse": 1.0316690292229203
+    },
+    {
+      "epoch": 12,
+      "train_penalized_objective": 0.980254249409904,
+      "stop_mse": 1.034778214582824
+    },
+    {
+      "epoch": 13,
+      "train_penalized_objective": 0.9782907682172001,
+      "stop_mse": 1.0379832517742056
+    },
+    {
+      "epoch": 14,
+      "train_penalized_objective": 0.9762897003709106,
+      "stop_mse": 1.0412611541676315
+    },
+    {
+      "epoch": 15,
+      "train_penalized_objective": 0.9742048886568196,
+      "stop_mse": 1.044574438253266
+    },
+    {
+      "epoch": 16,
+      "train_penalized_objective": 0.9719732474535374,
+      "stop_mse": 1.0477814435867105
+    },
+    {
+      "epoch": 17,
+      "train_penalized_objective": 0.9695110014556517,
+      "stop_mse": 1.050622412680026
+    },
+    {
+      "epoch": 18,
+      "train_penalized_objective": 0.9667307361004185,
+      "stop_mse": 1.0526563016612909
+    },
+    {
+      "epoch": 19,
+      "train_penalized_objective": 0.9637546045379368,
+      "stop_mse": 1.0536136703216281
+    },
+    {
+      "epoch": 20,
+      "train_penalized_objective": 0.9608200190784532,
+      "stop_mse": 1.0542854575780372
+    },
+    {
+      "epoch": 21,
+      "train_penalized_objective": 0.9576055926748179,
+      "stop_mse": 1.0548536592450746
+    },
+    {
+      "epoch": 22,
+      "train_penalized_objective": 0.954534207052979,
+      "stop_mse": 1.0551229991518671
+    }
+  ],
+  "train_rows": 679,
+  "eval_rows": 124,
+  "inner_seconds": 0.43634959962219,
+  "outer_seconds": 0.09774000011384487,
+  "parameters": 5239,
+  "mean_max_weight": 0.9320076704025269,
+  "fraction_max_weight_above_08": 0.8790322580645161,
+  "mean_abs_expert_difference": 0.0,
+  "common_rms": 0.0,
+  "local_rms": 0.0,
+  "fraction_raw_support_below_train_p05": 0.0,
+  "centers": [
+    [
+      -0.46838733553886414,
+      0.4499383866786957,
+      -0.3037607669830322
+    ],
+    [
+      0.8102496266365051,
+      -0.7755514979362488,
+      0.5260156393051147
+    ]
+  ],
+  "widths": [
+    [
+      0.8626399636268616,
+      0.8036057353019714,
+      0.8951459527015686
+    ],
+    [
+      0.6353560090065002,
+      0.8137258887290955,
+      0.9532456398010254
+    ]
+  ],
+  "output_sha256": {
+    "cases.csv": "dde6e65693704beeb63135f4196e8cf5ad79b007de8a69b103d18f7bc04e5b19",
+    "components.csv": "22fb67704021e7ad42fd2080ad04f2a95ce4f407938e14152be37dbea50ada41",
+    "local_errors.csv": "47966785ef2b493857d58b2adb89d3674ca78ec9a918d34d6971c5580ab9dd3b",
+    "predictions.csv": "4652df3ffddfa794f8baa568f7832dc6a53669e2a41d732bf6160dff3a4fd018",
+    "rules.csv": "e6fe7442a3e133c0e22bdf37090ddcddde21a1f46fdafd65677ca7eff30a2ff0"
+  }
+}

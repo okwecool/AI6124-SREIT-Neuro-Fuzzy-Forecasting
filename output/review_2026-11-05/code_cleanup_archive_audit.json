@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-05",
+  "scope": "analysis maintenance and V3-V5 archive; no research training or forecast changes",
+  "frozen_artifacts_checked": 866,
+  "unchanged_artifacts": 864,
+  "changed_artifacts": [
+    "output/v4/neural_preopen/independent_audit.json",
+    "output/v5/shared_local/analysis_record.json"
+  ],
+  "change_reason": "analysis implementation hash and newly recorded shared-helper hash only",
+  "previous_analysis_records": {
+    "output/v4/neural_preopen/independent_audit.json": {
+      "status": "pass",
+      "prediction_records_checked": 16254,
+      "max_recomputed_metric_difference": 6.591949208711867e-17,
+      "latency_sensitivity": [
+        {
+          "clock": "close",
+          "symbol": "SPY",
+          "same_sessions_with_three_hour_latency": true,
+          "rows": 970,
+          "max_stale_hours": 86.0
+        },
+        {
+          "clock": "close",
+          "symbol": "VNQ",
+          "same_sessions_with_three_hour_latency": true,
+          "rows": 970,
+          "max_stale_hours": 86.0
+        },
+        {
+          "clock": "preopen",
+          "symbol": "SPY",
+          "same_sessions_with_three_hour_latency": true,
+          "rows": 970,
+          "max_stale_hours": 76.0
+        },
+        {
+          "clock": "preopen",
+          "symbol": "VNQ",
+          "same_sessions_with_three_hour_latency": true,
+          "rows": 970,
+          "max_stale_hours": 76.0
+        }
+      ],
+      "bootstrap": "post-hoc circular blocks within each development fold, lengths5/10/20,5000 resamples,seed20261105; descriptive and not corrected for prior model/hypothesis search",
+      "trading": "post-hoc application diagnostic of existing fixed theta0 long/cash policy, price costs0/10/20bps and gross10bps; no policy or threshold selected using these results; actual timestamps are Singapore local time",
+      "analysis_source_sha256": "af23fa1cacb79d1d9dda167cfd41bdd4c49fb7e8df943adc73212127c25568de"
+    },
+    "output/v5/shared_local/analysis_record.json": {
+      "analysis_source_sha256": "2395080e43055ffcaba60d0d48759e58f5dbb04624266dc9801ffb20889c185d",
+      "reference_sha256": {
+        "output\\development\\predictions.csv": "55a12d27b91d180c787ecfba9fcfb911145998e0e53593093cf33b5dedb1ccbe",
+        "output\\v2\\h1\\predictions.csv": "5ff4ec2f0836907ad419364903bee0dc4e47d44c403cd1cb0728ed537f34dd08"
+      },
+      "output_sha256": {
+        "comparison_pooled.csv": "885f1c9d6698121b37515cd67932d70c799e3aa84d158563f9e975f34c8b20cf",
+        "comparison_by_seed.csv": "b4a2acb3e873f362127cdd75fdc0cc78d867bc79dd4a96195422c58fd40bc0e1",
+        "comparison_by_fold.csv": "f8bf1a99870199425c12e5ac9b0a5d7f6b5fcaacf62fe051a06e4707059f46b7",
+        "mechanism.csv": "d2a0bc24c826ef2c468053fbcb399598ccefb5137f06c9b22c99269089903e50",
+        "component_diagnostics.csv": "dfca51f55dee293d579645289acac4e25e9d626d0649a57dbf9eb975853c7c02",
+        "local_regions.csv": "5d054756c67e473d716561f76fab2742e56b172522ae7aa497289160e81529bf",
+        "exploratory_block_intervals.csv": "e90aa0194eba9f90631900c3281aa5fd7e35eb48835130fe4403e1cbeaa7e499",
+        "paired_errors.csv": "9e45550fa8dcb8cbd6fc73e7d10a3be7eb2f6b31a6672f4f9f3b406c610f01c5"
+      },
+      "prediction_records_checked": 11340
+    }
+  },
+  "analysis_source_before_sha256": {
+    "src/v3/analyze_hybrid.py": "a3480b908a3f774298806cf479f77cd586514f2db2a6afa86a2ab76acc444688",
+    "src/v3/analyze_transfer.py": "c05edd00d45bf39db70599470d75c3bb1c788141d599306616110bf4ef90d250",
+    "src/v4/analyze_preopen.py": "675ea9f393a69313eb3e13353d0e8501c7249e854f65511d624adb6b91da408e",
+    "src/v4/audit_improvement.py": "af23fa1cacb79d1d9dda167cfd41bdd4c49fb7e8df943adc73212127c25568de",
+    "src/v5/analyze_shared_local.py": "2395080e43055ffcaba60d0d48759e58f5dbb04624266dc9801ffb20889c185d"
+  },
+  "analysis_source_after_sha256": {
+    "src/v3/analyze_hybrid.py": "790e2076979f7d46826338e71f6762dd1b26c26b1d4703ac43615c36a9aee1d9",
+    "src/v3/analyze_transfer.py": "cd0480b77dca9c3e044d0f3720625380546aa8e23f671921ae6fde8c9bb2496c",
+    "src/v4/analyze_preopen.py": "ddb855e64f5c5f8fcdfaf26c41b46eb9dc7c9efd6ea02e1aac72f7b41dcf71eb",
+    "src/v4/audit_improvement.py": "9a5b85358bdfcb749875eef6200655090c9353bed0d7217d5eb669aa30468810",
+    "src/v5/analyze_shared_local.py": "b538b4744f26b11d31650d2840f87cbf10eca9103e4992d41c8c7f1b872fc001"
+  },
+  "new_shared_analysis_sha256": "46187929ee6a444f0290e9d1ec7dd3520eae2a20cdd79fbf7e6a44eeada531c7",
+  "verification": {
+    "status": "pass",
+    "experiments": 6,
+    "neural_runs": 261,
+    "gaussian_runs": 99,
+    "file_hash_checks": 645,
+    "final_period_retrained_or_scored": false
+  },
+  "unit_tests_passed": 59,
+  "dataset_audit": "pass:1182 windows;source hashes matched",
+  "V1_frozen_audit": "pass:3263 prediction rows,753 fuzzy cases,1506 rule rows,4 wealth ledgers",
+  "fresh_staged_checkout": {
+    "research_archive": "pass",
+    "dataset": "pass",
+    "V1_frozen_outputs": "pass",
+    "method": "git checkout-index --all to a temporary directory inside ignored output/runs/tmp; no local ignored weights copied"
+  }
+}

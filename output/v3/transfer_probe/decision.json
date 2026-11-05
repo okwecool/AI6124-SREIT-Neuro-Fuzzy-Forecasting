@@ -1,0 +1,47 @@
+{
+  "experiment_id": "V3-H14-earlier-CLR-transfer-probe-01",
+  "comparisons": [
+    {
+      "reference": "DivSchedule",
+      "rmse_gain_pct": -0.06853422014216903,
+      "mae_change_pct": 0.2537404828185208,
+      "fold_wins": 1,
+      "paired_wins": null
+    },
+    {
+      "reference": "random/gaussian",
+      "rmse_gain_pct": 0.17420548940941805,
+      "mae_change_pct": -0.21794863104986906,
+      "fold_wins": 2,
+      "paired_wins": 3
+    },
+    {
+      "reference": "transfer/linear",
+      "rmse_gain_pct": 0.015676115732110585,
+      "mae_change_pct": 0.002628742951515939,
+      "fold_wins": 2,
+      "paired_wins": 2
+    },
+    {
+      "reference": "transfer/gate",
+      "rmse_gain_pct": -0.016257435785926866,
+      "mae_change_pct": 0.06947390419105304,
+      "fold_wins": 1,
+      "paired_wins": 1
+    }
+  ],
+  "non_event_rmse_gain_pct": -0.06549071475716595,
+  "candidate_floor_passed": false,
+  "material_goal_passed": false,
+  "zero_fallbacks": {
+    "random/gate": 7,
+    "random/gaussian": 6,
+    "random/linear": 7,
+    "transfer/gate": 7,
+    "transfer/gaussian": 7,
+    "transfer/linear": 7
+  },
+  "source_windows": 948,
+  "source_date_end": "2021-09-30",
+  "status": "stop frozen-transfer probe; no material optimization"
+}

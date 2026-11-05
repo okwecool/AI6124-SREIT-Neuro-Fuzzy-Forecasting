@@ -1,0 +1,158 @@
+[
+  {
+    "fold": "validation_1",
+    "arm": "raw",
+    "choices": [
+      {
+        "lambda": null,
+        "inner_rmse": 0.010212124470679405
+      },
+      {
+        "lambda": 0.1,
+        "inner_rmse": 0.010369337103582746
+      },
+      {
+        "lambda": 1.0,
+        "inner_rmse": 0.01034630889345232
+      },
+      {
+        "lambda": 10.0,
+        "inner_rmse": 0.010464979149836769
+      }
+    ],
+    "chosen": {
+      "lambda": null,
+      "inner_rmse": 0.010212124470679405
+    }
+  },
+  {
+    "fold": "validation_1",
+    "arm": "gross",
+    "choices": [
+      {
+        "lambda": null,
+        "inner_rmse": 0.010212124470679405
+      },
+      {
+        "lambda": 0.1,
+        "inner_rmse": 0.010298378147409493
+      },
+      {
+        "lambda": 1.0,
+        "inner_rmse": 0.010291946953810199
+      },
+      {
+        "lambda": 10.0,
+        "inner_rmse": 0.010449538746328082
+      }
+    ],
+    "chosen": {
+      "lambda": null,
+      "inner_rmse": 0.010212124470679405
+    }
+  },
+  {
+    "fold": "validation_2",
+    "arm": "raw",
+    "choices": [
+      {
+        "lambda": null,
+        "inner_rmse": 0.008936645253788431
+      },
+      {
+        "lambda": 0.1,
+        "inner_rmse": 0.008859074368355199
+      },
+      {
+        "lambda": 1.0,
+        "inner_rmse": 0.008783455254266482
+      },
+      {
+        "lambda": 10.0,
+        "inner_rmse": 0.008908075696685691
+      }
+    ],
+    "chosen": {
+      "lambda": 1.0,
+      "inner_rmse": 0.008783455254266482
+    }
+  },
+  {
+    "fold": "validation_2",
+    "arm": "gross",
+    "choices": [
+      {
+        "lambda": null,
+        "inner_rmse": 0.008936645253788431
+      },
+      {
+        "lambda": 0.1,
+        "inner_rmse": 0.00888636890107068
+      },
+      {
+        "lambda": 1.0,
+        "inner_rmse": 0.00881139693632969
+      },
+      {
+        "lambda": 10.0,
+        "inner_rmse": 0.008937092425656353
+      }
+    ],
+    "chosen": {
+      "lambda": 1.0,
+      "inner_rmse": 0.00881139693632969
+    }
+  },
+  {
+    "fold": "validation_3",
+    "arm": "raw",
+    "choices": [
+      {
+        "lambda": null,
+        "inner_rmse": 0.007316226208402545
+      },
+      {
+        "lambda": 0.1,
+        "inner_rmse": 0.007283127931328364
+      },
+      {
+        "lambda": 1.0,
+        "inner_rmse": 0.007124404887747501
+      },
+      {
+        "lambda": 10.0,
+        "inner_rmse": 0.007231584002203672
+      }
+    ],
+    "chosen": {
+      "lambda": 1.0,
+      "inner_rmse": 0.007124404887747501
+    }
+  },
+  {
+    "fold": "validation_3",
+    "arm": "gross",
+    "choices": [
+      {
+        "lambda": null,
+        "inner_rmse": 0.007316226208402545
+      },
+      {
+        "lambda": 0.1,
+        "inner_rmse": 0.00731620898367271
+      },
+      {
+        "lambda": 1.0,
+        "inner_rmse": 0.00716181001025489
+      },
+      {
+        "lambda": 10.0,
+        "inner_rmse": 0.007245233684457217
+      }
+    ],
+    "chosen": {
+      "lambda": 1.0,
+      "inner_rmse": 0.00716181001025489
+    }
+  }
+]

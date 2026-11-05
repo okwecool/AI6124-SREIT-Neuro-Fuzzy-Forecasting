@@ -1,0 +1,13 @@
+{
+  "symbol": "SPY",
+  "url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=1630454400&period2=1759276800&interval=1d&events=div%2Csplits&includeAdjustedClose=false",
+  "requested_period": "2021-09-01 to 2025-09-30",
+  "retrieved_at_utc": "2026-11-05T04:05:55+00:00",
+  "file": "raw/yahoo_spy_20210901_20250930.json",
+  "sha256": "dba9b67aa6ddadb02f2d1c7778dc3fa266847480f881463962a0df9818ec4a88",
+  "rows": 1024,
+  "bytes": 94419,
+  "currency": "USD",
+  "exchange_timezone": "America/New_York",
+  "limitation": "Historical revised snapshot, not archived point-in-time vendor deliveries; bar availability must be explicitly modeled"
+}

@@ -1,0 +1,95 @@
+{
+  "experiment_id": "V5-H17-model-only-shared-local-01",
+  "primary_candidate": "gaussian_shared_local",
+  "comparisons": [
+    {
+      "reference": "MeanTrain",
+      "rmse_gain_pct": -0.18791778114044533,
+      "mae_change_pct": 0.12258579322332874,
+      "fold_wins": 2,
+      "paired_wins": null
+    },
+    {
+      "reference": "Ridge",
+      "rmse_gain_pct": 4.9618011691782264,
+      "mae_change_pct": -9.575614185273984,
+      "fold_wins": 3,
+      "paired_wins": null
+    },
+    {
+      "reference": "V1_Fuzzy2",
+      "rmse_gain_pct": 0.2784804607303015,
+      "mae_change_pct": -0.7674689400374746,
+      "fold_wins": 2,
+      "paired_wins": 7
+    },
+    {
+      "reference": "V1_Gate2",
+      "rmse_gain_pct": -0.06271596470219798,
+      "mae_change_pct": -0.2789682127308679,
+      "fold_wins": 1,
+      "paired_wins": 5
+    },
+    {
+      "reference": "V1_LSTM3",
+      "rmse_gain_pct": 0.11158597137916892,
+      "mae_change_pct": -0.8041448167411702,
+      "fold_wins": 1,
+      "paired_wins": 5
+    },
+    {
+      "reference": "V1_LSTM32",
+      "rmse_gain_pct": 1.6760868006634455,
+      "mae_change_pct": -2.8008671598875323,
+      "fold_wins": 3,
+      "paired_wins": 8
+    },
+    {
+      "reference": "Z0",
+      "rmse_gain_pct": -0.3336904559764431,
+      "mae_change_pct": 0.7272519258210153,
+      "fold_wins": 1,
+      "paired_wins": null
+    },
+    {
+      "reference": "gate_shared_local",
+      "rmse_gain_pct": 0.34459961141777296,
+      "mae_change_pct": -0.44614925706976116,
+      "fold_wins": 2,
+      "paired_wins": 3
+    },
+    {
+      "reference": "gaussian_common_matched",
+      "rmse_gain_pct": 0.34841621543466594,
+      "mae_change_pct": -0.3883031215677346,
+      "fold_wins": 3,
+      "paired_wins": 3
+    },
+    {
+      "reference": "gaussian_independent",
+      "rmse_gain_pct": 0.356097014322998,
+      "mae_change_pct": -0.36887647064368645,
+      "fold_wins": 3,
+      "paired_wins": 3
+    },
+    {
+      "reference": "linear",
+      "rmse_gain_pct": 0.39769301633144627,
+      "mae_change_pct": -0.6384153403630521,
+      "fold_wins": 2,
+      "paired_wins": 3
+    }
+  ],
+  "material_model_goal_passed": false,
+  "model_candidate_floor_passed": false,
+  "local_head_increment_candidate": false,
+  "gaussian_specific_increment_candidate": false,
+  "total_runs": 45,
+  "zero_fallback_runs": 29,
+  "selected_updated_model_runs": 7,
+  "gaussian_runs_validated": 27,
+  "max_component_identity_error": 2.7953199986923555e-10,
+  "recorded_fit_and_export_seconds": 25.54027349734679,
+  "status": "stop this package; material model improvement not established",
+  "boundary": "model-only development exploration; no new information or final-period scoring; multi-round search prevents independent confirmation"
+}

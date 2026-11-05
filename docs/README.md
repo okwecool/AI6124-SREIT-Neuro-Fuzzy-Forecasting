@@ -5,17 +5,22 @@
 
 ## Start here
 
+- [V3—V5代码清理与归档说明（中文）](research_archive_2026-11-05_zh.md)：跨阶段归档范围、公共分析模块、换行哈希保护与只读核验入口；最新研究方向仍以模型优化指导为准。
+- [当前模型优化指导与历史假设（中文）](improvement_hypotheses_2026-11-04_zh.md)：第0节为V5后更新的当前主线，含旧建议对照、失败原因证据、表征学习→分阶段专家训练→状态约束前件及配套时间验证；第1—6节保留历史H1—H6。新方向尚未实施。
+- [V5 固定原数据的模型优化实测（中文）](v5_model_only_results_2026-11-05_zh.md)：最近一轮已完成的模型实验；共享预测＋局部专家、正则化消融及45组运行。相对原Fuzzy2改善0.28%，仍未超过零收益参考；V4海外信息结果不作为模型优化成果。
 - [Experimental protocol v1.2](experiment_protocol_lstm_fuzzy_local_experts.md): fixed data, model, training and evaluation decisions.
 - [English design](lstm_fuzzy_local_experts_design_en.md) and [Chinese design](lstm_fuzzy_local_experts_design_zh.md): architecture explanation. The protocol takes precedence where older design prose differs.
 - [Design review F1–F7](design_review_2026-11-03_zh.md): audit findings and the issues addressed by protocol v1.2.
 - [Final-artifact review response](artifact_review_response_2026-11-04_zh.md): R1–R7 fixes and independent package checks.
 - [开发现状与交接评估（中文）](development_status_handoff_report_2026-11-04_zh.md)：已完成内容、效果、课程要求与 Destin 接手事项。
 - [冻结结果事后诊断（中文）](frozen_result_diagnosis_2026-11-04_zh.md)：预测收缩、专家抵消、早停与微小 RMSE 差距的证据；不修改已冻结的实验结论。
-- [第二版改进假设清单（中文）](improvement_hypotheses_2026-11-04_zh.md)：最小实验、对照、晋级与放弃条件，以及独立验证边界；它记录执行前的原始假设，不代表实验结果。
 - [第二版 A+B 实现方案（中文）](v2_implementation_plan_2026-11-04_zh.md)：H1 简单基线与 H3 局部损失的预先约定、代码边界及验收顺序。
 - [第二版第一轮 A+B 比较（中文）](v2_first_round_results_2026-11-04_zh.md)：H1/H3 开发折实测、机制诊断与停止决定；属于事后探索，不使用原最终测试重新选模。
 - [第二版后续优化实验（中文）](v2_followup_results_2026-11-04_zh.md)：更强正则、OHLCV、五日目标与已公告分派的比较；分派信息改善预测基线，模糊残差模型未超过该基线。
 - [第二版趋势与国债收益率筛选（中文）](v2_trend_rate_results_2026-11-04_zh.md)：50/200 日总收益均线差及 MAS 10 年期国债收益率的开发期同日期筛选与停止判断。
+- [11 月 5 日V2阶段进展审核（中文）](progress_review_and_next_round_2026-11-05_zh.md)：保存结果独立复算、当时的设计与交付缺口，以及历史公告残差实验建议；不作为当前执行队列。
+- [V3 保留基础方案的实质优化探索（中文）](material_improvement_exploration_2026-11-05_zh.md)：神经模糊训练、日内目标及早期CLR迁移的负结果；当时建议的开盘前信息增强后来已执行V4，现已退出模型优化主线。
+- [V4 开盘前信息增强实测（中文）](v4_preopen_results_2026-11-05_zh.md)：VNQ/SPY信息筛选、108组匹配神经模型、时间审计和固定交易诊断；区分有效信息收益与尚未建立的模糊机制优势。
 - [Ryan–Destin 项目对齐稿（中文）](team_alignment_status_2026-11-04_zh.md) / [English](team_alignment_status_2026-11-04_en.md)：工作进度、模型与测试、课程要求、实测效果和下一步决策。
 - [Literature review and result comparison](literature_review_draft_en.md): method lineage, observed differences and future questions.
 - [Dataset guide](../data/README.md): source provenance, publication-time alignment and quality audit.
@@ -34,6 +39,7 @@ Run from the project root with Python 3.10 and the packages in [`requirements.tx
 Read-only checks (replace `python` with the verified interpreter or your environment's Python):
 
 ```powershell
+python -m src.tools.verify_research_archive
 python data/verify_dataset.py
 python -m unittest discover -s tests -v
 python src/tools/verify_starter_notebook.py

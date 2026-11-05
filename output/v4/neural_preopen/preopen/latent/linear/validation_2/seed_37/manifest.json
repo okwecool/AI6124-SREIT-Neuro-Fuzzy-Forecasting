@@ -1,0 +1,169 @@
+{
+  "arm": "preopen/latent/linear",
+  "fold": "validation_2",
+  "seed": 37,
+  "selected_epoch": 10,
+  "zero_fallback": false,
+  "trace": [
+    {
+      "epoch": 0,
+      "training_objective": null,
+      "stop_mse": 0.9574580192565918
+    },
+    {
+      "epoch": 1,
+      "training_objective": 0.9266108870506287,
+      "stop_mse": 0.9459603428840637
+    },
+    {
+      "epoch": 2,
+      "training_objective": 0.9035844802856445,
+      "stop_mse": 0.9289873242378235
+    },
+    {
+      "epoch": 3,
+      "training_objective": 0.8803913593292236,
+      "stop_mse": 0.908355176448822
+    },
+    {
+      "epoch": 4,
+      "training_objective": 0.8589088320732117,
+      "stop_mse": 0.8874276280403137
+    },
+    {
+      "epoch": 5,
+      "training_objective": 0.840182900428772,
+      "stop_mse": 0.8691437840461731
+    },
+    {
+      "epoch": 6,
+      "training_objective": 0.8243206739425659,
+      "stop_mse": 0.8548976182937622
+    },
+    {
+      "epoch": 7,
+      "training_objective": 0.8109791278839111,
+      "stop_mse": 0.8448759317398071
+    },
+    {
+      "epoch": 8,
+      "training_objective": 0.7995893955230713,
+      "stop_mse": 0.8384904861450195
+    },
+    {
+      "epoch": 9,
+      "training_objective": 0.7896138429641724,
+      "stop_mse": 0.834952712059021
+    },
+    {
+      "epoch": 10,
+      "training_objective": 0.7807231545448303,
+      "stop_mse": 0.833548367023468
+    },
+    {
+      "epoch": 11,
+      "training_objective": 0.7727572321891785,
+      "stop_mse": 0.8336642980575562
+    },
+    {
+      "epoch": 12,
+      "training_objective": 0.765630304813385,
+      "stop_mse": 0.8347667455673218
+    },
+    {
+      "epoch": 13,
+      "training_objective": 0.759263813495636,
+      "stop_mse": 0.8363975286483765
+    },
+    {
+      "epoch": 14,
+      "training_objective": 0.7535593509674072,
+      "stop_mse": 0.8381919264793396
+    },
+    {
+      "epoch": 15,
+      "training_objective": 0.7484027743339539,
+      "stop_mse": 0.8398957848548889
+    },
+    {
+      "epoch": 16,
+      "training_objective": 0.7436836957931519,
+      "stop_mse": 0.8413602113723755
+    },
+    {
+      "epoch": 17,
+      "training_objective": 0.7393124103546143,
+      "stop_mse": 0.8425211310386658
+    },
+    {
+      "epoch": 18,
+      "training_objective": 0.7352252006530762,
+      "stop_mse": 0.8433784246444702
+    },
+    {
+      "epoch": 19,
+      "training_objective": 0.7313817739486694,
+      "stop_mse": 0.8439773917198181
+    },
+    {
+      "epoch": 20,
+      "training_objective": 0.7277562618255615,
+      "stop_mse": 0.8443949818611145
+    },
+    {
+      "epoch": 21,
+      "training_objective": 0.7243291139602661,
+      "stop_mse": 0.8447279930114746
+    },
+    {
+      "epoch": 22,
+      "training_objective": 0.7210791707038879,
+      "stop_mse": 0.8450787663459778
+    },
+    {
+      "epoch": 23,
+      "training_objective": 0.7179807424545288,
+      "stop_mse": 0.8455438613891602
+    },
+    {
+      "epoch": 24,
+      "training_objective": 0.7150046825408936,
+      "stop_mse": 0.8462005853652954
+    },
+    {
+      "epoch": 25,
+      "training_objective": 0.7121231555938721,
+      "stop_mse": 0.8470991253852844
+    },
+    {
+      "epoch": 26,
+      "training_objective": 0.7093143463134766,
+      "stop_mse": 0.8482569456100464
+    },
+    {
+      "epoch": 27,
+      "training_objective": 0.7065638899803162,
+      "stop_mse": 0.8496580719947815
+    },
+    {
+      "epoch": 28,
+      "training_objective": 0.7038630247116089,
+      "stop_mse": 0.8512603640556335
+    },
+    {
+      "epoch": 29,
+      "training_objective": 0.7012050151824951,
+      "stop_mse": 0.853004515171051
+    },
+    {
+      "epoch": 30,
+      "training_objective": 0.6985818147659302,
+      "stop_mse": 0.8548286557197571
+    }
+  ],
+  "inner_seconds": 0.569631100166589,
+  "outer_seconds": 0.1758781000971794,
+  "output_sha256": {
+    "predictions.csv": "3f6039c4fa96e644951c4e4944bd3417164f115a8cd8613e198c74414a649416"
+  }
+}

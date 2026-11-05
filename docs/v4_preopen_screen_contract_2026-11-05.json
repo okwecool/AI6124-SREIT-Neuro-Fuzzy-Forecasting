@@ -1,0 +1,21 @@
+{
+  "experiment_id": "V4-H15-preopen-US-information-screen-01",
+  "status": "fixed before H15 scoring or fits; after prior development and V1 final results were viewed",
+  "declaration": "Keep SRT and next raw closing log return; separately label later forecast time and two external market inputs; not an unchanged-information algorithm claim",
+  "sources": ["VNQ", "SPY"],
+  "source_period": "2021-09-01 to 2025-09-30; fixed Yahoo raw close and dividend snapshots",
+  "availability": "each completed New York session is conservatively assigned 16:00 America/New_York plus two hours; this is a declared data-availability proxy, not historical vendor delivery evidence; early closes still use16:00",
+  "cutoffs": {"close": "18:00 Asia/Singapore on SRT forecast date t", "preopen": "08:00 Asia/Singapore on the next SRT target session t+1"},
+  "us_features": "two gross log returns accumulated between consecutive SRT-calendar cutoffs, obtained from as-of log total-return indices; same last known US session implies zero increment; no future session or forward filling from the future",
+  "base_features": "H12 gross-corrected original20x6 history; fixed SRT/STI/SORA information through t, even in the preopen arm",
+  "target": "unchanged raw next close return; train residual after completed historical distributions, add only previously audited preannounced SRT distribution offset",
+  "configs": ["base_endpoint", "close_us", "preopen_us", "close_all", "preopen_all"],
+  "design": "base_endpoint uses last six base features; *_us uses last two US features; *_all uses last eight features; no 200-day window or added indicator grid",
+  "references": ["DivSchedule", "MeanTrainResidualPlusSchedule"],
+  "fitting": "last15% of each outer train chooses lambda0.1/1/10 or zero residual; training-only x scaler, residual scaled but not centered, all coefficients including intercept penalized, mean SSE objective; outer full refit",
+  "budget": "five configurations x three folds x (three inner fits + at most one refit), at most60 fits",
+  "evaluation": "same378 original development dates, all original553/679/803 training windows; final_holdout prohibited",
+  "advance": "a preopen configuration beats DivSchedule and its corresponding close-time configuration by >=1% pooled RMSE, wins>=2/3 folds against DivSchedule, MAE<=1.01*DivSchedule; all comparisons reported, including mean and base endpoint",
+  "interpretation": "this is an information/timing screen, not evidence of fuzzy superiority, independent validation or profitable next-open execution",
+  "next_stage": "only after positive information screen, preregister matched LSTM3/Gate2/Fuzzy2 with20x8 input at both cutoffs; keep original frozen modules unchanged"
+}

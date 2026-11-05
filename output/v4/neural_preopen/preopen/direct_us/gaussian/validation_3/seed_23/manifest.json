@@ -1,0 +1,116 @@
+{
+  "arm": "preopen/direct_us/gaussian",
+  "fold": "validation_3",
+  "seed": 23,
+  "selected_epoch": -1,
+  "zero_fallback": true,
+  "trace": [
+    {
+      "epoch": 0,
+      "training_objective": null,
+      "stop_mse": 0.5945902466773987
+    },
+    {
+      "epoch": 1,
+      "training_objective": 0.7779781818389893,
+      "stop_mse": 0.5944069623947144
+    },
+    {
+      "epoch": 2,
+      "training_objective": 0.7756794095039368,
+      "stop_mse": 0.5951001644134521
+    },
+    {
+      "epoch": 3,
+      "training_objective": 0.7732229828834534,
+      "stop_mse": 0.5966048240661621
+    },
+    {
+      "epoch": 4,
+      "training_objective": 0.7706284523010254,
+      "stop_mse": 0.5988684296607971
+    },
+    {
+      "epoch": 5,
+      "training_objective": 0.7679101824760437,
+      "stop_mse": 0.6016789674758911
+    },
+    {
+      "epoch": 6,
+      "training_objective": 0.7649621963500977,
+      "stop_mse": 0.6047638058662415
+    },
+    {
+      "epoch": 7,
+      "training_objective": 0.7616649866104126,
+      "stop_mse": 0.6077647805213928
+    },
+    {
+      "epoch": 8,
+      "training_objective": 0.7579904198646545,
+      "stop_mse": 0.610313892364502
+    },
+    {
+      "epoch": 9,
+      "training_objective": 0.7540386319160461,
+      "stop_mse": 0.6122785806655884
+    },
+    {
+      "epoch": 10,
+      "training_objective": 0.7499487400054932,
+      "stop_mse": 0.6139587759971619
+    },
+    {
+      "epoch": 11,
+      "training_objective": 0.7457921504974365,
+      "stop_mse": 0.616239070892334
+    },
+    {
+      "epoch": 12,
+      "training_objective": 0.7416871786117554,
+      "stop_mse": 0.619814395904541
+    },
+    {
+      "epoch": 13,
+      "training_objective": 0.7376629710197449,
+      "stop_mse": 0.6245821118354797
+    },
+    {
+      "epoch": 14,
+      "training_objective": 0.7335415482521057,
+      "stop_mse": 0.6302064061164856
+    },
+    {
+      "epoch": 15,
+      "training_objective": 0.7293339967727661,
+      "stop_mse": 0.6364338994026184
+    },
+    {
+      "epoch": 16,
+      "training_objective": 0.7251158952713013,
+      "stop_mse": 0.6425462365150452
+    },
+    {
+      "epoch": 17,
+      "training_objective": 0.720844566822052,
+      "stop_mse": 0.6475498080253601
+    },
+    {
+      "epoch": 18,
+      "training_objective": 0.7166692614555359,
+      "stop_mse": 0.6508995890617371
+    },
+    {
+      "epoch": 19,
+      "training_objective": 0.7127540707588196,
+      "stop_mse": 0.6527528166770935
+    }
+  ],
+  "inner_seconds": 0.5450846999883652,
+  "outer_seconds": 0.07973839994519949,
+  "output_sha256": {
+    "cases.csv": "5c910b66a707da97a956c9ce67afbdc19d34b6810b64a9619121ccfd1cf49f10",
+    "predictions.csv": "7f4003bb85f0187e7bcce3d0399c95f96a9fa3dc840e5e88407d3bc806af7064",
+    "rules.csv": "3eb77a2ae0a238131b593a15d5229eec465ec5010ad4aa7633d1f7b1c2ea6e5e"
+  }
+}

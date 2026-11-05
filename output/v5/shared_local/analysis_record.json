@@ -1,0 +1,19 @@
+{
+  "analysis_source_sha256": "b538b4744f26b11d31650d2840f87cbf10eca9103e4992d41c8c7f1b872fc001",
+  "analysis_utils_sha256": "46187929ee6a444f0290e9d1ec7dd3520eae2a20cdd79fbf7e6a44eeada531c7",
+  "reference_sha256": {
+    "output\\development\\predictions.csv": "55a12d27b91d180c787ecfba9fcfb911145998e0e53593093cf33b5dedb1ccbe",
+    "output\\v2\\h1\\predictions.csv": "5ff4ec2f0836907ad419364903bee0dc4e47d44c403cd1cb0728ed537f34dd08"
+  },
+  "output_sha256": {
+    "comparison_pooled.csv": "885f1c9d6698121b37515cd67932d70c799e3aa84d158563f9e975f34c8b20cf",
+    "comparison_by_seed.csv": "b4a2acb3e873f362127cdd75fdc0cc78d867bc79dd4a96195422c58fd40bc0e1",
+    "comparison_by_fold.csv": "f8bf1a99870199425c12e5ac9b0a5d7f6b5fcaacf62fe051a06e4707059f46b7",
+    "mechanism.csv": "d2a0bc24c826ef2c468053fbcb399598ccefb5137f06c9b22c99269089903e50",
+    "component_diagnostics.csv": "dfca51f55dee293d579645289acac4e25e9d626d0649a57dbf9eb975853c7c02",
+    "local_regions.csv": "5d054756c67e473d716561f76fab2742e56b172522ae7aa497289160e81529bf",
+    "exploratory_block_intervals.csv": "e90aa0194eba9f90631900c3281aa5fd7e35eb48835130fe4403e1cbeaa7e499",
+    "paired_errors.csv": "9e45550fa8dcb8cbd6fc73e7d10a3be7eb2f6b31a6672f4f9f3b406c610f01c5"
+  },
+  "prediction_records_checked": 11340
+}

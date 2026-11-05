@@ -1,0 +1,13 @@
+{
+  "symbol": "VNQ",
+  "url": "https://query1.finance.yahoo.com/v8/finance/chart/VNQ?period1=1630454400&period2=1759276800&interval=1d&events=div%2Csplits&includeAdjustedClose=false",
+  "requested_period": "2021-09-01 to 2025-09-30",
+  "retrieved_at_utc": "2026-11-05T04:05:55+00:00",
+  "file": "raw/yahoo_vnq_20210901_20250930.json",
+  "sha256": "ef35066af6ccebc90d5cd2fb9ae429980a3ae50456e632e2f5e24e1091094ff2",
+  "rows": 1024,
+  "bytes": 92850,
+  "currency": "USD",
+  "exchange_timezone": "America/New_York",
+  "limitation": "Historical revised snapshot, not archived point-in-time vendor deliveries; bar availability must be explicitly modeled"
+}

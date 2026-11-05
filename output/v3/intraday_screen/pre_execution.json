@@ -1,0 +1,42 @@
+{
+  "contract": {
+    "experiment_id": "V3-H13-next-session-intraday-screen-01",
+    "status": "fixed after H12 results were viewed and before H13 fits; development exploration",
+    "declaration": "A separately named target extension, not a replacement for the approved next-close return experiment; retain SRT, forecast after close t and the original LSTM-fuzzy architecture if this screen advances",
+    "target": "log(C_(t+1)/O_(t+1)), forecast using only information through close t; a position entered at the ex-date open does not earn that day's distribution",
+    "evaluation": "the same original 378 development target dates; fail if any necessary open/close or historical baseline observation is missing; no date dropping",
+    "input_arms": [
+      "raw",
+      "gross"
+    ],
+    "models": [
+      "ZeroIntraday",
+      "MeanTrainIntraday",
+      "PreviousIntraday",
+      "ReversePreviousIntraday",
+      "RidgeIntradayRaw",
+      "RidgeIntradayGross"
+    ],
+    "ridge": "flatten the same 20x6 input; training-only input standardization and target scale without target centering; penalize all coefficients including intercept; mean SSE plus lambda norm squared",
+    "lambda_grid": [
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selection": "last 15% of each outer training fold; also consider zero prediction with no fit; ties prefer zero then stronger shrinkage; refit on complete outer training",
+    "budget": "two arms x three folds x (three inner ridge fits + at most one outer refit) = at most 24 fits",
+    "gate": "an arm has >=1% lower pooled RMSE than the strongest of the four simple controls, wins >=2/3 folds against that control, and MAE is no more than 1% worse; only then specify matched LSTM/fuzzy training",
+    "boundary": "new target RMSE is never compared numerically with close-to-close RMSE; no independent-test or trading-profit claim; do not compare only to zero if another simple control is stronger",
+    "stop": "if neither arm passes, stop this intraday screen without new feature, parameter or neural searches"
+  },
+  "dependency_sha256": {
+    "docs\\v3_intraday_screen_contract_2026-11-05.json": "baf1fa2e0bf64b88b9019e0ca41b9996ff7b0a8da380c2ec63ef719fb2a74237",
+    "src\\v3\\screen_intraday.py": "b9a85b16056c9a0b6cdca742adf1d5940fdf645ecc29dbde52bfb518ae318936",
+    "src\\v3\\hybrid_training.py": "688a30bd3441a60d13ec7a9ec6a09f29536803a260462643806d57ce86c754d8",
+    "src\\project_eval.py": "dbd74c5e71e8f2c09dba0a4ddbe9249b8c026ed56785288f97bace6049ce38f9",
+    "data\\processed\\srt_daily_aligned.csv": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+    "data\\processed\\srt_windows_unscaled.npz": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "data\\processed\\window_index.csv": "2198d401fb9768c50f013b6fe1bc222216d1270a743490c2b502d85613a51771",
+    "data\\processed\\fold_assignments.csv": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859"
+  }
+}

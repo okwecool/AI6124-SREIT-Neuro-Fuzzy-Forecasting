@@ -1,0 +1,282 @@
+{
+  "review_date": "2026-11-05",
+  "scope": "saved-output audit; no new fits or final-period ranking",
+  "prediction_rows_checked": 9450,
+  "fuzzy_runs_checked": 18,
+  "max_recomputed_score_difference": 9.020562075079397e-17,
+  "scores": {
+    "h1": [
+      {
+        "model_id": "MeanTrain",
+        "rmse": 0.009444461200468554,
+        "mae": 0.006327860040149874
+      },
+      {
+        "model_id": "Ridge",
+        "rmse": 0.00995621669897269,
+        "mae": 0.007006535947676153
+      }
+    ],
+    "analysis": [
+      {
+        "model_id": "Fuzzy2+local",
+        "rmse": 0.009505040975129726,
+        "mae": 0.006399818765933434
+      }
+    ],
+    "h1b_h2_screen": [
+      {
+        "model_id": "RidgePrice",
+        "rmse": 0.009666115821355058,
+        "mae": 0.0066965434559457465
+      },
+      {
+        "model_id": "RidgeStrong",
+        "rmse": 0.009478904612915947,
+        "mae": 0.006455761608596036
+      },
+      {
+        "model_id": "RidgeVolume",
+        "rmse": 0.009444796893699162,
+        "mae": 0.0064180607860040585
+      }
+    ],
+    "announced_distribution_screen": [
+      {
+        "model_id": "DivSchedule",
+        "rmse": 0.009170131621064458,
+        "mae": 0.006147848962302404
+      },
+      {
+        "model_id": "Fuzzy2",
+        "rmse": 0.009488633011324089,
+        "mae": 0.006384617050376128
+      },
+      {
+        "model_id": "SchedulePlusFuzzy2",
+        "rmse": 0.009250733401675438,
+        "mae": 0.006251566215691319
+      },
+      {
+        "model_id": "Z0",
+        "rmse": 0.00943073954460879,
+        "mae": 0.006289873868732088
+      }
+    ],
+    "residual_fuzzy": [
+      {
+        "model_id": "ResidualFuzzy2",
+        "rmse": 0.009231702215572395,
+        "mae": 0.006231198178711646
+      }
+    ],
+    "clr_screen": [
+      {
+        "model_id": "RidgeResidual6",
+        "rmse": 0.009312272385436412,
+        "mae": 0.006419424391740253
+      },
+      {
+        "model_id": "RidgeResidualCLR",
+        "rmse": 0.009196752163807217,
+        "mae": 0.00626219905959512
+      }
+    ],
+    "trend_rate_screen": [
+      {
+        "model_id": "RidgeResidualBaseMatched",
+        "rmse": 0.009494134305777974,
+        "mae": 0.006560427857233657
+      },
+      {
+        "model_id": "RidgeResidualSGS10Y",
+        "rmse": 0.009481922336157836,
+        "mae": 0.0065488489869992336
+      },
+      {
+        "model_id": "RidgeResidualTrend",
+        "rmse": 0.009356535875888226,
+        "mae": 0.006438243504931966
+      },
+      {
+        "model_id": "RidgeResidualTrendSGS10Y",
+        "rmse": 0.00934981759921596,
+        "mae": 0.006424966497541064
+      }
+    ]
+  },
+  "distribution_event_gain": [
+    {
+      "target_date": "2024-07-19",
+      "actual": -0.03335871174931526,
+      "prediction": -0.0292963685403568,
+      "sse_gain_vs_zero": 0.0010963010172265332
+    },
+    {
+      "target_date": "2025-01-20",
+      "actual": -0.02739894762635231,
+      "prediction": -0.0301806167566313,
+      "sse_gain_vs_zero": 0.0007429646478812498
+    },
+    {
+      "target_date": "2025-07-21",
+      "actual": -0.014996923506259918,
+      "prediction": -0.0302220794185297,
+      "sse_gain_vs_zero": -6.897657900312203e-06
+    }
+  ],
+  "historical_input_events": [
+    {
+      "date": "2022-07-19",
+      "raw_return": -0.03452339044,
+      "gross_return": -0.005974338006226304,
+      "raw_vol20": 0.01126642885,
+      "gross_vol20": 0.00838685622238975
+    },
+    {
+      "date": "2023-01-19",
+      "raw_return": -0.01285812856,
+      "gross_return": 0.00636763056873369,
+      "raw_vol20": 0.005805837619,
+      "gross_vol20": 0.004901390876651006
+    },
+    {
+      "date": "2023-07-19",
+      "raw_return": -0.04019451237,
+      "gross_return": -0.00557749479628573,
+      "raw_vol20": 0.01193804834,
+      "gross_vol20": 0.008114434770200142
+    },
+    {
+      "date": "2024-01-19",
+      "raw_return": -0.03420213101,
+      "gross_return": -0.0024937050388274596,
+      "raw_vol20": 0.01083649711,
+      "gross_vol20": 0.008007647433431636
+    },
+    {
+      "date": "2024-07-19",
+      "raw_return": -0.03335871094,
+      "gross_return": -0.003944825200542495,
+      "raw_vol20": 0.01332624997,
+      "gross_vol20": 0.010822744343515529
+    },
+    {
+      "date": "2025-01-20",
+      "raw_return": -0.02739894734,
+      "gross_return": 0.0026990826758009454,
+      "raw_vol20": 0.009082302648,
+      "gross_vol20": 0.0066089606620383275
+    },
+    {
+      "date": "2025-07-21",
+      "raw_return": -0.01499692338,
+      "gross_return": 0.01477523553759,
+      "raw_vol20": 0.006695662897,
+      "gross_vol20": 0.006342474177171651
+    }
+  ],
+  "unpenalized_intercept_limit": [
+    {
+      "fold": "validation_1",
+      "train_residual_mean": -0.00020780361991998487,
+      "evaluation_residual_mean": 0.0008588704795598728,
+      "zero_residual_rmse": 0.009374764425048332,
+      "train_mean_residual_rmse": 0.00939608126609139
+    },
+    {
+      "fold": "validation_2",
+      "train_residual_mean": -9.864096305165922e-06,
+      "evaluation_residual_mean": -0.0006978384439870243,
+      "zero_residual_rmse": 0.006846022627262637,
+      "train_mean_residual_rmse": 0.006845024179807846
+    },
+    {
+      "fold": "validation_3",
+      "train_residual_mean": -0.00011610172907297469,
+      "evaluation_residual_mean": 0.0007356140872065222,
+      "zero_residual_rmse": 0.010789614241044396,
+      "train_mean_residual_rmse": 0.010798151101783674
+    }
+  ],
+  "initial_fuzzy_max_weight_bound": 0.6224593312018546,
+  "delivery": {
+    "notebook_mentions_DivSchedule": false,
+    "old_handoff_v2_members": 0
+  },
+  "review_time_input_sha256": {
+    "output/v2/h1/predictions.csv": "5ff4ec2f0836907ad419364903bee0dc4e47d44c403cd1cb0728ed537f34dd08",
+    "output/v2/h1/comparison_pooled.csv": "2205d2dedb48373f22b3078fc70887769e9cfc0b9e99db91d44c8dfd5efeddd6",
+    "output/v2/analysis/h3_predictions.csv": "70fb70378379028ce153f4a0d93de6b2b255c387c342b3db2e8d468f3b3227c2",
+    "output/v2/analysis/comparison_pooled.csv": "12e725c96ea8aae280a397272bc5735d8b84e6887a199aa1e887a9d2570bd289",
+    "output/v2/h1b_h2_screen/predictions.csv": "1c001c78e95c9e66bbb4b1737997fa0169ce52328a66dcf7b4cd687a67fba0c6",
+    "output/v2/h1b_h2_screen/comparison_pooled.csv": "45e1cae4401d63f376907f8cb8f1b84dde367f5868460d0a01b4e8233d92244e",
+    "output/v2/announced_distribution_screen/predictions.csv": "622e4de385d6c53d420792f134bd75060230947b8b9763a095bd0c47b0a94753",
+    "output/v2/announced_distribution_screen/comparison_pooled.csv": "29f086597b73900a0c9c8fe4721455f13784a99464bf4290e7c46f86b0f7b3d1",
+    "output/v2/residual_fuzzy/predictions.csv": "c83c96e49141069bcc36ce2ab32f3754f2598dd61d0733dc0a02900f3f1c4840",
+    "output/v2/residual_fuzzy/comparison_pooled.csv": "2e04dcce79af04e06cebee3d073b317f3a9eeb0e082db864598142734fde85f1",
+    "output/v2/clr_screen/predictions.csv": "35a96b54143f3e50f5fa75358c4696861c8310d87f05069d9f59c97521ac4914",
+    "output/v2/clr_screen/comparison_pooled.csv": "da60171d8b411ce91b0f4a4eb6e1dc1811f6d5949e66b984d4ceeed4c06c051b",
+    "output/v2/trend_rate_screen/predictions.csv": "69dbd705bf7604a201cee457dd3fe6d19133ce8d93481fceefc62a19695599cc",
+    "output/v2/trend_rate_screen/comparison_pooled.csv": "e74b90eda6ac797787a48b218836c40cf553d09518ff688277413418ed1d9b0b",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_11/predictions.csv": "f18f6504ced451729ff3e46a6fcb17e961169656e586ba59916bfd74c3788c2c",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_11/cases.csv": "4e39142ffb535825a0070780795e854bc39b02214d48ea4715e297a73f70a301",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_11/rules.csv": "ee882970b1915c83beed5371d075513f534c8bd55c7bda8c5cc084345a106088",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_23/predictions.csv": "1e1f8d0e667d80daec807a3f30f8fd048733209494c87b8bac2454ef1e54089f",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_23/cases.csv": "6c2b267c6087d6b1b24aa7913fa2d191b602bcb83b070bc4feab251f503fab39",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_23/rules.csv": "8583d9cc1b39454e45c34f090e8a657662b9e0f762bc76ec97967b35197cd875",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_37/predictions.csv": "ff38edb67d5ea72d7c5eff0bdf8244a67f6bb3061e06036c666364e9888bb618",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_37/cases.csv": "20c6119c77fcd3be45943737a62e5f19c168008ef571fc44846e00a3cc41c0f1",
+    "output/v2/h3/validation_1/all/Fuzzy2/seed_37/rules.csv": "5b9abd31fb9046902dfdd50b13d104757ae337023fa9225100e677e0e0e8f2fa",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_11/predictions.csv": "626ce1fa2f00b9321abc8055d5e5090bfd954c5d95d0c85b2ecfdc388889de12",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_11/cases.csv": "94af50e698bbbda5fa223b92f3cfd50f608812c4815343a44574b025ba2b201a",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_11/rules.csv": "bc6f64594141077858f05d9f35032da5dd4cdebdaad1c3a2b7fe17c514477bb1",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_23/predictions.csv": "9983fcc9243ba9103cad7a344b2fc7541751889ca394c70f3fba2a324616c8e3",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_23/cases.csv": "e93058f7f3e8b4c07af4d5dd6a5a37fac14a1bca60ff227ebf15fe0f5ee8d318",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_23/rules.csv": "02fb1b90b2aaa8007bf6a75617163b3f09bdcfc5c864e9f8628792a3baeaf68a",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_37/predictions.csv": "bec54e5ae663a9ca4d7783cb3e6c30006861757911773142ec9dc8235cb66075",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_37/cases.csv": "1095881b7b40186fd042f092698556fddf2bcafce935173f63c9e5a82e8d8145",
+    "output/v2/h3/validation_2/all/Fuzzy2/seed_37/rules.csv": "e09c417d9cfdc414978e09899426ea2be3dd72cbc51a8e6bd2736aca98b16429",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_11/predictions.csv": "90b5bca2308c28f0e994daa157035dab22fa405e854f7dd4b6b803e96ee1ab9e",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_11/cases.csv": "9348228c94df2dee495aaebfa00dd4299209aa50eee4f53bf7acb0c8ad51884a",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_11/rules.csv": "1501c54acea0487760234aeb0e2db2db8c791b13bcfb23963fe9f6a99c4e6e64",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_23/predictions.csv": "fb91f4e27c290886c48f8258bf718e5653e06f909a386fa747858468c069c2ca",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_23/cases.csv": "95cd5faa3ee381fdeb36398159d4c174f995f735c58cd15666d16a36d58f2acb",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_23/rules.csv": "e5793fa21492566194a60225771a276fc529b095c4782410dcd2497c1ca9a308",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_37/predictions.csv": "56dc025e997a2a068c574cc8c692e88265fdd2474a12964b0f340f161710f199",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_37/cases.csv": "7ee01a0cea72979a576677ee6849228a2f518460be0c36bed44f15edc1f6d5a9",
+    "output/v2/h3/validation_3/all/Fuzzy2/seed_37/rules.csv": "8328bd03faf83813d1afc41c6bb97152d3a512da2b84aebdceb02effd0b09a10",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_11/predictions.csv": "1b1d0034e8b876bb85865fa5e220910b99b4e7f54ea29db537556c001a66b205",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_11/cases.csv": "9db4c4958dd3a6c1033bc9602da41917532a122d9cd8c3778b10dc0593f8dd23",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_11/rules.csv": "45076051676588822922a2dc057a36d11bdc2042091a93a7faac4821b3528abf",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_23/predictions.csv": "3ba8d9558a5c742b97279259676551165562e51bf102b9e710711949d803778f",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_23/cases.csv": "3e7c3e475e6352683aeb90369902a6f1c08979d20b7f581753fc26856724ee40",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_23/rules.csv": "92417ce66dc439256a0c6364724ffec97baa9d3cb84bf4bba052bc177ea719d0",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_37/predictions.csv": "00f4728918bb7af22483aa518b9b7bab225b147090b455d9574af2017d3c83e5",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_37/cases.csv": "e219cfdb85714afa176e18ed473248e1b5c6c0575c1b7f1ec3e4ede24027628e",
+    "output/v2/residual_fuzzy/runs/validation_1/seed_37/rules.csv": "ae7e7c3fc6dde84cc59311a4ee90b6c52caffa210d5c5256aae6cb2b211907b9",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_11/predictions.csv": "223c80d3e5890d5371c124b8b0b89bb318d10b3f99ef7298b85a6d17b6dd2e94",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_11/cases.csv": "88c66f855c603fbb613c65cf9f75453a51e636bb541ccb3103c577a14fa60027",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_11/rules.csv": "9463f21cfe2413ef260ed3d19e478d99d6e56d40f59e9816a395a0043a5035a5",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_23/predictions.csv": "af1c6fcd98dd4aab4c0ee7e9a46f90b105d5df3aec1f78780caa71dc2711da63",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_23/cases.csv": "78d780bc45587d76e56da043b6cfb85095917ce886109b9f5926f9888dd4db0c",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_23/rules.csv": "11d59ace10dbf004437aa7193689385a01c00cce7f00a6fe17129cd86e1bb54a",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_37/predictions.csv": "ea4556eec364438f2f2bf880179aef6ea286df9706a0a49fb33b774c9739b4ae",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_37/cases.csv": "b83c145201e1eebd0aa05ccc69088ebdba69d2fb34d6928cfe4ee60dc505d3b7",
+    "output/v2/residual_fuzzy/runs/validation_2/seed_37/rules.csv": "3fa631b2cff19a0ada2a01c35efaf34a1bbf91ec0dba845b1493f6152014b66c",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_11/predictions.csv": "fe00b71630ff74b16f71105f70791973908845bc0afa28edea91cccb2438b4c5",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_11/cases.csv": "c28e671a75a8a7f6f112a845c0a039bf8f00411b8fb3b3a571b61fc48a8a53e4",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_11/rules.csv": "f121f9b78000df370654e25644e58c8227e5789faa6c02d4772e30c69a416c88",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_23/predictions.csv": "9c3a4e13cd322b3f78e1c942f3793e8bd8e3047f0df01922733de9ca9f59b651",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_23/cases.csv": "09ba06b2a2645d7f1609eef167d7730e390e3750cc199b88e2f1029df35845ea",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_23/rules.csv": "29d8a2a333e34cf0bda38767a4d20945cb12d19aba163fab9f9f42db99f6beb9",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_37/predictions.csv": "925ec831e7599618e7d34e9ff00c73d7e8d4875aea22ce9201acfcff4bbedb7b",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_37/cases.csv": "8b78d83a0304ed7c5e2eff7b1568723fb255423c413ef95cbe70364a23183a19",
+    "output/v2/residual_fuzzy/runs/validation_3/seed_37/rules.csv": "7a54718e5a33b5eef3210d678f4440ca04724685a63d8f7b46e34f0c64cdec30"
+  },
+  "limitations": [
+    "Seven one-day experiment exports checked; weekly-target metrics were not recomputed here.",
+    "Metric agreement and diagnostic identities do not prove historical data availability or generalization.",
+    "Review-time hashes are not original execution dependency hashes."
+  ]
+}

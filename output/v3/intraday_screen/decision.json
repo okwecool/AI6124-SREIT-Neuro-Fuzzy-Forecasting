@@ -1,0 +1,16 @@
+[
+  {
+    "model": "RidgeIntradayGross",
+    "reference": "MeanTrainIntraday",
+    "gain_pct": -1.1611924979118005,
+    "fold_wins": 0,
+    "passes": false
+  },
+  {
+    "model": "RidgeIntradayRaw",
+    "reference": "MeanTrainIntraday",
+    "gain_pct": -0.636635097029048,
+    "fold_wins": 1,
+    "passes": false
+  }
+]

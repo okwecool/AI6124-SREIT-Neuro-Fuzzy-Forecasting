@@ -1,0 +1,65 @@
+{
+  "contract": {
+    "experiment_id": "V3-H14-earlier-CLR-transfer-probe-01",
+    "status": "fixed after H12 and H13 results, before source pretraining or target transfer fits; exploratory",
+    "declaration": "additional source data and two-stage frozen-encoder training; target SRT, 20x6 input, LSTM32, 3D latent, two Gaussian affine experts and next raw close-return output retained",
+    "source": "existing frozen Yahoo CLR raw snapshot, restricted to 2017-10-30 through 2021-09-30; all source labels end before the first saved SRT date 2021-11-18",
+    "source_caution": "historical CLR corporate actions are from the saved Yahoo event feed; this probe does not claim an independently issuer-audited CLR distribution history",
+    "source_features": "historical gross log return, 5-day sum, 20-day population volatility; 20-day windows",
+    "source_target": "next CLR gross log return; known realized distribution is part of a completed historical label, never a future input",
+    "source_training": "3-input LSTM32 -> tanh 3D -> affine scalar; AdamW lr0.001 wd0.0001, batch64, clip1, max150 patience20 min_improvement0.0001; chronological last15% stopping, train-only standardization; restart and refit selected epochs on all pre-2021-10 source rows",
+    "initialization": "construct the same-seed target 6-input shared encoder/projection first; copy its first three input columns, recurrent weights, biases and projection into the 3-input source model before source training",
+    "transfer": "copy source-trained first three input weight columns, recurrent weights, biases and 3D projection into the corresponding target model; retain same-seed target initialization for STI/SORA columns; discard source output head",
+    "target_probe": "freeze target encoder/projection, use H12 gross input and residual label, fit target-only latent normalization and Gaussian clustering on each training partition, solve ridge experts with lambda0.1; compare with identical frozen randomly initialized encoders",
+    "arms": [
+      "random/linear",
+      "random/gaussian",
+      "random/gate",
+      "transfer/linear",
+      "transfer/gaussian",
+      "transfer/gate"
+    ],
+    "primary_candidate": "transfer/gaussian",
+    "selection": "inner last15% chooses fitted head or zero residual; improvement must be at least 0.0001 standardized MSE; all target transformations/head coefficients refit on full outer train",
+    "budget": "three seeds with two source fits each; six target configurations x three folds x three seeds, each one inner and at most one outer ridge fit; no additional feature, pretraining task or epoch grid",
+    "seeds": [
+      11,
+      23,
+      37
+    ],
+    "folds": [
+      "validation_1",
+      "validation_2",
+      "validation_3"
+    ],
+    "references": [
+      "DivSchedule",
+      "random/gaussian",
+      "transfer/linear",
+      "transfer/gate"
+    ],
+    "goal": ">=3% lower seed-mean pooled RMSE versus all necessary references; candidate floor1%; >=2/3 fold wins per reference, >=6/9 paired wins per learned reference, MAE no more than1% worse, non-event RMSE >=0.5% better than DivSchedule",
+    "stop": "if the candidate floor fails, stop this frozen-transfer probe; do not claim it disproves all fine-tuning or transfer approaches; no old final-period evaluation",
+    "claims": "source adaptation is not independent evaluation; no seed selection, ensembling or trading-profit claim"
+  },
+  "dependency_sha256": {
+    "docs\\v3_transfer_contract_2026-11-05.json": "b42095b5f79e65566575814ed1aff136669ec9ad63cc5ec4c8eacc2afdac2028",
+    "src\\v3\\transfer_probe.py": "2c98f3c49c801b7ec635dd2c58ddbeff047b6a07d6075fee944d59d08f1f6c6d",
+    "data\\raw\\yahoo_clr_si_20171001_20260930.json": "7874263292318d49c83df7c68a5be2902f8ad60c0bb538a05c46236d83b1cf0c",
+    "data\\reference\\srt_announced_distributions_dev.csv": "95df737717a100e4a86653562c0e86bbfccd2bdd0949da8a9e5c2d039d9c8215",
+    "data\\prepare_dataset.py": "2149d6cd1728a7cf9416e87418c586557c7f0e1aad03915c2833343d42611421",
+    "src\\v3\\hybrid_training.py": "688a30bd3441a60d13ec7a9ec6a09f29536803a260462643806d57ce86c754d8",
+    "src\\models.py": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+    "src\\project_eval.py": "dbd74c5e71e8f2c09dba0a4ddbe9249b8c026ed56785288f97bace6049ce38f9",
+    "src\\train.py": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+    "src\\export_contract.py": "52b44e6e2f4bb59e6a32b9056cab23b75eb9aaf514848678a9227c46ef7758de",
+    "src\\v2\\screen_distributions.py": "ec2d5f24f3e514683cbb0586faad9fb04475294536f51bccc7eeb127d4bdf894",
+    "data\\processed\\srt_daily_aligned.csv": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+    "data\\processed\\srt_windows_unscaled.npz": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "data\\processed\\window_index.csv": "2198d401fb9768c50f013b6fe1bc222216d1270a743490c2b502d85613a51771",
+    "data\\processed\\fold_assignments.csv": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859"
+  },
+  "source_windows": 948,
+  "first_source_target": "2017-12-26",
+  "last_source_target": "2021-09-30"
+}

@@ -1,0 +1,160 @@
+{
+  "experiment_id": "V5-H17-model-only-shared-local-01",
+  "arm": "gaussian_independent",
+  "fold": "validation_1",
+  "seed": 23,
+  "head": "gaussian",
+  "best_fitted_epoch": 0,
+  "zero_fallback": true,
+  "inner_zero_mse": 1.0333222863162288,
+  "inner_fitted_mse": 1.0361582829582408,
+  "trace": [
+    {
+      "epoch": 0,
+      "train_penalized_objective": null,
+      "stop_mse": 1.0361582829582408
+    },
+    {
+      "epoch": 1,
+      "train_penalized_objective": 0.996868218139794,
+      "stop_mse": 1.038076350183186
+    },
+    {
+      "epoch": 2,
+      "train_penalized_objective": 0.9952216723936715,
+      "stop_mse": 1.0404604446119625
+    },
+    {
+      "epoch": 3,
+      "train_penalized_objective": 0.9934314755785119,
+      "stop_mse": 1.04307164615321
+    },
+    {
+      "epoch": 4,
+      "train_penalized_objective": 0.9915045463686318,
+      "stop_mse": 1.0456923830607554
+    },
+    {
+      "epoch": 5,
+      "train_penalized_objective": 0.9894222035760865,
+      "stop_mse": 1.0481147169301817
+    },
+    {
+      "epoch": 6,
+      "train_penalized_objective": 0.9871720289592139,
+      "stop_mse": 1.0501668949719924
+    },
+    {
+      "epoch": 7,
+      "train_penalized_objective": 0.984738925118805,
+      "stop_mse": 1.0517472839993904
+    },
+    {
+      "epoch": 8,
+      "train_penalized_objective": 0.9821210274159888,
+      "stop_mse": 1.0528471299786277
+    },
+    {
+      "epoch": 9,
+      "train_penalized_objective": 0.9793646768375291,
+      "stop_mse": 1.0534978633366117
+    },
+    {
+      "epoch": 10,
+      "train_penalized_objective": 0.9765520884215109,
+      "stop_mse": 1.0537340349511124
+    },
+    {
+      "epoch": 11,
+      "train_penalized_objective": 0.9737764377695013,
+      "stop_mse": 1.0536649218391927
+    },
+    {
+      "epoch": 12,
+      "train_penalized_objective": 0.9711537734150982,
+      "stop_mse": 1.0534654620530792
+    },
+    {
+      "epoch": 13,
+      "train_penalized_objective": 0.968785892692308,
+      "stop_mse": 1.0532757118377047
+    },
+    {
+      "epoch": 14,
+      "train_penalized_objective": 0.9666436627963501,
+      "stop_mse": 1.0530789445717212
+    },
+    {
+      "epoch": 15,
+      "train_penalized_objective": 0.9645461528323923,
+      "stop_mse": 1.0527200373839694
+    },
+    {
+      "epoch": 16,
+      "train_penalized_objective": 0.9622930279397154,
+      "stop_mse": 1.0520420556892955
+    },
+    {
+      "epoch": 17,
+      "train_penalized_objective": 0.9597300705219991,
+      "stop_mse": 1.0509962978858935
+    },
+    {
+      "epoch": 18,
+      "train_penalized_objective": 0.9567151235218176,
+      "stop_mse": 1.0499358314457319
+    },
+    {
+      "epoch": 19,
+      "train_penalized_objective": 0.9534061196131548,
+      "stop_mse": 1.0497186625120705
+    },
+    {
+      "epoch": 20,
+      "train_penalized_objective": 0.9503084134124331,
+      "stop_mse": 1.0501781713974545
+    }
+  ],
+  "train_rows": 553,
+  "eval_rows": 126,
+  "inner_seconds": 0.34205219987779856,
+  "outer_seconds": 0.07307100016623735,
+  "parameters": 5239,
+  "mean_max_weight": 0.8561376929283142,
+  "fraction_max_weight_above_08": 0.6904761904761905,
+  "mean_abs_expert_difference": 0.0,
+  "common_rms": 0.0,
+  "local_rms": 0.0,
+  "fraction_raw_support_below_train_p05": 0.007936507936507936,
+  "centers": [
+    [
+      -0.43477049469947815,
+      0.40917670726776123,
+      -0.2974671423435211
+    ],
+    [
+      0.8648415207862854,
+      -0.8139298558235168,
+      0.5917177200317383
+    ]
+  ],
+  "widths": [
+    [
+      0.8623497486114502,
+      0.8105152249336243,
+      0.8847343325614929
+    ],
+    [
+      0.6212700009346008,
+      0.8287934064865112,
+      0.9518376588821411
+    ]
+  ],
+  "output_sha256": {
+    "cases.csv": "9c7cfe4dd94b80b4d6b13c81686fc1ae5385c49624f6cdb7bfb1d3a24a492da3",
+    "components.csv": "1769640750eb79e3dfbdddd5ba3086cf6d23fa9f30dbf55488f84070b89247e0",
+    "local_errors.csv": "0b1baa05a46d99952a52d9062eb99a811a911dc325fcd4d8a678dea70f5b6c15",
+    "predictions.csv": "1f961c4f50ad9877102102b420a077c88485e70641c43ddce90bad007a1ee181",
+    "rules.csv": "5b91e88a5c413ad0dc597a679663bdf3ceb8c221e0d4e9601df87ae55c66f06a"
+  }
+}

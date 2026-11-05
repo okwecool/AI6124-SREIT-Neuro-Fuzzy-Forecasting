@@ -1,0 +1,175 @@
+{
+  "experiment_id": "V5-H17-model-only-shared-local-01",
+  "arm": "gaussian_shared_local",
+  "fold": "validation_2",
+  "seed": 11,
+  "head": "gaussian",
+  "best_fitted_epoch": 3,
+  "zero_fallback": false,
+  "inner_zero_mse": 1.011342348554542,
+  "inner_fitted_mse": 1.00445522711949,
+  "trace": [
+    {
+      "epoch": 0,
+      "train_penalized_objective": null,
+      "stop_mse": 1.0091745217668344
+    },
+    {
+      "epoch": 1,
+      "train_penalized_objective": 0.989605556359453,
+      "stop_mse": 1.0068457128820747
+    },
+    {
+      "epoch": 2,
+      "train_penalized_objective": 0.9870324101800066,
+      "stop_mse": 1.0051237963023556
+    },
+    {
+      "epoch": 3,
+      "train_penalized_objective": 0.984496779868214,
+      "stop_mse": 1.00445522711949
+    },
+    {
+      "epoch": 4,
+      "train_penalized_objective": 0.9821175932384854,
+      "stop_mse": 1.0053453850673642
+    },
+    {
+      "epoch": 5,
+      "train_penalized_objective": 0.9798922185381018,
+      "stop_mse": 1.0077016364342852
+    },
+    {
+      "epoch": 6,
+      "train_penalized_objective": 0.9777672877625663,
+      "stop_mse": 1.0108210292724165
+    },
+    {
+      "epoch": 7,
+      "train_penalized_objective": 0.9757294050474619,
+      "stop_mse": 1.0140063437933866
+    },
+    {
+      "epoch": 8,
+      "train_penalized_objective": 0.9737785220024002,
+      "stop_mse": 1.0170849934632211
+    },
+    {
+      "epoch": 9,
+      "train_penalized_objective": 0.9719457161876935,
+      "stop_mse": 1.0202818744890396
+    },
+    {
+      "epoch": 10,
+      "train_penalized_objective": 0.9702960949808848,
+      "stop_mse": 1.0236857128185257
+    },
+    {
+      "epoch": 11,
+      "train_penalized_objective": 0.9688377600742014,
+      "stop_mse": 1.0272662231931173
+    },
+    {
+      "epoch": 12,
+      "train_penalized_objective": 0.9675197695347538,
+      "stop_mse": 1.030968254646161
+    },
+    {
+      "epoch": 13,
+      "train_penalized_objective": 0.9662098074937188,
+      "stop_mse": 1.0352291612651503
+    },
+    {
+      "epoch": 14,
+      "train_penalized_objective": 0.9647790858438434,
+      "stop_mse": 1.0414033676257033
+    },
+    {
+      "epoch": 15,
+      "train_penalized_objective": 0.963102151329243,
+      "stop_mse": 1.0492905139092663
+    },
+    {
+      "epoch": 16,
+      "train_penalized_objective": 0.9612332337604934,
+      "stop_mse": 1.05679662889383
+    },
+    {
+      "epoch": 17,
+      "train_penalized_objective": 0.959266795115586,
+      "stop_mse": 1.0611308144951168
+    },
+    {
+      "epoch": 18,
+      "train_penalized_objective": 0.9576861305405371,
+      "stop_mse": 1.0593122994379114
+    },
+    {
+      "epoch": 19,
+      "train_penalized_objective": 0.9557301136395259,
+      "stop_mse": 1.0546220809721731
+    },
+    {
+      "epoch": 20,
+      "train_penalized_objective": 0.9537091374428909,
+      "stop_mse": 1.0554238102344222
+    },
+    {
+      "epoch": 21,
+      "train_penalized_objective": 0.9519503851185083,
+      "stop_mse": 1.0628089239465741
+    },
+    {
+      "epoch": 22,
+      "train_penalized_objective": 0.9502860329334608,
+      "stop_mse": 1.0698515864854596
+    },
+    {
+      "epoch": 23,
+      "train_penalized_objective": 0.9490439057182813,
+      "stop_mse": 1.072338052865029
+    }
+  ],
+  "train_rows": 679,
+  "eval_rows": 124,
+  "inner_seconds": 0.3921042000874877,
+  "outer_seconds": 0.10960969980806112,
+  "parameters": 5239,
+  "mean_max_weight": 0.8718332648277283,
+  "fraction_max_weight_above_08": 0.7258064516129032,
+  "mean_abs_expert_difference": 0.001117706179876116,
+  "common_rms": 0.0012177745484120439,
+  "local_rms": 0.0005606661254266331,
+  "fraction_raw_support_below_train_p05": 0.04838709677419355,
+  "centers": [
+    [
+      0.865449845790863,
+      -0.6373836994171143,
+      -0.7032516598701477
+    ],
+    [
+      -0.6779084801673889,
+      0.49919530749320984,
+      0.5494081377983093
+    ]
+  ],
+  "widths": [
+    [
+      0.6807435750961304,
+      0.9571852087974548,
+      0.8570610284805298
+    ],
+    [
+      0.6140821576118469,
+      0.7077053785324097,
+      0.7150879502296448
+    ]
+  ],
+  "output_sha256": {
+    "cases.csv": "5abeedb6479199fa85a9651dd3a8f397c9c2b385b2a10d56b729cd026067c428",
+    "components.csv": "f153bb2366e4cb745eb465d1e4b1c772ba1f091ca40b848142efec86233b3196",
+    "local_errors.csv": "9ee9d399b34f148254c48dc29e7f3f9350fa86542c9e5f651fe5132c4a2efecd",
+    "predictions.csv": "4dc931200c2bf2336dc7b59e0641d03e0a100d155f446f12bc36a29bffae0dce",
+    "rules.csv": "740037ec9e429963cac661c487c249179b32a2f886e3258ca2987544a5e4bb87"
+  }
+}

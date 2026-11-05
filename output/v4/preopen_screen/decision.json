@@ -1,0 +1,16 @@
+[
+  {
+    "config": "preopen_us",
+    "gain_vs_schedule_pct": 3.967955381148114,
+    "gain_vs_close_pct": 3.967955381148114,
+    "fold_wins": 2,
+    "advance": true
+  },
+  {
+    "config": "preopen_all",
+    "gain_vs_schedule_pct": 3.700864863384068,
+    "gain_vs_close_pct": 3.700864863384068,
+    "fold_wins": 2,
+    "advance": true
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "arm": "random/linear",
+  "fold": "validation_2",
+  "seed": 11,
+  "zero_fallback": false,
+  "output_sha256": {
+    "predictions.csv": "cfd4c272ffa7ede67ce1296915e289b81e083c04ff855ac7efc67c2acfd7e24f"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "experiment_id": "V4-H16-timed-US-neuro-fuzzy-01",
+  "status": "fixed after positive H15 information screen and before H16 neural fits",
+  "invariants": "SRT, next raw close log return, original three development folds and378 dates,20-step LSTM32,3D latent representation,two Gaussian rules and affine experts",
+  "declared_changes": ["forecast time18:00 at t versus08:00 at next SRT session", "input dimension6 to8 by appending VNQ/SPY gross-return increments", "H12 train-only latent normalization, cluster initialization and differentiable ridge-consequent learning", "secondary topology gives each affine expert direct access to the two latest US features as well as3D latent; rule antecedents remain3D"],
+  "clocks": ["close", "preopen"],
+  "topologies": ["latent", "direct_us"],
+  "heads": ["linear", "gaussian", "gate"],
+  "primary_candidate": "preopen/direct_us/gaussian",
+  "strict_topology_candidate": "preopen/latent/gaussian",
+  "direct_us": "consequent basis=[normalized z1,z2,z3, latest standardized VNQ increment, latest standardized SPY increment,1]; linear/ordinary-gate controls receive identical basis; Gaussian antecedents use only z",
+  "training": {"lambda": 0.1, "learning_rate": 0.001, "weight_decay": 0.0001, "max_epochs": 150, "patience": 20, "min_improvement": 0.0001, "gradient_clip": 1.0, "batch": "full training partition", "inner_stop_fraction": 0.15},
+  "selection": "as H12, start from zero-residual inner benchmark, consider initial representation plus solved head and subsequent gradient epochs; restart on full outer train at selected epoch, refit all train-only statistics",
+  "offset_and_target": "unchanged H12 distribution residual and preannounced offset; inputs use H15 as-of availability assumptions without changes",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "seeds": [11, 23, 37],
+  "budget": "2clocks x2topologies x3heads x3folds x3seeds =108 runs, at most216 inner/outer stages; fixed lambda and training settings, no hyperparameter grid",
+  "pipeline_goal": ">=3% seed-mean pooled RMSE gain versus DivSchedule and corresponding close-time model; >=2/3 fold wins against DivSchedule; MAE no worse than1%; >=0.5% non-event RMSE gain versus DivSchedule",
+  "fuzzy_incremental_goal": ">=1% RMSE gain versus both same-clock/topology linear and ordinary-gate controls and both H15 preopen Ridge references; >=2/3 fold wins versus each; >=6/9 paired wins versus learned controls; MAE no worse than1% versus each",
+  "interpretation": "information/timing, direct consequent input and fuzzy mechanism gains are distinct; all arms reported; source timing is simulated from public session times, not archived vendor delivery logs; no independent test or trading-profit claim",
+  "stop": "complete only this fixed matrix; do not tune failed seeds, lambda or widths; old final_holdout remains excluded"
+}
