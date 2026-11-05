@@ -1,0 +1,24 @@
+{
+  "experiment_id": "V8-H20-train-only-volatility-rule-supervision-01",
+  "status": "fixed before V8 fits; exploratory after V1-V7 development results were viewed",
+  "question": "Does weakly aligning the two existing fuzzy rules to a historical SRT volatility regime improve next-day raw-return forecasting, rather than just making the gate easier to label?",
+  "fixed_task": {
+    "input": "original saved 20x6 SRT/STI/SORA windows; no changed values or added channels",
+    "target": "next SRT trading-day raw close log return",
+    "forecast_time": "after SRT close on t",
+    "topology": "V1 LSTM32 -> tanh 3D -> two Gaussian rules -> two affine local experts; no inference-time auxiliary head",
+    "folds": ["validation_1", "validation_2", "validation_3"],
+    "seeds": [11, 23, 37],
+    "excluded": ["final_holdout", "new information", "V6 pretrained encoder", "V7 staged training"]
+  },
+  "regime": "At each inner fit or outer refit, calculate the median of the last historical SRT 20-day log-return volatility feature (saved input channel 2 at day 19) using only that training prefix. High regime is feature >= training median; low regime otherwise. The regime at every prediction time is derived from already observed history, never target-day volatility. Threshold is refitted from inner fit or outer train only and is not tuned against future labels.",
+  "auxiliary_training": "For Fuzzy2 and Gate2, add 0.05 times binary cross entropy with logits for rule/gate 2 versus rule/gate 1 to the V1 return MSE on each training mini-batch. Auxiliary gradients update the existing encoder, 3D projection and Gaussian antecedent or ordinary gate; expert weights receive only return-loss gradients. No additional inference parameters. Retain V1 AdamW lr 0.001, weight decay 0.0001, batch size 64, gradient clip 1, max 150 epochs, patience 20 and stop improvement 0.0001. Select best epoch using return MSE alone on original inner stop; same-seed full outer train restart and refit.",
+  "arms": ["V8FuzzyControl", "V8FuzzyState", "V8GateControl", "V8GateState"],
+  "historical_references": ["Z0", "V1 Fuzzy2", "V1 Gate2", "V1 LSTM3"],
+  "attribution": "First verify V8 return-only controls reproduce V1 predictions exactly. State-vs-control within Fuzzy2 estimates the auxiliary gate-training effect; state-vs-control within Gate2 shows whether a benefit is Gaussian-specific. Auxiliary regime accuracy and separated weights are mechanism diagnostics, never substitutes for raw-return RMSE/MAE.",
+  "budget": "four arms x three folds x three seeds = 36 inner/outer development runs; one fixed state definition and one fixed auxiliary weight; no post-hoc search",
+  "candidate_gate": "V8FuzzyState pooled seed-mean raw-return RMSE at least 1% below both V8FuzzyControl and Z0, fold-mean win in at least two of three folds versus both, at least six of nine paired fold/seed wins versus V8FuzzyControl, pooled MAE no more than 1% above Z0",
+  "substantial_goal": "at least 3% pooled seed-mean RMSE reduction versus strongest fixed same-information reference; project resource threshold, not course requirement or independent significance claim",
+  "stopping": "If the candidate gate fails, do not retune the regime cut, loss weight, horizon or rule assignment on the viewed development folds and call it this experiment; do not promote regime classification alone as a forecasting improvement",
+  "outputs": "all development predictions, fold/seed and pooled return scores, training traces, train-only thresholds, evaluation regime accuracy and expert diagnostics, source/data hashes; no final-period scoring"
+}
