@@ -1,0 +1,12 @@
+{
+  "docs\\v9_signal_audit_contract_2026-11-05.json": "f91673da1266db7382d45ec40f8f182bff98961a4366b4d8659d0aa2ba39c836",
+  "src\\v9\\signal_audit.py": "da105fad4d1bdd3142343301b21f32df506b0655898e5a84282af03a194c4c47",
+  "src\\project_eval.py": "dbd74c5e71e8f2c09dba0a4ddbe9249b8c026ed56785288f97bace6049ce38f9",
+  "data\\processed\\srt_windows_unscaled.npz": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "data\\processed\\window_index.csv": "2198d401fb9768c50f013b6fe1bc222216d1270a743490c2b502d85613a51771",
+  "data\\processed\\fold_assignments.csv": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "output\\development\\predictions.csv": "55a12d27b91d180c787ecfba9fcfb911145998e0e53593093cf33b5dedb1ccbe",
+  "output\\v7\\staged_experts\\predictions.csv": "ef47b4f6f85ac2a9f9a996192b213df51ac3c3b7fd0742f56a05fc1cd6270630",
+  "output\\v7\\staged_experts\\components.csv": "d29057ba7894a9888d32c328eb5a55086d057faf0a8fea3d902d6b5cb67b02f9",
+  "output\\v7\\staged_experts\\manifests.json": "127e55c7476bf410d28ebac89c415fbf5a81fa2474969a1f924c4c6c1d43d61f"
+}

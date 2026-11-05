@@ -1,0 +1,69 @@
+{
+  "experiment_id": "V9-H21-original-input-signal-readonly-audit-01",
+  "feature_sign_consistency": [
+    {
+      "feature": "srt_return_1d",
+      "train_eval_pearson_same_sign_folds": 2,
+      "eval_pearson_all_three_same_sign": false,
+      "train_eval_median_difference_same_sign_folds": 2,
+      "eval_median_difference_all_three_same_sign": false
+    },
+    {
+      "feature": "srt_momentum_5d",
+      "train_eval_pearson_same_sign_folds": 1,
+      "eval_pearson_all_three_same_sign": false,
+      "train_eval_median_difference_same_sign_folds": 1,
+      "eval_median_difference_all_three_same_sign": false
+    },
+    {
+      "feature": "srt_volatility_20d",
+      "train_eval_pearson_same_sign_folds": 1,
+      "eval_pearson_all_three_same_sign": false,
+      "train_eval_median_difference_same_sign_folds": 0,
+      "eval_median_difference_all_three_same_sign": true
+    },
+    {
+      "feature": "sti_return_1d",
+      "train_eval_pearson_same_sign_folds": 2,
+      "eval_pearson_all_three_same_sign": false,
+      "train_eval_median_difference_same_sign_folds": 2,
+      "eval_median_difference_all_three_same_sign": false
+    },
+    {
+      "feature": "sora_level",
+      "train_eval_pearson_same_sign_folds": 0,
+      "eval_pearson_all_three_same_sign": true,
+      "train_eval_median_difference_same_sign_folds": 1,
+      "eval_median_difference_all_three_same_sign": false
+    },
+    {
+      "feature": "sora_change_20obs",
+      "train_eval_pearson_same_sign_folds": 2,
+      "eval_pearson_all_three_same_sign": false,
+      "train_eval_median_difference_same_sign_folds": 1,
+      "eval_median_difference_all_three_same_sign": false
+    }
+  ],
+  "saved_model_rmse_fold_wins_vs_z0_by_regime": {
+    "Fuzzy2": {
+      "high": 3,
+      "low": 0
+    },
+    "V7StagedGaussian": {
+      "high": 2,
+      "low": 0
+    }
+  },
+  "v7_selected_gaussian_runs": 4,
+  "v7_expert_high_activation_summary": {
+    "rule_1": {
+      "qualifying_regions": 3,
+      "own_better_regions": 2
+    },
+    "rule_2": {
+      "qualifying_regions": 3,
+      "own_better_regions": 2
+    }
+  },
+  "scope": "read-only descriptive development analysis; no new fit or final-period score"
+}
