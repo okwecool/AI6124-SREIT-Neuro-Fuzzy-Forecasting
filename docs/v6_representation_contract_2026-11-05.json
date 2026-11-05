@@ -1,0 +1,31 @@
+{
+  "experiment_id": "V6-H18-within-window-SRT-mask-pretraining-01",
+  "status": "fixed before V6 fitting; post-hoc development exploration after V1-V5 results were viewed",
+  "question": "Can an auxiliary task on the original training windows make the unchanged LSTM32-to-3D representation useful for SRT next-day raw-return forecasting?",
+  "fixed_primary_task": {
+    "input": "saved original 20x6 SRT/STI/SORA tensor, bitwise unchanged",
+    "target": "saved original next-SRT-trading-day raw close log return",
+    "forecast_time": "after SRT close on t",
+    "architecture": "one LSTM with 32 hidden units, tanh 3D projection, two Gaussian rules and two affine experts for the Fuzzy2 arms",
+    "folds": ["validation_1", "validation_2", "validation_3"],
+    "seeds": [11, 23, 37],
+    "evaluation_days": 378,
+    "excluded": ["final_holdout", "CLR or overseas inputs", "announcement offsets", "changed target or time"]
+  },
+  "auxiliary_task": {
+    "input": "training-scaled 20x6 windows; set the three SRT-derived channels to training mean (scaled zero) for the final five historical days; leave STI and as-published SORA channels visible",
+    "target": "the scaled five historical SRT daily returns at the masked positions, from each training window only",
+    "head": "temporary affine map from the same tanh 3D representation to five masked returns; discard before primary training and inference",
+    "training": "20 fixed epochs, AdamW learning rate 0.001 and weight decay 0.0001, batch size 64, MSE, gradient clip 1; no validation-based auxiliary selection",
+    "scope": "inner pretraining uses only inner fit windows; outer refit pretraining uses only the full outer train windows; no unlabeled outer validation or final windows"
+  },
+  "primary_training": "unchanged V1 AdamW settings, original target standardization, last 15% inner stop for best epoch and same-seed outer restart/refit; no parameter scan",
+  "arms": ["V6RandomFrozenF2", "V6PreFrozenF2", "V6PreF2", "V6PreL3"],
+  "historical_controls": ["Fuzzy2", "LSTM3", "Gate2", "Z0"],
+  "attribution": "random-vs-pretrained frozen Fuzzy2 diagnoses representation; pretrained-vs-original Fuzzy2 tests the whole model training change; pretrained LSTM3 tests whether the same auxiliary task also benefits a plain head; Gaussian-specific advantage is not claimed without a same-pretraining Gate2 control",
+  "resource_budget": "18 auxiliary fits (inner and outer per fold/seed), 36 downstream model runs (four arms x three folds x three seeds); if the full pretrained Fuzzy2 passes the candidate gate, a separate matched pretrained Gate2 experiment may be planned",
+  "candidate_gate": "mean seed-pooled raw-return RMSE at least 1% below both original Fuzzy2 and Z0, at least two of three fold-mean RMSEs below Z0, at least six of nine paired fold-seed RMSEs below original Fuzzy2, and pooled MAE no more than 1% above Z0",
+  "substantial_goal": "at least 3% mean seed-pooled raw-return RMSE reduction versus the strongest fixed same-information reference, presently Z0; a development resource goal, not a course rule or independent significance test",
+  "stopping": "report all four arms, failed runs, early-stop epochs and auxiliary losses; if the candidate gate fails, do not relabel a linear-head gain or clearer rule weights as Fuzzy2 success and do not start staged-expert training from this candidate",
+  "outputs": "development predictions, per-fold and pooled metrics, training traces, source/data/contract hashes and decision; no final-period predictions"
+}
