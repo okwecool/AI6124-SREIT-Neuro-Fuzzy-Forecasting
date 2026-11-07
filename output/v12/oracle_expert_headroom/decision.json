@@ -1,0 +1,10 @@
+{
+  "oracle_rmse_gain_vs_zero_pct": 17.172613590012098,
+  "oracle_rmse_gain_vs_actual_pct": 17.67797242647664,
+  "oracle_beats_zero_by_five_pct": true,
+  "oracle_interior_fraction": 0.3395061728395062,
+  "expert_spread_abs_median": 0.0047936432043819,
+  "expert_spread_abs_mean": 0.005723934716251362,
+  "n_dates_per_seed": 378,
+  "note": "Ex-post unattainable bound on saved experts; development labels used only for diagnosis"
+}

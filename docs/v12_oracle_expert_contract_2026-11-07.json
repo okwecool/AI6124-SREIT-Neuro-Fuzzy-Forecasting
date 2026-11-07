@@ -1,0 +1,12 @@
+{
+  "experiment_id": "V12-fixed-expert-oracle-headroom-01",
+  "status": "fixed before reading oracle results; diagnostic only",
+  "source": "saved output/development Fuzzy2/all validation predictions, cases and rules; no refit",
+  "scope": "three development folds and seeds 11, 23, 37 only; do not read final_holdout rules",
+  "question": "Can an ideal convex router between the already fitted two experts materially reduce their forecast error?",
+  "oracle": "For each label y and fixed expert values e1,e2, choose a in [0,1] minimizing (y - a*e1 - (1-a)*e2)^2; if e1=e2 use a=0.5",
+  "comparators": ["actual saved Fuzzy2 mixture", "equal 0.5/0.5 mixture", "each single expert", "label-dependent best hard expert", "zero-return forecast"],
+  "reporting": "pooled RMSE/MAE for each seed then mean across seeds; fold/seed scores; expert spread, oracle interior fraction, oracle-vs-actual gap",
+  "interpretation": "Oracle uses evaluation labels and is unattainable as a forecast. A large gap only shows potential complementarity of fixed experts, never that a learnable fuzzy gate can realize it. A small gap argues against gate-only tuning for these fitted experts.",
+  "threshold_context": "Compare oracle with zero-return benchmark and the team's exploratory 5 percent material-gain target; this is not a significance test or a model-selection score."
+}
