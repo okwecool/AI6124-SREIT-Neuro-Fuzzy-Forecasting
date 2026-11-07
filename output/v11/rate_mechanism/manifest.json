@@ -1,0 +1,148 @@
+{
+  "contract_sha256": "4bf66c6ca723fc2e3ac553d5c6c3beb133f0ede939147887d08447a0e3d562bb",
+  "code_sha256": "53a0915cfa2488833f73d61be2f5d3e420defc8079ccba7ab85313321fdcb41e",
+  "sgs_sha256": "5c51dcefc91d90e4d28365a9166cf0a605239277cad82454ad0c533fd4758f8e",
+  "sgs_manifest_sha256": "4b349fdb7626ae53dbba463161ba9708b5d13af0206ca473ac3e55de48fbafd7",
+  "srt_daily_sha256": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+  "fold_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "fits": [
+    {
+      "fold": "validation_1",
+      "model": "BaseRidge",
+      "inner_fit_n": 433,
+      "inner_stop_n": 80,
+      "outer_fit_n": 533,
+      "evaluation_n": 126,
+      "trials": [
+        {
+          "alpha": 10.0,
+          "rmse": 0.04352388113427358
+        },
+        {
+          "alpha": 100.0,
+          "rmse": 0.04346994269266269
+        },
+        {
+          "alpha": 1000.0,
+          "rmse": 0.0443093412162186
+        }
+      ],
+      "selected_alpha": 100.0
+    },
+    {
+      "fold": "validation_1",
+      "model": "RateRidge",
+      "inner_fit_n": 433,
+      "inner_stop_n": 80,
+      "outer_fit_n": 533,
+      "evaluation_n": 126,
+      "trials": [
+        {
+          "alpha": 10.0,
+          "rmse": 0.04632411268256967
+        },
+        {
+          "alpha": 100.0,
+          "rmse": 0.04320897094160724
+        },
+        {
+          "alpha": 1000.0,
+          "rmse": 0.04398889331965678
+        }
+      ],
+      "selected_alpha": 100.0
+    },
+    {
+      "fold": "validation_2",
+      "model": "BaseRidge",
+      "inner_fit_n": 540,
+      "inner_stop_n": 99,
+      "outer_fit_n": 659,
+      "evaluation_n": 124,
+      "trials": [
+        {
+          "alpha": 10.0,
+          "rmse": 0.044711119732480216
+        },
+        {
+          "alpha": 100.0,
+          "rmse": 0.04413285817807171
+        },
+        {
+          "alpha": 1000.0,
+          "rmse": 0.04456210516733733
+        }
+      ],
+      "selected_alpha": 100.0
+    },
+    {
+      "fold": "validation_2",
+      "model": "RateRidge",
+      "inner_fit_n": 540,
+      "inner_stop_n": 99,
+      "outer_fit_n": 659,
+      "evaluation_n": 124,
+      "trials": [
+        {
+          "alpha": 10.0,
+          "rmse": 0.04777792110803921
+        },
+        {
+          "alpha": 100.0,
+          "rmse": 0.043970112908297665
+        },
+        {
+          "alpha": 1000.0,
+          "rmse": 0.04426402103256658
+        }
+      ],
+      "selected_alpha": 100.0
+    },
+    {
+      "fold": "validation_3",
+      "model": "BaseRidge",
+      "inner_fit_n": 645,
+      "inner_stop_n": 118,
+      "outer_fit_n": 783,
+      "evaluation_n": 109,
+      "trials": [
+        {
+          "alpha": 10.0,
+          "rmse": 0.038401593056527246
+        },
+        {
+          "alpha": 100.0,
+          "rmse": 0.03739289837518109
+        },
+        {
+          "alpha": 1000.0,
+          "rmse": 0.035400764892656235
+        }
+      ],
+      "selected_alpha": 1000.0
+    },
+    {
+      "fold": "validation_3",
+      "model": "RateRidge",
+      "inner_fit_n": 645,
+      "inner_stop_n": 118,
+      "outer_fit_n": 783,
+      "evaluation_n": 109,
+      "trials": [
+        {
+          "alpha": 10.0,
+          "rmse": 0.03771676814661793
+        },
+        {
+          "alpha": 100.0,
+          "rmse": 0.036666359377577756
+        },
+        {
+          "alpha": 1000.0,
+          "rmse": 0.034988062829125484
+        }
+      ],
+      "selected_alpha": 1000.0
+    }
+  ]
+}

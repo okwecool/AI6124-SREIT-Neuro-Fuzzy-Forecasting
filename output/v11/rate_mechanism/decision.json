@@ -1,0 +1,13 @@
+{
+  "best_simple_baseline": "Zero",
+  "baseline_rmse": 0.03844789822594087,
+  "base_ridge_rmse": 0.04635264838081425,
+  "rate_ridge_rmse": 0.04540798030233205,
+  "rate_gain_vs_simple_pct": -18.10263342742413,
+  "rate_gain_vs_base_pct": 2.0380023827790805,
+  "fold_wins_vs_simple": 1,
+  "fold_wins_vs_base": 3,
+  "evaluation_rows_per_model": 359,
+  "passes_heuristic": false,
+  "evidence": "development-only; overlapping labels; no fundamental or state data yet"
+}

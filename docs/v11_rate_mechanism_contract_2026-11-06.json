@@ -1,0 +1,16 @@
+{
+  "experiment_id": "V11-analyst-guided-20day-rate-screen-01",
+  "status": "fixed after V11 horizon results were inspected, before rate-mechanism fitting",
+  "question": "Does the already archived, strictly lagged MAS SGS 10-year yield add 20-trading-day SRT raw-return information beyond the original SRT/STI/SORA history?",
+  "forecast_time": "after SRT close on t",
+  "target": "log(SRT raw close[t+20] / SRT raw close[t])",
+  "development_cutoff": "2025-09-30",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "rate_features": ["latest prior-date SGS 10-year yield minus latest published SORA, percentage points", "latest prior-date SGS 10-year yield change over five SRT trading days, percentage points"],
+  "source_availability": "reuse MAS SGS source and its V2 strictly-earlier-date as-of alignment; no same-day SGS observation",
+  "groups": ["original 20x6 flattened Ridge", "same plus two endpoint rate features"],
+  "comparators": ["zero 20-day return", "outer-training mean", "past 20-day momentum"],
+  "fairness": "same eligible rows, folds and labels for all methods; each Ridge variant selects alpha from [10,100,1000] on inner last-15-percent stop after label-end purge; scalers fit only on fit rows",
+  "advance_rule": "Rate Ridge must beat both same-date base Ridge and strongest simple baseline by at least 1 percent pooled RMSE, beat both in at least two folds, and have pooled MAE no more than 1 percent worse than strongest simple baseline. This is only a development heuristic.",
+  "scope": "one 20-day rate test; no DPU, valuation, debt, interaction or Fuzzy training in this experiment; no previously viewed final_holdout scores"
+}
