@@ -1,0 +1,10 @@
+{
+  "status": "fixed_before_h3",
+  "experiment_id": "V2-H1-simple-baselines",
+  "model_id": "Z0",
+  "mean_pooled_rmse": 0.00943073954460879,
+  "mean_pooled_mae": 0.006289873868732088,
+  "comparison_rule": "lowest mean of seed-pooled RMSE among Z0, MeanTrain, Ridge, LSTM32, LSTM3, Fuzzy2, Gate2",
+  "contract_sha256": "bb61ca8b68157e1ba4a9eb73ade5acd4aaa1726a9de530ce0a337a95a0840930",
+  "h1_predictions_sha256": "5ff4ec2f0836907ad419364903bee0dc4e47d44c403cd1cb0728ed537f34dd08"
+}

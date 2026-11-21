@@ -1,0 +1,25 @@
+{
+  "experiment_id": "V11-analyst-guided-horizon-screen-01",
+  "status": "fixed before V11 fitting; exploratory after V1 final results and V2-V10 development results were viewed",
+  "question": "Do longer SRT price-return horizons reveal a stable signal before adding analyst-motivated information or fuzzy state interactions?",
+  "target_asset": "SRT.SI raw closing price, not the iEdge index level",
+  "forecast_time": "after SRT close on trading day t",
+  "target_definition": "log(raw_close[t+h] / raw_close[t])",
+  "horizons_trading_days": [20, 60],
+  "existing_five_day_reference": "V2-H7; do not relabel its failed original-input Ridge screen as a new discovery",
+  "development_cutoff": "2025-09-30",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "features": "unchanged saved V1 20x6 SRT/STI/published-SORA window",
+  "baseline_models": ["zero horizon return", "outer-training mean horizon return", "past-horizon SRT momentum"],
+  "screen_model": "flattened-window Ridge with fold-training-only standardization",
+  "alpha_grid": [10.0, 100.0, 1000.0],
+  "inner_selection": "last 15 percent of eligible outer training windows; fit-label end must precede first inner-stop forecast; choose lowest inner-stop RMSE, larger alpha on exact tie; refit on all eligible outer training windows",
+  "evaluation_boundary": "evaluation label ends no later than 2025-09-30; outer fit labels end strictly before first evaluation forecast; never inspect or rank on the previously viewed final_holdout",
+  "advance_rule": "For each horizon separately, Ridge pooled RMSE at least 1 percent below the best of the three simple baselines, better in at least two of three folds, and pooled MAE no more than 1 percent worse than that baseline. This is a development screening heuristic, not independent confirmation.",
+  "interpretation": "Overlapping horizon labels reduce effective independent evidence; metrics must not be compared numerically across horizons. The 60-day result is descriptive with this short SRT history, even if it passes the heuristic.",
+  "next_phases_not_yet_authorized_as_results": [
+    "Mechanism: same-horizon, same-date simple-model ablations for published rates, point-in-time valuation, and DPU/debt information; no present-day fundamentals backfilled into history",
+    "State: only after an information group passes screening, predefine a small number of rate-by-volatility or rate-by-debt interactions and match non-fuzzy controls",
+    "Any changed primary horizon or architecture must be disclosed as a revised course proposal before replacing the approved experiment"
+  ]
+}

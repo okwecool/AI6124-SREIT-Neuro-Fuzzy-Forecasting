@@ -1,0 +1,17 @@
+{
+  "experiment_id": "V10-H22-two-forward-stop-epoch-selection-01",
+  "v10_fuzzy_rmse": 0.009599189228471335,
+  "v1_fuzzy_rmse": 0.009488633011324089,
+  "z0_rmse": 0.00943073954460879,
+  "gain_vs_v1_fuzzy_pct": -1.1651437779847118,
+  "gain_vs_z0_pct": -1.7861768217195761,
+  "fold_wins": {
+    "Fuzzy2": 1,
+    "Z0": 0
+  },
+  "paired_wins_vs_v1_fuzzy": 4,
+  "mae_within_z0_1pct": false,
+  "candidate_gate": false,
+  "substantial_goal": false,
+  "scope": "development-only; no final-period score"
+}

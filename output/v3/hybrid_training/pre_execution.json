@@ -1,0 +1,94 @@
+{
+  "contract": {
+    "experiment_id": "V3-H12-anchored-hybrid-training-01",
+    "status": "fixed before new fits; exploratory after V1 final and V2 development results were viewed",
+    "purpose": "Seek a material gain while retaining SRT, next raw close return, 20x6 history, LSTM32, three latent coordinates and two Gaussian affine experts",
+    "unchanged": [
+      "SRT target asset",
+      "next-day raw closing log return",
+      "three original development folds and 378 dates",
+      "LSTM hidden size 32",
+      "latent dimension 3",
+      "two Gaussian affine experts in the fuzzy candidate"
+    ],
+    "declared_extensions": [
+      "previously documented announced-distribution offset and residual label",
+      "causal distribution-corrected input arm",
+      "train-only affine normalization of latent coordinates",
+      "train-only deterministic two-cluster Gaussian initialization and positive widths without the old upper bound",
+      "joint differentiable regularized least-squares consequents and full-batch AdamW encoder/gate updates",
+      "zero residual as an inner-selection fallback"
+    ],
+    "input_arms": [
+      "raw",
+      "gross"
+    ],
+    "gross_features": "replace only SRT return, 5-day momentum, 20-day population volatility using q_t=log((C_t+D_t)/C_(t-1)); leave STI and publication-aligned SORA unchanged",
+    "head_arms": [
+      "linear",
+      "gaussian",
+      "gate"
+    ],
+    "primary_candidate": "gross/gaussian",
+    "labels": "completed training raw return minus realized log1p(-D_next/C_t); prediction adds only the existing three preannounced development distributions",
+    "target_scale": "divide residual by training standard deviation without centering; zero maps exactly to DivSchedule",
+    "lambda": 0.1,
+    "objective": "mean squared standardized residual error plus lambda times squared norm of all consequent coefficients, including intercepts; solve coefficients jointly, differentiate through solve",
+    "initialization": "same-seed shared LSTM/projection per input arm; fit latent mean/std on training only, floor std 0.001; Gaussian kmeans initialized by extremes of first principal component, 10 iterations, cluster population std floored at 0.25 normalized units; widths softplus+0.05",
+    "training": {
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0,
+      "max_epochs": 150,
+      "patience": 20,
+      "min_improvement": 0.0001,
+      "batch": "entire training partition",
+      "inner_stop_fraction": 0.15,
+      "stopping_metric": "unpenalized residual MSE"
+    },
+    "folds": [
+      "validation_1",
+      "validation_2",
+      "validation_3"
+    ],
+    "seeds": [
+      11,
+      23,
+      37
+    ],
+    "selection": "start at zero-residual stopping loss; consider random initial representation plus solved head and each trained epoch; record zero fallback separately; same-seed full outer reinitialization and exactly selected epoch count, reestimating all train-only statistics",
+    "budget": "six configurations x three folds x three seeds = 54 runs, at most 108 inner/outer fits; no lambda, seed, width, dimension or learning-rate search",
+    "necessary_references": [
+      "DivSchedule",
+      "Z0",
+      "old residual Fuzzy2",
+      "matched hybrid-trained linear head",
+      "matched hybrid-trained non-Gaussian gate"
+    ],
+    "material_goal": ">=3% lower seed-mean pooled RMSE than DivSchedule and matched same-information learned controls, >=2/3 fold wins against each, >=6/9 paired wins against each learned control, MAE no more than 1% worse, non-event RMSE at least 0.5% better than DivSchedule",
+    "candidate_floor": ">=1% lower RMSE with the same stability and MAE requirements; call only a development candidate, not material or independent success",
+    "analysis": "report every arm and seed, event versus non-event errors, fallback rate, activation and expert diagnostics; no seed ensembling or test-dependent calibration",
+    "boundary": "never evaluate final_holdout; do not use the old final period for V3 selection; no new trading claims from forecast scores",
+    "stop": "if the primary candidate misses the floor, stop this training package without enlarging the search; distinguish failure of this package from impossibility of improvement"
+  },
+  "dependency_sha256": {
+    "docs\\v3_hybrid_training_contract_2026-11-05.json": "f7dcdb157344f9f8f3611fb0c6b354b9ab6be16231784755cb1b5ac83e3416fe",
+    "src\\v3\\hybrid_training.py": "688a30bd3441a60d13ec7a9ec6a09f29536803a260462643806d57ce86c754d8",
+    "src\\models.py": "a9b05a8bc6415675df28ed69d8d60421c6a01bffd05206dc58b29d6806ed5521",
+    "src\\project_eval.py": "dbd74c5e71e8f2c09dba0a4ddbe9249b8c026ed56785288f97bace6049ce38f9",
+    "src\\train.py": "09f6b631ee1d280e8e12cceecabd16128b2f36bbb263753da10bafc11ff5256a",
+    "src\\export_contract.py": "52b44e6e2f4bb59e6a32b9056cab23b75eb9aaf514848678a9227c46ef7758de",
+    "src\\v2\\screen_distributions.py": "ec2d5f24f3e514683cbb0586faad9fb04475294536f51bccc7eeb127d4bdf894",
+    "data\\reference\\srt_announced_distributions_dev.csv": "95df737717a100e4a86653562c0e86bbfccd2bdd0949da8a9e5c2d039d9c8215",
+    "data\\processed\\srt_daily_aligned.csv": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+    "data\\processed\\srt_windows_unscaled.npz": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "data\\processed\\window_index.csv": "2198d401fb9768c50f013b6fe1bc222216d1270a743490c2b502d85613a51771",
+    "data\\processed\\fold_assignments.csv": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859"
+  },
+  "versions": {
+    "python": "3.10.20",
+    "torch": "2.10.0+cu128",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "arm": "transfer/gaussian",
+  "fold": "validation_3",
+  "seed": 11,
+  "zero_fallback": true,
+  "output_sha256": {
+    "cases.csv": "bd6b1a5b5d10ad5298de3fefc1399153219a6fbd38a159c9df3f69334242fbc1",
+    "predictions.csv": "677f6222562ae0c2874cd64c48f087479e3b6d7201f84e12b58c5664f4aeeff0",
+    "rules.csv": "ba84a0405ed09bc21b68517ac751ce3b18f3adcf6eaf57f0c902f42b08b9a33b"
+  }
+}

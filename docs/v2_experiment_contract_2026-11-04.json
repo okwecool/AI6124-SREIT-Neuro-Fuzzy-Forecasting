@@ -1,0 +1,43 @@
+{
+  "contract_id": "V2-AB-2026-11-04",
+  "status": "exploratory_development_only_pre_run",
+  "historical_v1_final_holdout_is_not_eligible_for_v2_selection": true,
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "source_group": "all",
+  "target": "next raw SRT close log return",
+  "feature_window": [20, 6],
+  "h1": {
+    "mean_reference": "outer train labels only",
+    "ridge_alphas": [0.1, 1.0, 10.0],
+    "ridge_objective": "sum_squared_error_plus_alpha_times_weight_l2; intercept unpenalized",
+    "alpha_selection": "minimum inner stop raw-return RMSE; exact tie selects largest alpha",
+    "outer_refit": "same alpha with fresh outer train-only scaler",
+    "seeds": [0]
+  },
+  "h3": {
+    "model": "unchanged src.models.Fuzzy2",
+    "local_loss_weight": 0.1,
+    "local_loss_epsilon": 1e-8,
+    "local_loss": "mean across two rules of batch weighted standardized expert MSE, normalized by detached rule-weight sum",
+    "early_stop_metric": "inner stop mixed-output standardized MSE only",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0,
+    "max_epochs": 150,
+    "patience": 20,
+    "minimum_improvement": 0.0001,
+    "seeds": [11, 23, 37]
+  },
+  "promotion_screen": {
+    "pooled_rmse_relative_gain_vs_fixed_best_h1_reference": 0.01,
+    "folds_with_mean_rmse_gain_vs_fixed_reference_minimum": 2,
+    "matched_fold_seed_rmse_gain_vs_v1_fuzzy2_minimum": 6,
+    "max_relative_mae_worsening_vs_fixed_reference": 0.01,
+    "local_high_activation_quantile_on_outer_training": 0.75,
+    "local_region_minimum_validation_days": 20,
+    "folds_with_both_rules_local_advantage_minimum": 2
+  },
+  "not_in_first_round": ["H2 new features", "H4 observable antecedent", "H5 trade-aligned target", "H6 capacity search", "new final test"]
+}

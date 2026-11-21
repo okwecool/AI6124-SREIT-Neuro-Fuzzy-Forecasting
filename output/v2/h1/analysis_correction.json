@@ -1,0 +1,8 @@
+{
+  "reason": "Initial H1 summary omitted the deterministic Z0 table because it is not in development/predictions.csv",
+  "fit_predictions_unchanged_sha256": "5ff4ec2f0836907ad419364903bee0dc4e47d44c403cd1cb0728ed537f34dd08",
+  "old_selected_reference": "MeanTrain",
+  "corrected_selected_reference": "Z0",
+  "refits": 0,
+  "source_at_correction_sha256": "639e9180fc42cb34c43039f05eb3cf81c705ec91318b16f27bc1fad4a209fe26"
+}

@@ -1,0 +1,25 @@
+# Stable checkout bytes for SHA-256 experiment manifests, independent of core.autocrlf.
+* text=auto eol=lf
+
+# Saved pandas/Windows tables and JSON records were hashed with CRLF.
+*.csv text eol=crlf
+/output/**/*.json text eol=crlf
+/data/*.json text eol=crlf
+/data/processed/audit.json text eol=crlf
+
+# Preserve the original bytes of these frozen dependencies.
+/src/project_eval.py text eol=crlf
+/data/processed/mas_sgs10y_202111_202509.csv text eol=lf
+/data/raw/mas_sora_202110_202609.csv text eol=lf
+/data/raw/srt_2025-10-24_sgtrades_excerpt.csv text eol=lf
+/data/reference/srt_announced_distributions_dev.csv text eol=lf
+/data/reference/srt_distributions_verified.csv text eol=lf
+
+*.npz binary
+*.png binary
+*.pdf binary
+*.pptx binary
+*.zip binary
+*.pt binary
+*.pth binary
+*.ckpt binary

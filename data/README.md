@@ -1,6 +1,6 @@
 # SRT / STI / SORA 对齐数据（2026-10-28 抓取；同日补齐 SRT 缺价）
 
-本目录是当前 LSTM → 三维特征 → 两条模糊规则 → 双局部专家方案的固定数据快照；开发折已完成单折代码验证，完整模型比较仍待运行。课件 *AI6124 - week 8 - Neural in Neuro-Fuzzy Systems.pdf* 第 28–29 页以 Yahoo Finance 和 `yfinance` 下载新加坡金融行情为示例；本项目使用 [Yahoo Finance 的 SRT.SI](https://finance.yahoo.com/quote/SRT.SI/) 与 [^STI](https://sg.finance.yahoo.com/quote/%5ESTI/history/) 日行情，以及 [MAS 官方 Domestic Interest Rates 下载表](https://eservices.mas.gov.sg/statistics/dir/)中的 SORA 日利率。原始响应和 SHA-256 见 `raw/` 与 `source_manifest.json`。行情使用 Yahoo 的公开 chart 响应，因此重新下载可能随供应方修订而变化；已保存的原始响应是本次实验的固定快照。
+本目录是当前 LSTM → 三维特征 → 两条模糊规则 → 双局部专家方案的固定数据快照；第一版完整模型比较已完成，第二版另有开发期探索。课件 *AI6124 - week 8 - Neural in Neuro-Fuzzy Systems.pdf* 第 28–29 页以 Yahoo Finance 和 `yfinance` 下载新加坡金融行情为示例；本项目使用 [Yahoo Finance 的 SRT.SI](https://finance.yahoo.com/quote/SRT.SI/) 与 [^STI](https://sg.finance.yahoo.com/quote/%5ESTI/history/) 日行情，以及 [MAS 官方 Domestic Interest Rates 下载表](https://eservices.mas.gov.sg/statistics/dir/)中的 SORA 日利率。原始响应和 SHA-256 见 `raw/` 与 `source_manifest.json`。行情使用 Yahoo 的公开 chart 响应，因此重新下载可能随供应方修订而变化；已保存的原始响应是本次实验的固定快照。
 
 ## 文件
 
@@ -65,6 +65,10 @@ Yahoo 的 SRT 在 **2025-10-24** 有日期行但无 OHLC／收盘价，STI 同�
 | final_holdout | 2025-09-30 | 2025-10 至 2026-09 | 931 / 251 |
 
 最终测试期只在确定模型与超参数后评估。以上日期和标签基于本次快照，若改变补值或目标定义，应重新运行预处理并重审数量。
+
+## V2 追加的 10 年期 SGS 收益率
+
+`data/fetch_sgs10y_source.py` 固定查询 [MAS SGS 基准债券历史收益率](https://eservices.mas.gov.sg/statistics/fdanet/BenchmarkPricesAndYields.aspx/1000)的 2021-11 至 2025-09 日频 10-Year Bond Yield。官方 HTML 响应与标准化 CSV 分别保存在 `raw/mas_sgs10y_202111_202509.html`、`processed/mas_sgs10y_202111_202509.csv`；`source_sgs10y_manifest.json` 记录查询和哈希。该表有 983 条，单位为年化百分比。网页没有可核实的当日发布时间，V2 特征只取**严格早于 SRT 预测日**的最近来源记录，并保存来源日期及滞后天数。详情和实测结果见 [V2 趋势与利率筛选](../docs/v2_trend_rate_results_2026-11-04_zh.md)。
 
 ## 复现
 

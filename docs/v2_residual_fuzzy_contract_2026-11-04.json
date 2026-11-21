@@ -1,0 +1,16 @@
+{
+  "experiment_id": "V2-H9-distribution-residual-fuzzy-01",
+  "status": "fixed before any H9 fit; post-hoc development experiment after H8 schedule baseline was viewed",
+  "target_decomposition": "raw next-day log close return = log1p(-known distribution / close_t) + residual",
+  "training_label": "historically realized raw next-day close return minus log1p(-realized ex-date distribution / close_t); realized distribution is part of the completed training label, never an evaluation input",
+  "evaluation_schedule": "only the three SGX manager announcements in data/reference/srt_announced_distributions_dev.csv, each issued before its forecast date",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "seeds": [11, 23, 37],
+  "architecture": "unchanged V1 Fuzzy2 with 20x6 input, 3D latent and two Gaussian/affine rules",
+  "training": "V1 AdamW lr=0.001 wd=0.0001, batch=64, gradient clip=1.0, max_epochs=150, patience=20, min_improvement=0.0001, train-only standardizers; inner stop on residual MSE then outer restart/refit",
+  "evaluation": "add only pre-announced deterministic adjustment to each predicted residual and expert output; score original raw close-return target on all 378 validation dates",
+  "necessary_comparators": ["Z0", "DivSchedule", "V1 Fuzzy2", "V1 Fuzzy2 + DivSchedule additive diagnostic"],
+  "advance_rule": "three-seed mean pooled RMSE at least 1% below DivSchedule, >=2 folds of seed-mean RMSE better than DivSchedule, >=6/9 paired wins over V1 Fuzzy2+DivSchedule, pooled MAE no worse than 1% over DivSchedule",
+  "attribution_limit": "if it wins, matched LSTM3 and ordinary Gate2 residual training are still required before assigning any gain to fuzzy rules",
+  "data_boundary": "only validation folds; no final_holdout evaluation or model selection"
+}

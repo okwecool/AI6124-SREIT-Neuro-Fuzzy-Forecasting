@@ -1,0 +1,23 @@
+{
+  "experiment_id": "V3-H14-earlier-CLR-transfer-probe-01",
+  "status": "fixed after H12 and H13 results, before source pretraining or target transfer fits; exploratory",
+  "declaration": "additional source data and two-stage frozen-encoder training; target SRT, 20x6 input, LSTM32, 3D latent, two Gaussian affine experts and next raw close-return output retained",
+  "source": "existing frozen Yahoo CLR raw snapshot, restricted to 2017-10-30 through 2021-09-30; all source labels end before the first saved SRT date 2021-11-18",
+  "source_caution": "historical CLR corporate actions are from the saved Yahoo event feed; this probe does not claim an independently issuer-audited CLR distribution history",
+  "source_features": "historical gross log return, 5-day sum, 20-day population volatility; 20-day windows",
+  "source_target": "next CLR gross log return; known realized distribution is part of a completed historical label, never a future input",
+  "source_training": "3-input LSTM32 -> tanh 3D -> affine scalar; AdamW lr0.001 wd0.0001, batch64, clip1, max150 patience20 min_improvement0.0001; chronological last15% stopping, train-only standardization; restart and refit selected epochs on all pre-2021-10 source rows",
+  "initialization": "construct the same-seed target 6-input shared encoder/projection first; copy its first three input columns, recurrent weights, biases and projection into the 3-input source model before source training",
+  "transfer": "copy source-trained first three input weight columns, recurrent weights, biases and 3D projection into the corresponding target model; retain same-seed target initialization for STI/SORA columns; discard source output head",
+  "target_probe": "freeze target encoder/projection, use H12 gross input and residual label, fit target-only latent normalization and Gaussian clustering on each training partition, solve ridge experts with lambda0.1; compare with identical frozen randomly initialized encoders",
+  "arms": ["random/linear", "random/gaussian", "random/gate", "transfer/linear", "transfer/gaussian", "transfer/gate"],
+  "primary_candidate": "transfer/gaussian",
+  "selection": "inner last15% chooses fitted head or zero residual; improvement must be at least 0.0001 standardized MSE; all target transformations/head coefficients refit on full outer train",
+  "budget": "three seeds with two source fits each; six target configurations x three folds x three seeds, each one inner and at most one outer ridge fit; no additional feature, pretraining task or epoch grid",
+  "seeds": [11, 23, 37],
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "references": ["DivSchedule", "random/gaussian", "transfer/linear", "transfer/gate"],
+  "goal": ">=3% lower seed-mean pooled RMSE versus all necessary references; candidate floor1%; >=2/3 fold wins per reference, >=6/9 paired wins per learned reference, MAE no more than1% worse, non-event RMSE >=0.5% better than DivSchedule",
+  "stop": "if the candidate floor fails, stop this frozen-transfer probe; do not claim it disproves all fine-tuning or transfer approaches; no old final-period evaluation",
+  "claims": "source adaptation is not independent evaluation; no seed selection, ensembling or trading-profit claim"
+}

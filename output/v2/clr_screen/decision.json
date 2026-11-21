@@ -1,0 +1,10 @@
+{
+  "experiment_id": "V2-H10-CLR-incremental-residual-ridge-01",
+  "schedule_rmse": 0.009170131621064458,
+  "ridge_residual6_rmse": 0.009312272385436422,
+  "ridge_residual_clr_rmse": 0.00919675216380722,
+  "clr_vs_6_rmse_gain_pct": 1.2405159218695672,
+  "clr_vs_schedule_rmse_gain_pct": -0.29029619031435416,
+  "fold_wins_vs_schedule": 1,
+  "passes_screen": false
+}

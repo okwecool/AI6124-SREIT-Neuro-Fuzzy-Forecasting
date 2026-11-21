@@ -1,0 +1,16 @@
+{
+  "experiment_id": "V2-H3-local-loss-01",
+  "folds": [
+    "validation_1",
+    "validation_2",
+    "validation_3"
+  ],
+  "seeds": [
+    11,
+    23,
+    37
+  ],
+  "local_weight": 0.1,
+  "h1_benchmark_sha256_before_runs": "fba7b0ffa0d3df43037e30f25dd3f404e622b697f91ea27f17f838264623a1c2",
+  "contract_sha256": "bb61ca8b68157e1ba4a9eb73ade5acd4aaa1726a9de530ce0a337a95a0840930"
+}

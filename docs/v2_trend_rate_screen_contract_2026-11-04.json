@@ -1,0 +1,25 @@
+{
+  "experiment_id": "V2-H11-trend-SGS10Y-residual-ridge-01",
+  "status": "fixed before new fits; post-hoc development exploration after V1 final and earlier V2 screens were viewed",
+  "question": "Do a distribution-aware 50/200-day SRT trend and a lagged Singapore 10-year government-bond yield add next-day SRT residual-return signal?",
+  "target": "next SRT raw close log return; train Ridge on the completed-label residual after the realized distribution adjustment, then add only the preannounced adjustment at evaluation",
+  "evaluation": "the original 378 development target dates in three forward folds; never evaluate or select on final_holdout",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "groups": ["base", "trend", "rate", "trend_rate"],
+  "trend": {
+    "index": "causal SRT gross-distribution total-return index I_t=I_(t-1)*(C_t+D_t)/C_(t-1), starting at 1 on the first SRT date",
+    "features_at_forecast_close": ["log(SMA50(I)_t/SMA200(I)_t)", "spread_t-spread_(t-5 SRT trading days)"],
+    "role": "two endpoint context variables, not 200 LSTM timesteps"
+  },
+  "rate": {
+    "source": "MAS SGS Prices and Yields - Benchmark Issues, daily 10-Year Bond Yield, fixed 2021-11 to 2025-09 query",
+    "availability": "use only the latest MAS observation strictly before the SRT forecast date because a same-day publication time has not been established",
+    "features_at_forecast_close": ["latest prior 10-year yield minus latest published SORA, percentage points", "latest prior 10-year yield minus its value five SRT trading days earlier, percentage points"]
+  },
+  "sample": "restrict all four groups to the same windows with both trend features and both rate features available; retain all 378 original evaluation dates; no fill of missing SRT or MAS values",
+  "ridge": "flatten original 20x6 history, append 0/2/4 endpoint variables; fit x and y scalers on each training partition only; unpenalized intercept; inner last 15% of eligible outer training selects alpha, then full eligible outer training refits",
+  "alpha_grid": [10.0, 100.0, 1000.0],
+  "comparators": ["same-sample base residual Ridge", "DivSchedule"],
+  "advance_rule": "one group beats both same-sample base Ridge and DivSchedule by at least 1% pooled raw-return RMSE, beats DivSchedule in at least 2/3 folds, and has pooled MAE no more than 1% above DivSchedule; only then plan matched LSTM/Fuzzy training",
+  "scope": "four fixed groups, one alpha grid, no final-period scores, no revised features or thresholds after viewing results"
+}

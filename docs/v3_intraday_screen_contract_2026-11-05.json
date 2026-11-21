@@ -1,0 +1,16 @@
+{
+  "experiment_id": "V3-H13-next-session-intraday-screen-01",
+  "status": "fixed after H12 results were viewed and before H13 fits; development exploration",
+  "declaration": "A separately named target extension, not a replacement for the approved next-close return experiment; retain SRT, forecast after close t and the original LSTM-fuzzy architecture if this screen advances",
+  "target": "log(C_(t+1)/O_(t+1)), forecast using only information through close t; a position entered at the ex-date open does not earn that day's distribution",
+  "evaluation": "the same original 378 development target dates; fail if any necessary open/close or historical baseline observation is missing; no date dropping",
+  "input_arms": ["raw", "gross"],
+  "models": ["ZeroIntraday", "MeanTrainIntraday", "PreviousIntraday", "ReversePreviousIntraday", "RidgeIntradayRaw", "RidgeIntradayGross"],
+  "ridge": "flatten the same 20x6 input; training-only input standardization and target scale without target centering; penalize all coefficients including intercept; mean SSE plus lambda norm squared",
+  "lambda_grid": [0.1, 1.0, 10.0],
+  "selection": "last 15% of each outer training fold; also consider zero prediction with no fit; ties prefer zero then stronger shrinkage; refit on complete outer training",
+  "budget": "two arms x three folds x (three inner ridge fits + at most one outer refit) = at most 24 fits",
+  "gate": "an arm has >=1% lower pooled RMSE than the strongest of the four simple controls, wins >=2/3 folds against that control, and MAE is no more than 1% worse; only then specify matched LSTM/fuzzy training",
+  "boundary": "new target RMSE is never compared numerically with close-to-close RMSE; no independent-test or trading-profit claim; do not compare only to zero if another simple control is stronger",
+  "stop": "if neither arm passes, stop this intraday screen without new feature, parameter or neural searches"
+}

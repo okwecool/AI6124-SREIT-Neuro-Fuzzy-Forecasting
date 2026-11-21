@@ -1,0 +1,13 @@
+{
+  "experiment_id": "V2-H8-announced-distribution-baseline-01",
+  "status": "post-hoc development hypothesis fixed before H8 scoring; V1 final and other V2 screens already viewed",
+  "target": "original next-day SRT raw close-to-close log return",
+  "evaluation": "the same 378 development validation dates; no final_holdout",
+  "event_data": "data/reference/srt_announced_distributions_dev.csv, independently published SGX manager announcements",
+  "information_cutoff": "announcement_date must be strictly earlier than forecast_date; ex_date must equal next trading target date",
+  "deterministic_forecast": "log((close_t - announced_distribution_sgd) / close_t) on eligible ex-date; zero otherwise",
+  "models": ["Z0", "DivSchedule", "V1 Fuzzy2", "V1 Fuzzy2 + DivSchedule additive diagnostic"],
+  "primary_decision": "DivSchedule versus Z0: >=1% lower pooled RMSE, >=2 folds improved, pooled MAE <=1.01 * Z0 MAE",
+  "attribution": "DivSchedule gain, if any, belongs to externally announced corporate-action information; adding it to V1 Fuzzy2 cannot establish a fuzzy contribution. The fuzzy model must subsequently beat DivSchedule on the same information and dates.",
+  "limitation": "only three validation ex-dividend events; no independent validation; publication timestamp within announcement date is not material because all announcements precede ex-date by at least eight days"
+}

@@ -1,0 +1,22 @@
+{
+  "experiment_id": "V2-H1b-H2-ridge-screen-01",
+  "status": "fixed_before_new_fits; post-hoc development exploration after V1 final and V2 H1/H3 were viewed",
+  "purpose": "Test stronger Ridge regularization and two separate causal OHLCV feature increments before neural training",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "target": "next SRT raw close-to-close log return, unchanged",
+  "evaluation_calendar": "the same 378 target dates as V1; reject changed or missing dates",
+  "window_length": 20,
+  "base_features": "the original six V1 features in their saved order",
+  "feature_groups": {
+    "base": [],
+    "price": ["log(open_t / close_(t-1))", "log(close_t / open_t)", "log(high_t / low_t)"],
+    "volume": ["log1p(volume_t) - mean(log1p(volume_(t-20:t-1)))", "mean(log1p(volume_(t-4:t))) - mean(log1p(volume_(t-9:t-5)))"]
+  },
+  "missing_policy": "A valid zero volume maps to log1p(0)=0; missing and negative volumes are invalid. Missing/nonpositive prices invalidate the window; no future fill. All comparisons require the unchanged development calendar.",
+  "alpha_grid": [10.0, 100.0, 1000.0],
+  "alpha_selection": "inner training fit and inner stop raw-return RMSE; choose larger alpha on exact tie; full outer training refit",
+  "primary_comparison": "each feature group against Z0 and same-grid base Ridge on identical dates, pooled RMSE and MAE",
+  "screen_advance": "one group has at least 1% lower pooled RMSE than Z0, at least two of three folds better than Z0, and pooled MAE no worse than 1% over Z0; then run matched neural comparisons separately",
+  "scope_limit": "one grid and two separate feature groups only; no combined group, no final_holdout evaluation, no trading selection",
+  "interpretation": "development evidence only; a positive screen is a candidate for matched neural tests and fresh unseen data, not independent optimization proof"
+}

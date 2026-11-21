@@ -1,0 +1,179 @@
+{
+  "arm": "preopen/direct_us/linear",
+  "fold": "validation_2",
+  "seed": 23,
+  "selected_epoch": 12,
+  "zero_fallback": false,
+  "trace": [
+    {
+      "epoch": 0,
+      "training_objective": null,
+      "stop_mse": 0.8233375549316406
+    },
+    {
+      "epoch": 1,
+      "training_objective": 0.7548437118530273,
+      "stop_mse": 0.8238555192947388
+    },
+    {
+      "epoch": 2,
+      "training_objective": 0.7530339956283569,
+      "stop_mse": 0.8243964910507202
+    },
+    {
+      "epoch": 3,
+      "training_objective": 0.7508291602134705,
+      "stop_mse": 0.8249986171722412
+    },
+    {
+      "epoch": 4,
+      "training_objective": 0.7482255101203918,
+      "stop_mse": 0.8255555629730225
+    },
+    {
+      "epoch": 5,
+      "training_objective": 0.7452352643013,
+      "stop_mse": 0.825879693031311
+    },
+    {
+      "epoch": 6,
+      "training_objective": 0.741888165473938,
+      "stop_mse": 0.8257675766944885
+    },
+    {
+      "epoch": 7,
+      "training_objective": 0.7382786870002747,
+      "stop_mse": 0.8250263333320618
+    },
+    {
+      "epoch": 8,
+      "training_objective": 0.7345952391624451,
+      "stop_mse": 0.8235864043235779
+    },
+    {
+      "epoch": 9,
+      "training_objective": 0.7310733199119568,
+      "stop_mse": 0.8217307329177856
+    },
+    {
+      "epoch": 10,
+      "training_objective": 0.7278502583503723,
+      "stop_mse": 0.8200199007987976
+    },
+    {
+      "epoch": 11,
+      "training_objective": 0.7248531579971313,
+      "stop_mse": 0.8189268708229065
+    },
+    {
+      "epoch": 12,
+      "training_objective": 0.7218909859657288,
+      "stop_mse": 0.8186338543891907
+    },
+    {
+      "epoch": 13,
+      "training_objective": 0.7188298106193542,
+      "stop_mse": 0.8191196918487549
+    },
+    {
+      "epoch": 14,
+      "training_objective": 0.7156636714935303,
+      "stop_mse": 0.8202574253082275
+    },
+    {
+      "epoch": 15,
+      "training_objective": 0.7124752402305603,
+      "stop_mse": 0.8218473792076111
+    },
+    {
+      "epoch": 16,
+      "training_objective": 0.7093663215637207,
+      "stop_mse": 0.823648989200592
+    },
+    {
+      "epoch": 17,
+      "training_objective": 0.7063964009284973,
+      "stop_mse": 0.8254153728485107
+    },
+    {
+      "epoch": 18,
+      "training_objective": 0.7035612463951111,
+      "stop_mse": 0.8269279599189758
+    },
+    {
+      "epoch": 19,
+      "training_objective": 0.7008144855499268,
+      "stop_mse": 0.8280479311943054
+    },
+    {
+      "epoch": 20,
+      "training_objective": 0.6981088519096375,
+      "stop_mse": 0.8287419080734253
+    },
+    {
+      "epoch": 21,
+      "training_objective": 0.6954249739646912,
+      "stop_mse": 0.8290742039680481
+    },
+    {
+      "epoch": 22,
+      "training_objective": 0.6927716732025146,
+      "stop_mse": 0.8291999697685242
+    },
+    {
+      "epoch": 23,
+      "training_objective": 0.6901669502258301,
+      "stop_mse": 0.8293457627296448
+    },
+    {
+      "epoch": 24,
+      "training_objective": 0.6876150965690613,
+      "stop_mse": 0.8297588229179382
+    },
+    {
+      "epoch": 25,
+      "training_objective": 0.685100257396698,
+      "stop_mse": 0.8306385278701782
+    },
+    {
+      "epoch": 26,
+      "training_objective": 0.6825971603393555,
+      "stop_mse": 0.8320841789245605
+    },
+    {
+      "epoch": 27,
+      "training_objective": 0.6800859570503235,
+      "stop_mse": 0.834071159362793
+    },
+    {
+      "epoch": 28,
+      "training_objective": 0.6775596737861633,
+      "stop_mse": 0.8364495635032654
+    },
+    {
+      "epoch": 29,
+      "training_objective": 0.6750220656394958,
+      "stop_mse": 0.8389683365821838
+    },
+    {
+      "epoch": 30,
+      "training_objective": 0.6724782586097717,
+      "stop_mse": 0.8413200974464417
+    },
+    {
+      "epoch": 31,
+      "training_objective": 0.6699231266975403,
+      "stop_mse": 0.8432103395462036
+    },
+    {
+      "epoch": 32,
+      "training_objective": 0.6673364639282227,
+      "stop_mse": 0.8444356918334961
+    }
+  ],
+  "inner_seconds": 0.5759060001000762,
+  "outer_seconds": 0.22781059984117746,
+  "output_sha256": {
+    "predictions.csv": "42c2cb2245e7bcb6ac7ef41b8a80e863c5585fa2efd6f87f584682344508bc94"
+  }
+}

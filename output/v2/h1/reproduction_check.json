@@ -1,0 +1,9 @@
+{
+  "status": "H1_saved_predictions_reproduced",
+  "folds": 3,
+  "verification_only_ridge_refits": 3,
+  "maximum_raw_prediction_difference": 9.952975943416931e-17,
+  "saved_prediction_sha256": "5ff4ec2f0836907ad419364903bee0dc4e47d44c403cd1cb0728ed537f34dd08",
+  "contract_sha256": "bb61ca8b68157e1ba4a9eb73ade5acd4aaa1726a9de530ce0a337a95a0840930",
+  "note": "The fit logic is unchanged; the source-file hash differs because the Z0 summary was repaired before H3."
+}

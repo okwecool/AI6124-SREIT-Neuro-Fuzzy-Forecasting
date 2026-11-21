@@ -1,0 +1,56 @@
+{
+  "contract": {
+    "experiment_id": "V4-H15-preopen-US-information-screen-01",
+    "status": "fixed before H15 scoring or fits; after prior development and V1 final results were viewed",
+    "declaration": "Keep SRT and next raw closing log return; separately label later forecast time and two external market inputs; not an unchanged-information algorithm claim",
+    "sources": [
+      "VNQ",
+      "SPY"
+    ],
+    "source_period": "2021-09-01 to 2025-09-30; fixed Yahoo raw close and dividend snapshots",
+    "availability": "each completed New York session is conservatively assigned 16:00 America/New_York plus two hours; this is a declared data-availability proxy, not historical vendor delivery evidence; early closes still use16:00",
+    "cutoffs": {
+      "close": "18:00 Asia/Singapore on SRT forecast date t",
+      "preopen": "08:00 Asia/Singapore on the next SRT target session t+1"
+    },
+    "us_features": "two gross log returns accumulated between consecutive SRT-calendar cutoffs, obtained from as-of log total-return indices; same last known US session implies zero increment; no future session or forward filling from the future",
+    "base_features": "H12 gross-corrected original20x6 history; fixed SRT/STI/SORA information through t, even in the preopen arm",
+    "target": "unchanged raw next close return; train residual after completed historical distributions, add only previously audited preannounced SRT distribution offset",
+    "configs": [
+      "base_endpoint",
+      "close_us",
+      "preopen_us",
+      "close_all",
+      "preopen_all"
+    ],
+    "design": "base_endpoint uses last six base features; *_us uses last two US features; *_all uses last eight features; no 200-day window or added indicator grid",
+    "references": [
+      "DivSchedule",
+      "MeanTrainResidualPlusSchedule"
+    ],
+    "fitting": "last15% of each outer train chooses lambda0.1/1/10 or zero residual; training-only x scaler, residual scaled but not centered, all coefficients including intercept penalized, mean SSE objective; outer full refit",
+    "budget": "five configurations x three folds x (three inner fits + at most one refit), at most60 fits",
+    "evaluation": "same378 original development dates, all original553/679/803 training windows; final_holdout prohibited",
+    "advance": "a preopen configuration beats DivSchedule and its corresponding close-time configuration by >=1% pooled RMSE, wins>=2/3 folds against DivSchedule, MAE<=1.01*DivSchedule; all comparisons reported, including mean and base endpoint",
+    "interpretation": "this is an information/timing screen, not evidence of fuzzy superiority, independent validation or profitable next-open execution",
+    "next_stage": "only after positive information screen, preregister matched LSTM3/Gate2/Fuzzy2 with20x8 input at both cutoffs; keep original frozen modules unchanged"
+  },
+  "dependency_sha256": {
+    "docs\\v4_preopen_screen_contract_2026-11-05.json": "b1e224e13c3ce7d7f218cf95fac2f2b86a1065bdaeedddd6819933fc15af22c2",
+    "src\\v4\\screen_preopen.py": "ea34aeada50592dd03d19e5e4de1fc9ba7f9c2b3b343018976afd6914c5910bc",
+    "src\\v4\\preopen_data.py": "617d90e8ccf0541b02a98f9b877e6d668255c5f7505ab38e6e1f3cfa28888258",
+    "src\\v3\\hybrid_training.py": "688a30bd3441a60d13ec7a9ec6a09f29536803a260462643806d57ce86c754d8",
+    "src\\v3\\screen_intraday.py": "b9a85b16056c9a0b6cdca742adf1d5940fdf645ecc29dbde52bfb518ae318936",
+    "src\\project_eval.py": "dbd74c5e71e8f2c09dba0a4ddbe9249b8c026ed56785288f97bace6049ce38f9",
+    "src\\v2\\screen_distributions.py": "ec2d5f24f3e514683cbb0586faad9fb04475294536f51bccc7eeb127d4bdf894",
+    "data\\reference\\srt_announced_distributions_dev.csv": "95df737717a100e4a86653562c0e86bbfccd2bdd0949da8a9e5c2d039d9c8215",
+    "data\\processed\\srt_daily_aligned.csv": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+    "data\\processed\\srt_windows_unscaled.npz": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+    "data\\processed\\window_index.csv": "2198d401fb9768c50f013b6fe1bc222216d1270a743490c2b502d85613a51771",
+    "data\\processed\\fold_assignments.csv": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+    "data\\raw\\yahoo_vnq_20210901_20250930.json": "ef35066af6ccebc90d5cd2fb9ae429980a3ae50456e632e2f5e24e1091094ff2",
+    "data\\raw\\yahoo_spy_20210901_20250930.json": "dba9b67aa6ddadb02f2d1c7778dc3fa266847480f881463962a0df9818ec4a88",
+    "data\\source_us_vnq_manifest.json": "d423d359b44f92d077ca020557f74ab01d9f1e3bf07cb8056a7f73180037fb30",
+    "data\\source_us_spy_manifest.json": "f9024755dbdd9420c646a7081467b282025624cbb18951f0b0ba9723ff269b65"
+  }
+}

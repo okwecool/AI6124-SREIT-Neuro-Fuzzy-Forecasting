@@ -1,0 +1,28 @@
+[
+  {
+    "horizon": 20,
+    "best_simple_baseline": "Zero",
+    "baseline_rmse": 0.03844789822594087,
+    "ridge_rmse": 0.04635086772270099,
+    "relative_rmse_improvement_pct": -20.55501044639152,
+    "ridge_mae": 0.0381715672752093,
+    "baseline_mae": 0.03185158489656318,
+    "fold_wins": 1,
+    "evaluation_rows_per_model": 359,
+    "passes_heuristic": false,
+    "evidence": "development-only; overlapping labels; 60-day horizon descriptive"
+  },
+  {
+    "horizon": 60,
+    "best_simple_baseline": "Zero",
+    "baseline_rmse": 0.06526540285341074,
+    "ridge_rmse": 0.07949099010497569,
+    "relative_rmse_improvement_pct": -21.79652101974503,
+    "ridge_mae": 0.060575715771808036,
+    "baseline_mae": 0.05341019298073067,
+    "fold_wins": 1,
+    "evaluation_rows_per_model": 319,
+    "passes_heuristic": false,
+    "evidence": "development-only; overlapping labels; 60-day horizon descriptive"
+  }
+]

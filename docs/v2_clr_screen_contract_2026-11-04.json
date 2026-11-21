@@ -1,0 +1,15 @@
+{
+  "experiment_id": "V2-H10-CLR-incremental-residual-ridge-01",
+  "status": "fixed before CLR fits; development exploration after announced-distribution and residual-fuzzy results were viewed",
+  "question": "Does same-day pure S-REIT ETF CLR return add signal for next-day SRT raw close return after known SRT distribution is accounted for?",
+  "source": "data/raw/yahoo_clr_si_20171001_20260930.json",
+  "feature": "log(CLR_close_t / CLR_close_previous_SRT_trading_day), available after Singapore market close on t",
+  "calendar": "same 378 original SRT development evaluation dates; CLR close must be present on every SRT development feature date, with no fill or date dropping",
+  "target": "SRT raw next-day close return minus historically realized SRT ex-distribution adjustment for completed training labels",
+  "evaluation": "add back only SGX-announced SRT adjustment available before each forecast; score original raw SRT return",
+  "folds": ["validation_1", "validation_2", "validation_3"],
+  "alpha_grid": [10.0, 100.0, 1000.0],
+  "comparison": "identical residual Ridge with original 20x6 versus 20x7 (+CLR), plus DivSchedule; per-fold inner selection and outer refit",
+  "advance_rule": "CLR Ridge must beat six-input residual Ridge and DivSchedule by >=1% pooled RMSE, beat DivSchedule in >=2 folds, and worsen pooled MAE by <=1% versus DivSchedule before matched neural study",
+  "scope": "one CLR feature, no final_holdout, no feature or regularization search after viewing results"
+}

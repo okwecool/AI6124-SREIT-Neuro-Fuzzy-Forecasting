@@ -1,0 +1,90 @@
+{
+  "contract_sha256": "7a2806401febcda3a48b15024740b5b49bf2108912d70e685082326098e7e0dd",
+  "source_sha256": "951ad2c1782a568b610bfaca3079c199ce988d89b6e99437c8680912f94f644d",
+  "data_sha256": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+  "windows_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "folds": [
+    {
+      "fold": "validation_1",
+      "outer_raw_train_rows": 553,
+      "inner_fit_rows": 460,
+      "inner_stop_rows": 83,
+      "outer_fit_rows_after_purge": 548,
+      "eval_raw_rows": 126,
+      "eval_eligible_rows": 126,
+      "first_eval_forecast": "2024-03-28",
+      "last_eval_label_end": "2024-10-04",
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.019923612431691367
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.019294929772279645
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.01917202850993426
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "ridge_weight_l2": 0.13372927812800392
+    },
+    {
+      "fold": "validation_2",
+      "outer_raw_train_rows": 679,
+      "inner_fit_rows": 567,
+      "inner_stop_rows": 102,
+      "outer_fit_rows_after_purge": 674,
+      "eval_raw_rows": 124,
+      "eval_eligible_rows": 124,
+      "first_eval_forecast": "2024-09-30",
+      "last_eval_label_end": "2025-04-04",
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.021837108763921538
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.021946181011827326
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.022382129671753535
+        }
+      ],
+      "selected_alpha": 10.0,
+      "ridge_weight_l2": 0.6344804114024774
+    },
+    {
+      "fold": "validation_3",
+      "outer_raw_train_rows": 803,
+      "inner_fit_rows": 673,
+      "inner_stop_rows": 120,
+      "outer_fit_rows_after_purge": 798,
+      "eval_raw_rows": 128,
+      "eval_eligible_rows": 124,
+      "first_eval_forecast": "2025-03-28",
+      "last_eval_label_end": "2025-09-30",
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.021233853538180535
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.020200752925962902
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.018155908861763936
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "ridge_weight_l2": 0.14111365643421778
+    }
+  ]
+}

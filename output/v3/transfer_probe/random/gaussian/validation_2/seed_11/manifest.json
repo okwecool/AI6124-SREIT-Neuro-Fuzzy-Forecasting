@@ -1,0 +1,11 @@
+{
+  "arm": "random/gaussian",
+  "fold": "validation_2",
+  "seed": 11,
+  "zero_fallback": false,
+  "output_sha256": {
+    "cases.csv": "2fa2ddf75ffe6098298d463f638f323782726c5b89b733b968c69fb9399abd3e",
+    "predictions.csv": "e70f32b94b6e25612b4a6b16cdc9bd974ccce53e2b84a83ccbfc6d014abe09c4",
+    "rules.csv": "0507592da4bd382d31dbf64140385c9ddbae047eb85f692e88b969bf647d88aa"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "experiment_id": "V8-H20-train-only-volatility-rule-supervision-01",
+  "fuzzy_state_rmse": 0.009487848684682455,
+  "fuzzy_control_rmse": 0.009488633004229415,
+  "z0_rmse": 0.00943073954460879,
+  "gain_vs_fuzzy_control_pct": 0.008265885577096732,
+  "gain_vs_z0_pct": -0.6055637503668665,
+  "paired_wins_vs_fuzzy_control": 3,
+  "fold_wins": {
+    "V8FuzzyControl": 1,
+    "Z0": 0
+  },
+  "control_max_abs_diff_from_v1": {
+    "V8FuzzyControl": 5.817635919443814e-10,
+    "V8GateControl": 7.026166941011616e-10
+  },
+  "candidate_gate": false,
+  "substantial_goal": false,
+  "scope": "development-only; no final-period evaluation"
+}

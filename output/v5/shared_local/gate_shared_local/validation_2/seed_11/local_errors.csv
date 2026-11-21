@@ -1,0 +1,5 @@
+rule,region,cut,n,small_region,zero_fallback,own_mae,other_mae
+1,train_upper_quartile,0.6071804761886597,31,False,True,0.005229446924321594,0.005229446924321594
+1,fixed_08,0.8,0,True,True,,
+2,train_upper_quartile,0.5156564116477966,3,True,True,0.011202324492235979,0.011202324492235979
+2,fixed_08,0.8,0,True,True,,

@@ -1,0 +1,13 @@
+{
+  "experiment_id": "V6-H18-within-window-SRT-mask-pretraining-01",
+  "pretrained_fuzzy_rmse": 0.009528110157427902,
+  "v1_fuzzy_rmse": 0.009488633011324089,
+  "z0_rmse": 0.00943073954460879,
+  "gain_vs_v1_fuzzy_pct": -0.4160467167051207,
+  "gain_vs_z0_pct": -1.0324812000006345,
+  "paired_wins_vs_v1_fuzzy": 5,
+  "fold_wins_vs_z0": 1,
+  "candidate_gate": false,
+  "substantial_goal": false,
+  "scope": "development-only; no final holdout evaluation"
+}

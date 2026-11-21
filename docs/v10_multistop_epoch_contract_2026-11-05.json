@@ -1,0 +1,26 @@
+{
+  "experiment_id": "V10-H22-two-forward-stop-epoch-selection-01",
+  "status": "fixed before V10 fitting; exploratory after V1-V9 development results were viewed",
+  "question": "Does the original Fuzzy2 select only very early epochs because its single latest stop block is unrepresentative, and can an identical two-block forward selector improve its out-of-time raw-return forecast?",
+  "fixed_task": {
+    "input": "saved original 20x6 SRT/STI/SORA windows, unchanged",
+    "target": "next SRT trading-day raw close log return",
+    "forecast_time": "after SRT close on t",
+    "architecture": "unchanged V1 LSTM32 -> tanh 3D -> two Gaussian rules -> two affine experts for Fuzzy2",
+    "folds": ["validation_1", "validation_2", "validation_3"],
+    "seeds": [11, 23, 37],
+    "excluded": ["final_holdout", "added data", "changed target or model size", "V6-V8 training extensions"]
+  },
+  "internal_blocks": "For each outer training fold with N sorted training windows, let B=ceil(0.15N). Forward block A trains on rows [0,N-2B) and stops on [N-2B,N-B). Forward block B trains on [0,N-B) and stops on [N-B,N); block B exactly matches V1's latest 15% stop. The two stop sets are disjoint and all training labels precede their respective stop forecast times. Fit each input/target scaler on that block's training prefix only.",
+  "epoch_curves": "For Fuzzy2, Gate2 and LSTM3 independently, each fold/seed/block is initialized and shuffled with the original V1 seed, AdamW lr 0.001 and weight decay 0.0001, minibatch 64, gradient clipping 1. Train all 150 epochs with no within-block patience termination; record train MSE and stop raw-return MSE in that block's training-standardized units for epochs 0..150. Epoch 0 is diagnostic only.",
+  "selection": "At each trained epoch 1..150 compute stop MSE divided by the zero-raw-return MSE for each block using the same block scaler; choose the earliest epoch minimizing the equal-weight mean of the two ratios. This ratio makes block scores comparable despite different train-only target scalers. Do not use outer validation labels for epoch selection. Do not choose epoch 0, to preserve V1's trained-model candidate set. Record each block's own best epoch and epoch-0 score for stability diagnosis.",
+  "outer_refit": "Restart each model with the same seed, fit the original full outer training fold with its own train-only scaler for the chosen number of epochs using the identical V1 train_epoch, and score the unchanged original outer validation dates. No ensemble of block models or seeds.",
+  "arms": ["V10Fuzzy2", "V10Gate2", "V10LSTM3"],
+  "saved_references": ["V1 Fuzzy2", "V1 Gate2", "V1 LSTM3", "Z0"],
+  "attribution": "Compare each V10 arm first with its same-architecture V1 model, then Fuzzy2 with Z0 and matched V10 Gate2/LSTM3. Only the epoch selector and its extra internal training budget differ from V1; the architecture, inputs, final outer refit method, target and evaluation calendar are unchanged. An improvement shared by all heads is selection-method benefit, not Gaussian-specific benefit.",
+  "budget": "3 architectures x 3 folds x 3 seeds x 2 inner forward blocks = 54 full 150-epoch internal fits, followed by 27 full-outer refits to chosen epochs; no model-size, learning-rate, loss, threshold or block-length scan",
+  "candidate_gate": "V10Fuzzy2 mean seed-pooled RMSE at least 1% below both V1 Fuzzy2 and Z0; at least 2/3 fold-mean wins versus each; at least 6/9 paired fold-seed wins versus V1 Fuzzy2; pooled MAE no more than 1% above Z0",
+  "substantial_goal": "at least 3% lower pooled RMSE than strongest fixed same-information reference; project resource threshold, not course rule or independent significance claim",
+  "stopping": "If this fixed two-block selector fails, do not relabel a single favorable seed, epoch-0 diagnostic or larger inner training budget as model optimization. Do not tune block count or placement on the same viewed folds under this experiment.",
+  "outputs": "all epoch curves, chosen epochs and per-block discrepancies, new development predictions, Fuzzy2 case/rule diagnostics, pooled/fold/seed comparisons, source hashes and decision; no final-period predictions"
+}

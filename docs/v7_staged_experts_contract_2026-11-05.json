@@ -1,0 +1,25 @@
+{
+  "experiment_id": "V7-H19-chronological-calibration-staged-experts-01",
+  "status": "fixed before V7 fitting; exploratory development study after V1-V6 were viewed",
+  "question": "Can two local experts add stable value when the common LSTM representation and prediction are learned first, frozen, and local residuals are fitted on later training dates?",
+  "fixed_primary_task": {
+    "input": "original saved 20x6 SRT/STI/SORA windows, unchanged",
+    "target": "next SRT trading-day raw close log return",
+    "forecast_time": "after SRT close on t",
+    "architecture": "LSTM32 -> tanh 3D -> two Gaussian rules -> two affine experts; shared/local form q@(b+d), q@(b-d)",
+    "folds": ["validation_1", "validation_2", "validation_3"],
+    "seeds": [11, 23, 37],
+    "excluded": ["final_holdout", "new source data", "announcement offset", "V6 pretrained representation"]
+  },
+  "chronology": "For inner selection split the original outer train chronologically into first 85% fit and last 15% stop. Split that fit prefix into first 75% common-learning and last 25% expert-calibration. For outer refit split the full outer train 75% common-learning / 25% expert-calibration. Input and target scale, representation and common b use only common-learning labels and windows. The expert-calibration labels never train or select the common predictor. The same fitted encoder and 3D coordinates are used for both stages; no concatenated cross-fit latent coordinates.",
+  "stage_1": "Train V5 linear HybridHead representation on common-learning prefix for exactly 10 full-batch epochs, differentiable ridge common penalty 0.1, AdamW lr 0.001 weight decay 0.0001 gradient clip 1. Recompute training-only latent normalization and solve common b on that same prefix. No stage-1 epoch search.",
+  "stage_2": "Freeze encoder, projection, normalization and common b. Fit a four-coefficient affine difference d on later expert-calibration residuals with ridge penalty 1.0. Optimize only Gaussian centers and widths, or matched ordinary gate parameters, with full-batch AdamW lr 0.001, weight decay 0.0001 and gradient clip 1. Inspect epoch 0 through 40 on inner stop; select lowest stop MSE only if it improves the common-only predictor by at least 0.0001 in scaled MSE. Stop after 10 non-improving epochs. In outer refit restart with same seed and train the selected epoch count; if no accepted local stage, keep local term exactly zero.",
+  "arms": ["V7Common", "V7StagedGaussian", "V7StagedGate"],
+  "references": ["Z0", "V1 Fuzzy2", "V1 LSTM3", "V1 Gate2", "V5 gaussian_shared_local", "V5 gate_shared_local"],
+  "attribution": "The three V7 arms share the identical stage-1 model, data split, scaling and b within each fold/seed. Gaussian versus gate differs only in the stage-2 gate. Compare each to V7Common first; comparisons to V1/V5 are historical context because their training-data allocation differs.",
+  "budget": "nine shared inner common fits plus nine shared outer common fits; 18 inner and 18 outer local-head fits. No scan over stage fractions, epoch cap, penalties or seeds.",
+  "candidate_gate": "V7StagedGaussian mean seed-pooled RMSE at least 1% lower than both V7Common and Z0; at least two fold-mean wins vs each; at least six of nine fold-seed wins vs V7Common; pooled MAE at most 1% above Z0; nonzero local stage accepted in at least six of nine inner selections.",
+  "substantial_goal": "at least 3% mean seed-pooled RMSE improvement versus strongest fixed same-information reference; development resource target, not a course rule or independent statistical claim",
+  "stopping": "If candidate gate fails, do not advance this split-calibration variant to joint fine-tuning, alter the split after seeing results, or label a common-only/zero-local outcome as a fuzzy expert improvement.",
+  "outputs": "development predictions, matched common/local components and expert diagnostics, per-fold/seed and pooled metrics, stage losses, chronology and source hashes; no final-period predictions"
+}

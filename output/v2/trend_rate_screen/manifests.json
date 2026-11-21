@@ -1,0 +1,337 @@
+{
+  "experiment_id": "V2-H11-trend-SGS10Y-residual-ridge-01",
+  "contract_sha256": "5f6566a31424723d374c73a9e94329939e60deb9405666692da3c42c8779d3d6",
+  "source_sha256": "9bee1a021a1763439a75f313f9bb53f638595f77d971a8fd8c15237c23c7dd2a",
+  "sgs_source_sha256": "5c51dcefc91d90e4d28365a9166cf0a605239277cad82454ad0c533fd4758f8e",
+  "sgs_manifest_sha256": "4b349fdb7626ae53dbba463161ba9708b5d13af0206ca473ac3e55de48fbafd7",
+  "srt_daily_sha256": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+  "v1_windows_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "eligible_windows": 766,
+  "fits": [
+    {
+      "group": "base",
+      "model_id": "RidgeResidualBaseMatched",
+      "fold": "validation_1",
+      "train_rows": 388,
+      "inner_fit_rows": 329,
+      "inner_stop_rows": 59,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010380066706349873
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.010144406404218891
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009642397778295935
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 120,
+      "outer_target_mean_residual": -0.00034475010206452426,
+      "outer_weight_l2": 0.10700780350071125
+    },
+    {
+      "group": "base",
+      "model_id": "RidgeResidualBaseMatched",
+      "fold": "validation_2",
+      "train_rows": 514,
+      "inner_fit_rows": 436,
+      "inner_stop_rows": 78,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009930238243672264
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009812888003847579
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009852735817255825
+        }
+      ],
+      "selected_alpha": 100.0,
+      "feature_columns": 120,
+      "outer_target_mean_residual": -4.969914271659309e-05,
+      "outer_weight_l2": 0.44171821445778836
+    },
+    {
+      "group": "base",
+      "model_id": "RidgeResidualBaseMatched",
+      "fold": "validation_3",
+      "train_rows": 638,
+      "inner_fit_rows": 542,
+      "inner_stop_rows": 96,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.008507705652240632
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.008052158314137378
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007199514832602877
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 120,
+      "outer_target_mean_residual": -0.00017566979059155412,
+      "outer_weight_l2": 0.12068283873519735
+    },
+    {
+      "group": "trend",
+      "model_id": "RidgeResidualTrend",
+      "fold": "validation_1",
+      "train_rows": 388,
+      "inner_fit_rows": 329,
+      "inner_stop_rows": 59,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.01041742795703784
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.010082489301583843
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009614192175917047
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 122,
+      "outer_target_mean_residual": -0.00034475010206452426,
+      "outer_weight_l2": 0.11081804275652209
+    },
+    {
+      "group": "trend",
+      "model_id": "RidgeResidualTrend",
+      "fold": "validation_2",
+      "train_rows": 514,
+      "inner_fit_rows": 436,
+      "inner_stop_rows": 78,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010270139620035167
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.00996784793607522
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009880843786679652
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 122,
+      "outer_target_mean_residual": -4.969914271659309e-05,
+      "outer_weight_l2": 0.12241672785378316
+    },
+    {
+      "group": "trend",
+      "model_id": "RidgeResidualTrend",
+      "fold": "validation_3",
+      "train_rows": 638,
+      "inner_fit_rows": 542,
+      "inner_stop_rows": 96,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009208760785465408
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.008492000084984285
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.0072551774339331115
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 122,
+      "outer_target_mean_residual": -0.00017566979059155412,
+      "outer_weight_l2": 0.12595021738594822
+    },
+    {
+      "group": "rate",
+      "model_id": "RidgeResidualSGS10Y",
+      "fold": "validation_1",
+      "train_rows": 388,
+      "inner_fit_rows": 329,
+      "inner_stop_rows": 59,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.01043540316082093
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.01017306291397563
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009648499303631786
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 122,
+      "outer_target_mean_residual": -0.00034475010206452426,
+      "outer_weight_l2": 0.10726175117655862
+    },
+    {
+      "group": "rate",
+      "model_id": "RidgeResidualSGS10Y",
+      "fold": "validation_2",
+      "train_rows": 514,
+      "inner_fit_rows": 436,
+      "inner_stop_rows": 78,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009983752160636307
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.00985140638474894
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009854515334176351
+        }
+      ],
+      "selected_alpha": 100.0,
+      "feature_columns": 122,
+      "outer_target_mean_residual": -4.969914271659309e-05,
+      "outer_weight_l2": 0.4445310534903111
+    },
+    {
+      "group": "rate",
+      "model_id": "RidgeResidualSGS10Y",
+      "fold": "validation_3",
+      "train_rows": 638,
+      "inner_fit_rows": 542,
+      "inner_stop_rows": 96,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.008401492305717708
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.008001680411819197
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007208036066734827
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 122,
+      "outer_target_mean_residual": -0.00017566979059155412,
+      "outer_weight_l2": 0.12115898835880037
+    },
+    {
+      "group": "trend_rate",
+      "model_id": "RidgeResidualTrendSGS10Y",
+      "fold": "validation_1",
+      "train_rows": 388,
+      "inner_fit_rows": 329,
+      "inner_stop_rows": 59,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010377462129970873
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.01009658751590376
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009618143973716473
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 124,
+      "outer_target_mean_residual": -0.00034475010206452426,
+      "outer_weight_l2": 0.11128402502212001
+    },
+    {
+      "group": "trend_rate",
+      "model_id": "RidgeResidualTrendSGS10Y",
+      "fold": "validation_2",
+      "train_rows": 514,
+      "inner_fit_rows": 436,
+      "inner_stop_rows": 78,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010298271271234592
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.010003306279898067
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009882783066705817
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 124,
+      "outer_target_mean_residual": -4.969914271659309e-05,
+      "outer_weight_l2": 0.12298207037632573
+    },
+    {
+      "group": "trend_rate",
+      "model_id": "RidgeResidualTrendSGS10Y",
+      "fold": "validation_3",
+      "train_rows": 638,
+      "inner_fit_rows": 542,
+      "inner_stop_rows": 96,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.008552320969590202
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.008324457514730085
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007262263255985519
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "feature_columns": 124,
+      "outer_target_mean_residual": -0.00017566979059155412,
+      "outer_weight_l2": 0.12685897846736116
+    }
+  ]
+}

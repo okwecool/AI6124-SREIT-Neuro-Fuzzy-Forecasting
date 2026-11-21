@@ -1,0 +1,4 @@
+fold,window_id,forecast_date,target_date,close_t,y_true,announcement_date,ex_date,distribution_sgd,source_url,adjustment
+validation_1,628,2024-07-18,2024-07-19,0.7620000243,-0.03335871174931526,2024-07-11,2024-07-19,0.022,https://links.sgx.com/1.0.0/corporate-announcements/NOYZQ20FW51IVXSN/809400_Announcement%20Dividend%20Distribution%202H2024%20240711.pdf,-0.029296368540356804
+validation_2,755,2025-01-17,2025-01-20,0.7400000095,-0.02739894762635231,2025-01-10,2025-01-20,0.022,https://links.sgx.com/FileOpen/Announcement%20Dividend%20Distribution%201H2025%20250110.ashx?App=Announcement&FileID=830182,-0.030180616756631324
+validation_3,879,2025-07-18,2025-07-21,0.7390000224,-0.014996923506259918,2025-07-10,2025-07-21,0.022,https://links.sgx.com/1.0.0/corporate-announcements/NSYA6FGDMPV1FXCJ/851495_Announcement%20Dividend%20Distribution%202H2025%20250710.pdf,-0.030222079418529713

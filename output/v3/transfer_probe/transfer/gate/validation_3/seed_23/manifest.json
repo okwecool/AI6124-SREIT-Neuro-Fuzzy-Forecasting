@@ -1,0 +1,9 @@
+{
+  "arm": "transfer/gate",
+  "fold": "validation_3",
+  "seed": 23,
+  "zero_fallback": false,
+  "output_sha256": {
+    "predictions.csv": "6df64564a3b6a77b2e6878bbd55212cf4ae0d77f43600a5bee1651b82a5d8b12"
+  }
+}

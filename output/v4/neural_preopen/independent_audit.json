@@ -1,0 +1,39 @@
+{
+  "status": "pass",
+  "prediction_records_checked": 16254,
+  "max_recomputed_metric_difference": 6.591949208711867e-17,
+  "latency_sensitivity": [
+    {
+      "clock": "close",
+      "symbol": "SPY",
+      "same_sessions_with_three_hour_latency": true,
+      "rows": 970,
+      "max_stale_hours": 86.0
+    },
+    {
+      "clock": "close",
+      "symbol": "VNQ",
+      "same_sessions_with_three_hour_latency": true,
+      "rows": 970,
+      "max_stale_hours": 86.0
+    },
+    {
+      "clock": "preopen",
+      "symbol": "SPY",
+      "same_sessions_with_three_hour_latency": true,
+      "rows": 970,
+      "max_stale_hours": 76.0
+    },
+    {
+      "clock": "preopen",
+      "symbol": "VNQ",
+      "same_sessions_with_three_hour_latency": true,
+      "rows": 970,
+      "max_stale_hours": 76.0
+    }
+  ],
+  "bootstrap": "post-hoc circular blocks within each development fold, lengths5/10/20,5000 resamples,seed20261105; descriptive and not corrected for prior model/hypothesis search",
+  "trading": "post-hoc application diagnostic of existing fixed theta0 long/cash policy, price costs0/10/20bps and gross10bps; no policy or threshold selected using these results; actual timestamps are Singapore local time",
+  "analysis_source_sha256": "9a5b85358bdfcb749875eef6200655090c9353bed0d7217d5eb669aa30468810",
+  "analysis_utils_sha256": "46187929ee6a444f0290e9d1ec7dd3520eae2a20cdd79fbf7e6a44eeada531c7"
+}

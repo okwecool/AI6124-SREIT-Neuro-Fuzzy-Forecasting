@@ -1,0 +1,253 @@
+{
+  "experiment_id": "V2-H1b-H2-ridge-screen-01",
+  "contract_sha256": "de01b12574bff59bf815b2f3e5a95c8c250feddad3031d43a6b740a8143f65d9",
+  "source_sha256": "483208a47a3dba480881d990ecd69a82aad4612663496c374fcd7ed54a4d8007",
+  "source_data_sha256": "d0a94a246a86df9274d9d877f3a70d1db4e4b3a4f03542337cbdba137f9a0241",
+  "base_windows_sha256": "77e2df52cdabcccd136f8fe33efa644e56ab40d8fbebe41d83b8327279145bb8",
+  "folds_sha256": "c72e39e247297e9c2f038d71b2d4ce81e4061886d165074c21a63e5c893fe859",
+  "fits": [
+    {
+      "fold": "validation_1",
+      "inner_fit_rows": 470,
+      "inner_stop_rows": 83,
+      "outer_fit_rows": 553,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010389124415589035
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.010135146416899277
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009897792428756729
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.0004135462039471966,
+      "outer_weight_l2": 0.10864751272188984,
+      "group": "base",
+      "model_id": "RidgeStrong",
+      "features": 6
+    },
+    {
+      "fold": "validation_2",
+      "inner_fit_rows": 577,
+      "inner_stop_rows": 102,
+      "outer_fit_rows": 679,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009985929815409656
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009893638733550742
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.0098718814676368
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.0002205739895414029,
+      "outer_weight_l2": 0.11836462093688792,
+      "group": "base",
+      "model_id": "RidgeStrong",
+      "features": 6
+    },
+    {
+      "fold": "validation_3",
+      "inner_fit_rows": 682,
+      "inner_stop_rows": 121,
+      "outer_fit_rows": 803,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.008323753213148037
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.007953905207392153
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007478398645933641
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00033185843425857396,
+      "outer_weight_l2": 0.11835868644408411,
+      "group": "base",
+      "model_id": "RidgeStrong",
+      "features": 6
+    },
+    {
+      "fold": "validation_1",
+      "inner_fit_rows": 470,
+      "inner_stop_rows": 83,
+      "outer_fit_rows": 553,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010357053540112572
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.010054251486014399
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009868766133319341
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.0004135462039471966,
+      "outer_weight_l2": 0.14229277742260207,
+      "group": "price",
+      "model_id": "RidgePrice",
+      "features": 9
+    },
+    {
+      "fold": "validation_2",
+      "inner_fit_rows": 577,
+      "inner_stop_rows": 102,
+      "outer_fit_rows": 679,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.009907358088168157
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009726454716946067
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009779938478009566
+        }
+      ],
+      "selected_alpha": 100.0,
+      "outer_target_mean": -0.0002205739895414029,
+      "outer_weight_l2": 0.48234516114371245,
+      "group": "price",
+      "model_id": "RidgePrice",
+      "features": 9
+    },
+    {
+      "fold": "validation_3",
+      "inner_fit_rows": 682,
+      "inner_stop_rows": 121,
+      "outer_fit_rows": 803,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.008708069592552234
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.008089432569879566
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007409489004299205
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00033185843425857396,
+      "outer_weight_l2": 0.1605989263638379,
+      "group": "price",
+      "model_id": "RidgePrice",
+      "features": 9
+    },
+    {
+      "fold": "validation_1",
+      "inner_fit_rows": 470,
+      "inner_stop_rows": 83,
+      "outer_fit_rows": 553,
+      "eval_rows": 126,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010433637593269554
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.010179682699484736
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.0099593833223537
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.0004135462039471966,
+      "outer_weight_l2": 0.1380329787357063,
+      "group": "volume",
+      "model_id": "RidgeVolume",
+      "features": 8
+    },
+    {
+      "fold": "validation_2",
+      "inner_fit_rows": 577,
+      "inner_stop_rows": 102,
+      "outer_fit_rows": 679,
+      "eval_rows": 124,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.010047091681291764
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.009903694283515766
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.009826388945860586
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.0002205739895414029,
+      "outer_weight_l2": 0.14627100234527868,
+      "group": "volume",
+      "model_id": "RidgeVolume",
+      "features": 8
+    },
+    {
+      "fold": "validation_3",
+      "inner_fit_rows": 682,
+      "inner_stop_rows": 121,
+      "outer_fit_rows": 803,
+      "eval_rows": 128,
+      "alpha_trials": [
+        {
+          "alpha": 10.0,
+          "inner_stop_rmse": 0.007989729002574658
+        },
+        {
+          "alpha": 100.0,
+          "inner_stop_rmse": 0.0076373599640541705
+        },
+        {
+          "alpha": 1000.0,
+          "inner_stop_rmse": 0.007321197890889063
+        }
+      ],
+      "selected_alpha": 1000.0,
+      "outer_target_mean": -0.00033185843425857396,
+      "outer_weight_l2": 0.15441864289994145,
+      "group": "volume",
+      "model_id": "RidgeVolume",
+      "features": 8
+    }
+  ]
+}
